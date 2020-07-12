@@ -25,6 +25,7 @@ add_to_path() {
 # set PATH so it includes user's private bin if it exists
 add_to_path "$HOME/bin"
 add_to_path "$HOME/.local/bin"
+add_to_path "$HOME/.poetry/bin"
 
 TZ='America/Los_Angeles'
 export TZ

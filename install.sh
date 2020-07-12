@@ -3,8 +3,8 @@
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 
-ln -s ${BASEDIR}/zshrc ~/.zshrc
+cp --remove-destination ${BASEDIR}/zshrc ~/.zshrc
 
-ln -s ${BASEDIR}/p10k.zsh ~/.p10k.zsh
+cp --remove-destination ${BASEDIR}/p10k.zsh ~/.p10k.zsh
 
-ln -s ${BASEDIR}/profile ~/.profile
+cp --remove-destination ${BASEDIR}/profile ~/.profile

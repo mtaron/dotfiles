@@ -7,6 +7,6 @@ cp --remove-destination ${BASEDIR}/zshrc ~/.zshrc
 
 cp --remove-destination ${BASEDIR}/p10k.zsh ~/.p10k.zsh
 
-cp --remove-destination ${BASEDIR}/profile ~/.profile
+cp --remove-destination ${BASEDIR}/zshenv ~/.zshenv
 
 rm -rf ${BASEDIR}

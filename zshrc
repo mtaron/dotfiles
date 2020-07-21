@@ -10,7 +10,6 @@ export PATH=$PATH:$HOME/.local/bin
 # add Pulumi to the PATH
 if [ -f ~/.pulumi/bin/pulumi ]; then
     export PATH=$PATH:$HOME/.pulumi/bin
-    ~/.pulumi/bin/pulumi gen-completion zsh >> ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 fi
 
 # Path to your oh-my-zsh installation.

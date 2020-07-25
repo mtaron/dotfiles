@@ -7,11 +7,6 @@ fi
 
 export PATH=$PATH:$HOME/.local/bin
 
-# add Pulumi to the PATH
-if [ -f ~/.pulumi/bin/pulumi ]; then
-    export PATH=$PATH:$HOME/.pulumi/bin
-fi
-
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -105,6 +100,10 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Storing the history in a folder helps VS Code devcontainers persist
+# history across container rebuild.
+export HISTFILE=/commandhistory/.zsh_history
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

@@ -103,7 +103,7 @@ fi
 
 # Storing the history in a folder helps VS Code devcontainers persist
 # history across container rebuild.
-export HISTFILE=$HOME/.history/zsh
+export HISTFILE=$HOME/.history/.zsh_history
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

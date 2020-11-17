@@ -10,8 +10,6 @@ git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTO
 
 cp --remove-destination ${BASEDIR}/p10k.zsh ~/.p10k.zsh
 
-cp --remove-destination ${BASEDIR}/zshenv ~/.zshenv
-
 cp --remove-destination ${BASEDIR}/zshrc ~/.zshrc
 
 rm -rf ${BASEDIR}

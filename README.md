@@ -8,7 +8,7 @@
 ## Usage
 ```
 git clone https://github.com/mtaron/dotfiles.git "$HOME/dotfiles"
-zsh $HOME/dotfiles/install.zsh
+zsh "$HOME/dotfiles/install.zsh"
 ```
 
 ## References

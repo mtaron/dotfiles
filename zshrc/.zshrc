@@ -1,6 +1,6 @@
 # Use Ctrl+Z as interrupt instead of Ctrl+C
 # This must be done before Powerlevel10k instant prompt
-stty intr ^Z
+[[ "$OSTYPE" != darwin* ]] || stty intr ^Z
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -13,6 +13,7 @@ fi
 ZGEN_DIR="$HOME/.zgenom"
 
 ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+ZSH_COMPDUMP=$ZSH_CACHE_DIR/.zcompdump
 
 # Disable Oh-My-ZSH's internal updating.
 DISABLE_AUTO_UPDATE=true
@@ -77,6 +78,10 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste accept-line)
 
 source "$HOME/.zsh/aliases.zsh"
 source "$HOME/.zsh/keybindings.zsh"
+
+if [ -f "$HOME/.zshrc.local.zsh" ]; then
+  source "$HOME/.zshrc.local.zsh"
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

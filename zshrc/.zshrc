@@ -35,6 +35,8 @@ if ! zgenom saved; then
   zgenom ohmyzsh plugins/aliases
   zgenom ohmyzsh plugins/aws
   zgenom ohmyzsh plugins/command-not-found
+  zgenom ohmyzsh plugins/ssh-agent
+  zgenom ohmyzsh plugins/pyenv
 
   # https://github.com/junegunn/fzf
   zgenom ohmyzsh plugins/fzf

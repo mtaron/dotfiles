@@ -1,6 +1,6 @@
 # Use Ctrl+Z as interrupt instead of Ctrl+C
 # This must be done before Powerlevel10k instant prompt
-[[ "$OSTYPE" != darwin* ]] || stty intr ^Z
+stty intr ^X
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -36,8 +36,10 @@ if ! zgenom saved; then
   zgenom ohmyzsh plugins/aliases
   zgenom ohmyzsh plugins/aws
   zgenom ohmyzsh plugins/command-not-found
-  zgenom ohmyzsh plugins/ssh-agent
-  zgenom ohmyzsh plugins/pyenv
+
+  # SSH keys are subkeys of GPG
+  # https://opensource.com/article/19/4/gpg-subkeys-ssh
+  zgenom ohmyzsh plugins/gpg-agent
 
   # https://github.com/junegunn/fzf
   zgenom ohmyzsh plugins/fzf

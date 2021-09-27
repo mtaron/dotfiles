@@ -24,6 +24,12 @@ export EDITOR='code'
 export VISUAL=${EDITOR}
 export TZ='America/Los_Angeles'
 
+# https://docs.docker.com/develop/develop-images/build_enhancements/
+export DOCKER_BUILDKIT=1
+
+# https://docs.docker.com/engine/security/rootless/
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+
 # Load plugin manager
 source "${HOME}/zgenom/zgenom.zsh"
 
@@ -32,15 +38,24 @@ if ! zgenom saved; then
 
   zgenom ohmyzsh
 
+  # Prefix current or previous command with sudo by hitting ESC twice
   zgenom ohmyzsh plugins/sudo
+
+  # Adds 'acs' alias that lists aliases grouped by plugin
   zgenom ohmyzsh plugins/aliases
+
+  # Use 'acp' command to change profiles
+  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/aws
   zgenom ohmyzsh plugins/aws
+
+  # Suggests how to install missing packages
   zgenom ohmyzsh plugins/command-not-found
 
   # SSH keys are subkeys of GPG
   # https://opensource.com/article/19/4/gpg-subkeys-ssh
   zgenom ohmyzsh plugins/gpg-agent
 
+  # Fuzzy history search
   # https://github.com/junegunn/fzf
   zgenom ohmyzsh plugins/fzf
 
@@ -48,6 +63,8 @@ if ! zgenom saved; then
   zgenom load zsh-users/zsh-autosuggestions
 
   zgenom load lukechilds/zsh-nvm
+
+  zgenom ohmyzsh plugins/npm
 
   # Theme
   zgenom load romkatv/powerlevel10k powerlevel10k
@@ -78,12 +95,28 @@ zstyle :bracketed-paste-magic paste-finish pastefinish
 # https://github.com/zsh-users/zsh-autosuggestions/issues/351
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste accept-line)
 
+# pipx completions https://pypa.github.io/pipx/
+eval "$(register-python-argcomplete pipx)"
+
+source "$HOME/.zsh/functions.zsh"
 source "$HOME/.zsh/aliases.zsh"
 source "$HOME/.zsh/keybindings.zsh"
 
-if [ -f "$HOME/.zshrc.local.zsh" ]; then
-  source "$HOME/.zshrc.local.zsh"
+# Source all dotfiles in the ~/.zshrc.d directory
+# https://github.com/unixorn/zsh-quickstart-kit/blob/master/zsh/.zshrc
+mkdir -p ~/.zshrc.d
+if [ -n "$(/bin/ls -A ~/.zshrc.d)" ]; then
+  for dotfile in $(/bin/ls -A ~/.zshrc.d)
+  do
+    if [ -r ~/.zshrc.d/$dotfile ]; then
+      source ~/.zshrc.d/$dotfile
+    fi
+  done
 fi
+
+# Dedupe $PATH using a ZSH builtin
+# https://til.hashrocket.com/posts/7evpdebn7g-remove-duplicates-in-zsh-path
+typeset -aU path
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

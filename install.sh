@@ -1,7 +1,7 @@
-#!/bin/zsh
+#!/bin/bash
 
 # https://stackoverflow.com/questions/11685135/how-to-get-parent-folder-of-executing-script-in-zsh
-script_dir=$(dirname ${BASH_SOURCE:-$0})
+script_dir=$(dirname "${BASH_SOURCE:-$0}")
 
 if [ ! -d "$HOME/zgenom" ]; then
   git clone https://github.com/jandamm/zgenom.git "$HOME/zgenom"

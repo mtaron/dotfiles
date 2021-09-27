@@ -1,7 +1,7 @@
 # dotfiles
 
 ## Prequesites
-- [Powerline font](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k)
+- [Cascadia Code](https://github.com/microsoft/cascadia-code/wiki/Installing-Cascadia-Code) font
 - stow `sudo apt install stow`
 - fzf `sudo apt install fzf`
 

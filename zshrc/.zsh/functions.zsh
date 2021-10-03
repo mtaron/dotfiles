@@ -4,6 +4,9 @@ dir_path=$(dirname "$(realpath "$0")")
 
 update-pip()
 {
+    # Clear custom pip.conf which has short term access tokens to AWS feeds
+    rm --force "$HOME/.config/pip/pip.conf"
+
     echo "$fg[green] Updating pip$reset_color"
     python -m pip install --upgrade pip
 
@@ -12,6 +15,13 @@ update-pip()
 
     echo "$fg[green] Updating pipx packages$reset_color"
     pipx upgrade-all
+}
+
+install-pipx-tools()
+{
+    pipx install flake8
+    pipx install black
+    pipx install cfn-lint
 }
 
 update-nvm()

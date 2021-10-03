@@ -9,6 +9,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+function command_exists()
+{
+    which "$@" > /dev/null 2>&1
+}
+
 # Location for storing plugins
 ZGEN_DIR="$HOME/.zgenom"
 
@@ -23,6 +28,9 @@ ZSH_AUTOSUGGEST_STRATEGY=(completion)
 export EDITOR='code'
 export VISUAL=${EDITOR}
 export TZ='America/Los_Angeles'
+
+# https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-pagination.html
+export AWS_PAGER=""
 
 # https://docs.docker.com/develop/develop-images/build_enhancements/
 export DOCKER_BUILDKIT=1
@@ -95,8 +103,10 @@ zstyle :bracketed-paste-magic paste-finish pastefinish
 # https://github.com/zsh-users/zsh-autosuggestions/issues/351
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste accept-line)
 
-# pipx completions https://pypa.github.io/pipx/
-eval "$(register-python-argcomplete pipx)"
+# Make python3.9 the default if it is avaiable
+if command_exists python3.9; then
+  alias python='python3.9'
+fi
 
 source "$HOME/.zsh/functions.zsh"
 source "$HOME/.zsh/aliases.zsh"
@@ -112,6 +122,11 @@ if [ -n "$(/bin/ls -A ~/.zshrc.d)" ]; then
       source ~/.zshrc.d/$dotfile
     fi
   done
+fi
+
+if command_exists register-python-argcomplete; then
+  # pipx completions https://pypa.github.io/pipx/
+  eval "$(register-python-argcomplete pipx)"
 fi
 
 # Dedupe $PATH using a ZSH builtin

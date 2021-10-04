@@ -36,7 +36,7 @@ export AWS_PAGER=""
 export DOCKER_BUILDKIT=1
 
 # https://docs.docker.com/engine/security/rootless/
-export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+# export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 
 # Load plugin manager
 source "${HOME}/zgenom/zgenom.zsh"

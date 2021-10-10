@@ -114,7 +114,6 @@ source "$HOME/.zsh/keybindings.zsh"
 
 # Source all dotfiles in the ~/.zshrc.d directory
 # https://github.com/unixorn/zsh-quickstart-kit/blob/master/zsh/.zshrc
-mkdir -p ~/.zshrc.d
 if [ -n "$(/bin/ls -A ~/.zshrc.d)" ]; then
   for dotfile in $(/bin/ls -A ~/.zshrc.d)
   do

@@ -7,8 +7,12 @@ if [ ! -d "$HOME/zgenom" ]; then
   git clone https://github.com/jandamm/zgenom.git "$HOME/zgenom"
 fi
 
-stow zshrc --dir "$script_dir" --target "$HOME"
-stow p10k  --dir "$script_dir" --target "$HOME"
+mkdir -p "$HOME/.zshrc.d"
+mkdir -p "$HOME/.terraform.d/plugin-cache"
+
+stow zshrc     --dir "$script_dir" --target "$HOME"
+stow p10k      --dir "$script_dir" --target "$HOME"
+stow terraform --dir "$script_dir" --target "$HOME"
 
 rm -rf "$HOME/.zgenom"
 source "$HOME/.zshrc"

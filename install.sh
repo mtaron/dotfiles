@@ -8,11 +8,9 @@ if [ ! -d "$HOME/zgenom" ]; then
 fi
 
 mkdir -p "$HOME/.zshrc.d"
-mkdir -p "$HOME/.terraform.d/plugin-cache"
 
 stow zshrc     --dir "$script_dir" --target "$HOME"
 stow p10k      --dir "$script_dir" --target "$HOME"
-stow terraform --dir "$script_dir" --target "$HOME"
 
 rm -rf "$HOME/.zgenom"
 source "$HOME/.zshrc"

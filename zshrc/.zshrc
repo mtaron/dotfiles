@@ -128,10 +128,6 @@ if command_exists register-python-argcomplete; then
   eval "$(register-python-argcomplete pipx)"
 fi
 
-if command_exists terraform; then
-  complete -o nospace -C /usr/bin/terraform terraform
-fi
-
 # Dedupe $PATH using a ZSH builtin
 # https://til.hashrocket.com/posts/7evpdebn7g-remove-duplicates-in-zsh-path
 typeset -aU path

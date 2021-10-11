@@ -38,10 +38,14 @@ export DOCKER_BUILDKIT=1
 # https://docs.docker.com/engine/security/rootless/
 # export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 
+export PNPM_HOME="$HOME/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+
 # Load plugin manager
 source "${HOME}/zgenom/zgenom.zsh"
 
 if ! zgenom saved; then
+  # To update the saved shell init, run `zgenom reset`
   echo "Creating a zgenom save"
 
   zgenom ohmyzsh
@@ -69,10 +73,6 @@ if ! zgenom saved; then
 
   zgenom load zsh-users/zsh-syntax-highlighting
   zgenom load zsh-users/zsh-autosuggestions
-
-  zgenom load lukechilds/zsh-nvm
-
-  zgenom ohmyzsh plugins/npm
 
   # Theme
   zgenom load romkatv/powerlevel10k powerlevel10k
@@ -126,6 +126,12 @@ fi
 if command_exists register-python-argcomplete; then
   # pipx completions https://pypa.github.io/pipx/
   eval "$(register-python-argcomplete pipx)"
+fi
+
+if command_exists pnpm; then
+  # tabtab source for packages
+  # uninstall by removing these lines
+  [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 fi
 
 # Dedupe $PATH using a ZSH builtin

@@ -24,19 +24,10 @@ install-pipx-tools()
     pipx install cfn-lint
 }
 
-update-nvm()
+update-node()
 {
-    echo "$fg[green] Updating nvm$reset_color"
-    nvm upgrade
-
-    echo "$fg[green] Updating Node LTS 14$reset_color"
-    nvm install --lts 14
-
-    echo "$fg[green] Updating NPM$reset_color"
-    nvm install-latest-npm
-
-    echo "$fg[green] Updating NPM global tools$reset_color"
-    npm update --global
+    echo "$fg[green] Updating pnpm$reset_color"
+    source "$dir_path/install-pnpm.sh"
 }
 
 update-aws()

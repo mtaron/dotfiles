@@ -9,3 +9,5 @@ alias ut='update-tools'
 
 # Remove untracked files and directories
 alias clean='git clean --force -X -d'
+
+alias cf='aws cloudformation'

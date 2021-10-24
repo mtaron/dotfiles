@@ -22,6 +22,7 @@ install-pipx-tools()
     pipx install flake8
     pipx install black
     pipx install cfn-lint
+    pipx install flit
 }
 
 update-node()
@@ -46,11 +47,19 @@ update-tools()
 
     update-pip
 
-    update-nvm
+    update-node
 
     update-aws
 
     zgenom reset
 
     source "$HOME/.zshrc"
+}
+
+# https://github.com/wagoodman/dive
+dive()
+{
+    docker run --rm -it \
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        wagoodman/dive:latest "$@"
 }

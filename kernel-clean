@@ -1,0 +1,106 @@
+#!/bin/sh
+
+# Source: https://github.com/plepe/kernel-clean
+
+# default apt-get args
+ARGS="--auto-remove"
+
+# Check for current installed kernel
+CURRENT=$(dpkg-query -f '${db:Status-Abbrev}\t${binary:Package}\n' -W "linux-image-*" | grep -o -P "(?<=^ii \t).*"$(uname -r) | grep -v "extra")
+echo "Current running kernel: $CURRENT"
+
+# Get list of all not cleanly uninstalled kernels, sort by version ascending
+ALLIMAGES=`dpkg -l "linux-image-*" 2>/dev/null | grep -E '^..[[:space:]]+linux-image(-[^ ]+)*-[\.[:digit:]]+' | grep -Ev '^un' | awk '{print $2}' | grep -v "extra" | sort -V`
+# Likewise for headers (but without sorting)
+ALLHEADERS=`dpkg -l "linux-headers-*" 2>/dev/null | grep -E '^..[[:space:]]+linux-headers-[\.[:digit:]]+' | grep -Ev '^un' | awk '{print $2}'`
+# And for extra images
+ALLEXTRA=`dpkg -l "linux-image-extra-*" 2>/dev/null | grep -E '^..[[:space:]]+linux-image-extra-[\.[:digit:]]+' | grep -Ev '^un' | awk '{print $2}'`
+# And for modules packages (introduced in Ubuntu 18.04), including linux-modules-<version> and linux-modules-extra-<version>
+ALLMODULES=`dpkg -l "linux-modules-*" 2>/dev/null | grep -E '^..[[:space:]]+linux-modules(-extra)?-[\.[:digit:]]+' | grep -Ev '^un' | awk '{print $2}'`
+
+# Get newest installed kernel from list of installed kernels
+NEWEST=`echo "$ALLIMAGES" | tail -n1`
+echo "Newest installed kernel: $NEWEST"
+
+# Print version of newest installed generic kernel (including Ubuntu's HWE versions)
+GENERICS=`dpkg -l 'linux-image-generic*' 2>/dev/null | grep -E '^ii' | awk '{print $3, $2}' | sort -V | tail -1`
+GENERICPACKAGE=`echo $GENERICS | awk '{print $2}'`
+GENERICVERSION=`echo $GENERICS | sed -E 's/([^\.]+(\.[^\.]+){2})(\.([^\.]+)).*/\1-\4/'`
+if [ -n "$GENERICVERSION" ]; then
+	echo "Newest installed generic kernel: $GENERICPACKAGE ($GENERICVERSION)"
+fi
+
+# Remove all kernels but newest, current, and newest generic
+# The parameter expansion using + is substituted by the value prefixed with the pipe or just null if the variable is unset.
+TOREMOVE=`echo "$ALLIMAGES" | head -n-1 | grep -Ev "$CURRENT${GENERICVERSION:+|$GENERICVERSION}${GENERICPACKAGE:+|$GENERICPACKAGE}"`
+
+# Also remove linux headers
+TOREMOVEHEADERS=`echo "$TOREMOVE" | sed -E 's/linux-image-(.*)-(.*)/linux-headers-\1-\2/'`
+N=""
+for i in $ALLHEADERS ; do
+  # If header belongs to a to-be-removed kernel then remove it as well
+  if [ "`echo $TOREMOVEHEADERS | grep "$i"`" != "" ] ; then
+    N="$N $i"
+  fi
+
+  # If package belongs to a kernel that is not even installed, it's useless as well
+  I_KERNEL=`echo "$i" | sed -E 's/linux-headers-([0-9\.]+)-(([0-9]+[^-]*)(.*))/linux-image(-[^-]+)?-\1-\3/'`
+  if [ "`echo "$ALLIMAGES" | grep -E "$I_KERNEL"`" = "" ] ; then
+    N="$N $i"
+  fi
+done
+TOREMOVEHEADERS=$N
+
+# Same procedure for extra images
+TOREMOVEEXTRAS=`echo "$TOREMOVE" | sed -E 's/linux-image-(.*)-(.*)/linux-image-extra-\1-\2/'`
+N=""
+for i in $ALLEXTRA ; do
+  # If extra images belongs to a to-be-removed kernel then remove it as well
+  if [ "`echo $TOREMOVEEXTRAS | grep "$i"`" != "" ] ; then
+    N="$N $i"
+  fi
+
+  # If package belongs to a kernel that is not even installed, it's useless as well
+  I_KERNEL=`echo "$i" | sed -E 's/linux-image-extra-(.*)-(.*)/linux-image(-.*)*-\1-\2/'`
+  if [ "`echo "$ALLIMAGES" | grep -E "$I_KERNEL"`" = "" ] ; then
+    N="$N $i"
+  fi
+done
+TOREMOVEEXTRAS=$N
+
+# And modules (extra and normal)
+TOREMOVEMODULES=`echo "$TOREMOVE" | sed -E 's/linux-image-(.*)-(.*)/linux-modules-\1-\2/' ; \
+                 echo "$TOREMOVE" | sed -E 's/linux-image-(.*)-(.*)/linux-modules-extra-\1-\2/'`
+N=""
+for i in $ALLMODULES ; do
+  # If package belongs to a to-be-removed kernel then remove it as well
+  if [ "`echo $TOREMOVEMODULES | grep "$i"`" != "" ] ; then
+    N="$N $i"
+  fi
+
+  # If package belongs to a kernel that is not even installed, it's useless as well
+  I_KERNEL=`echo "$i" | sed -E 's/linux-modules(-extra)?-(.*)-(.*)/linux-image(-.*)*-\2-\3/'`
+  if [ "`echo "$ALLIMAGES" | grep -E "$I_KERNEL"`" = "" ] ; then
+    N="$N $i"
+  fi
+done
+TOREMOVEMODULES=$N
+
+if [ -z "$TOREMOVE" ] && [ -z "$TOREMOVEHEADERS" ] && [ -z "$TOREMOVEEXTRAS" ] && [ -z "$TOREMOVEMODULES" ]; then
+  echo "Nothing to remove, exiting."
+  exit 0
+fi
+
+echo "To remove:"
+for i in $TOREMOVE $TOREMOVEHEADERS $TOREMOVEEXTRAS $TOREMOVEMODULES ; do
+  echo "  $i"
+done
+
+# Check for additional parameters to apt-get
+if [ "$1" = "-y" ]
+then
+	ARGS="$ARGS -y"
+fi
+
+# Remove kernels
+apt-get $ARGS purge $TOREMOVE $TOREMOVEHEADERS $TOREMOVEEXTRAS $TOREMOVEMODULES

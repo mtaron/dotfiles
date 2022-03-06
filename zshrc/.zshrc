@@ -35,12 +35,6 @@ export AWS_PAGER=""
 # https://docs.docker.com/develop/develop-images/build_enhancements/
 export DOCKER_BUILDKIT=1
 
-# https://docs.docker.com/engine/security/rootless/
-# export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
-
-export PNPM_HOME="$HOME/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-
 # Load plugin manager
 source "${HOME}/zgenom/zgenom.zsh"
 
@@ -73,6 +67,8 @@ if ! zgenom saved; then
 
   zgenom load zsh-users/zsh-syntax-highlighting
   zgenom load zsh-users/zsh-autosuggestions
+
+  # zgenom load MichaelAquilina/zsh-autoswitch-virtualenv
 
   # Theme
   zgenom load romkatv/powerlevel10k powerlevel10k
@@ -133,6 +129,10 @@ if command_exists pnpm; then
   # uninstall by removing these lines
   [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 fi
+
+# if command_exists gh; then
+#   if [[ ! -a ~/.]]
+# fi
 
 # Dedupe $PATH using a ZSH builtin
 # https://til.hashrocket.com/posts/7evpdebn7g-remove-duplicates-in-zsh-path

@@ -28,13 +28,13 @@ install-pipx-tools()
 update-node()
 {
     echo "$fg[green] Updating pnpm$reset_color"
-    source "$dir_path/install-pnpm.sh"
+    bash "$dir_path/install-pnpm.sh"
 }
 
 update-aws()
 {
     echo "$fg[green] Updating AWS CLI (requires elevation)$reset_color"
-    source "$dir_path/update-aws-cli.sh"
+    . "$dir_path/update-aws-cli.sh"
 }
 
 update-tools()

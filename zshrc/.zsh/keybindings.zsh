@@ -15,3 +15,6 @@ bindkey "\e[3;5~" kill-word
 
 # ctrl+k: delete line
 bindkey '^K' backward-kill-line
+
+# esc: break
+bindkey '\e' send-break

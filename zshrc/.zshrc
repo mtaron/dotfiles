@@ -1,6 +1,6 @@
 # Use Ctrl+Z as interrupt instead of Ctrl+C
 # This must be done before Powerlevel10k instant prompt
-stty intr ^X
+stty intr ^Z
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -44,18 +44,12 @@ if ! zgenom saved; then
 
   zgenom ohmyzsh
 
-  # Prefix current or previous command with sudo by hitting ESC twice
-  zgenom ohmyzsh plugins/sudo
-
   # Adds 'acs' alias that lists aliases grouped by plugin
   zgenom ohmyzsh plugins/aliases
 
   # Use 'acp' command to change profiles
   # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/aws
   zgenom ohmyzsh plugins/aws
-
-  # Suggests how to install missing packages
-  zgenom ohmyzsh plugins/command-not-found
 
   # SSH keys are subkeys of GPG
   # https://opensource.com/article/19/4/gpg-subkeys-ssh
@@ -74,6 +68,9 @@ if ! zgenom saved; then
   zgenom load romkatv/powerlevel10k powerlevel10k
 
   zgenom load chrissicool/zsh-256color
+
+  # Ctrl + Shift + Arrow to select by word
+  zgenom load "jirutka/zsh-shift-select"
 
   # save all to init script
   zgenom save
@@ -129,10 +126,6 @@ if command_exists pnpm; then
   # uninstall by removing these lines
   [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 fi
-
-# if command_exists gh; then
-#   if [[ ! -a ~/.]]
-# fi
 
 # Dedupe $PATH using a ZSH builtin
 # https://til.hashrocket.com/posts/7evpdebn7g-remove-duplicates-in-zsh-path

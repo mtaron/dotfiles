@@ -35,3 +35,6 @@ GRUB_DISABLE_OS_PROBER=true
 ```
 
 https://www.jwillikers.com/backup-and-restore-a-gpg-key
+
+Load gnome terminal settings
+`dconf load -f /org/gnome/terminal/ < gnome-terminal.dconf`

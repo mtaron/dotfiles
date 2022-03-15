@@ -70,7 +70,12 @@ if ! zgenom saved; then
   zgenom load chrissicool/zsh-256color
 
   # Ctrl + Shift + Arrow to select by word
-  zgenom load "jirutka/zsh-shift-select"
+  zgenom load jirutka/zsh-shift-select
+
+  zgenom load "$HOME/.zsh/keybindings.zsh"
+  zgenom load "$HOME/.zsh/functions.zsh"
+  zgenom load "$HOME/.zsh/aliases.zsh"
+  zgenom load "$HOME/.zsh/autosuggestions-workaround.zsh"
 
   # save all to init script
   zgenom save
@@ -79,31 +84,10 @@ if ! zgenom saved; then
   # zgenom compile "$HOME/.zshrc"
 fi
 
-# Source: https://github.com/zsh-users/zsh-autosuggestions/issues/351#issuecomment-483938570
-# This speeds up pasting w/ autosuggest
-# https://github.com/zsh-users/zsh-autosuggestions/issues/238
-pasteinit() {
-  OLD_SELF_INSERT=${${(s.:.)widgets[self-insert]}[2,3]}
-  zle -N self-insert url-quote-magic
-}
-
-pastefinish() {
-  zle -N self-insert $OLD_SELF_INSERT
-}
-zstyle :bracketed-paste-magic paste-init pasteinit
-zstyle :bracketed-paste-magic paste-finish pastefinish
-
-# https://github.com/zsh-users/zsh-autosuggestions/issues/351
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste accept-line)
-
 # Make python3.9 the default if it is avaiable
 if command_exists python3.9; then
   alias python='python3.9'
 fi
-
-source "$HOME/.zsh/functions.zsh"
-source "$HOME/.zsh/aliases.zsh"
-source "$HOME/.zsh/keybindings.zsh"
 
 # Source all dotfiles in the ~/.zshrc.d directory
 # https://github.com/unixorn/zsh-quickstart-kit/blob/master/zsh/.zshrc

@@ -16,9 +16,11 @@ function command_exists()
 
 # Location for storing plugins
 ZGEN_DIR="$HOME/.zgenom"
+ZSHELL_DIR="$HOME/.zsh"
 
 ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
 ZSH_COMPDUMP=$ZSH_CACHE_DIR/.zcompdump
+HISTFILE="$ZSH_CACHE_DIR/.zsh_history"
 
 # Disable Oh-My-ZSH's internal updating.
 DISABLE_AUTO_UPDATE=true
@@ -72,10 +74,10 @@ if ! zgenom saved; then
   # Ctrl + Shift + Arrow to select by word
   zgenom load jirutka/zsh-shift-select
 
-  zgenom load "$HOME/.zsh/keybindings.zsh"
-  zgenom load "$HOME/.zsh/functions.zsh"
-  zgenom load "$HOME/.zsh/aliases.zsh"
-  zgenom load "$HOME/.zsh/autosuggestions-workaround.zsh"
+  zgenom load "$ZSHELL_DIR/keybindings.zsh"
+  zgenom load "$ZSHELL_DIR/functions.zsh"
+  zgenom load "$ZSHELL_DIR/aliases.zsh"
+  zgenom load "$ZSHELL_DIR/autosuggestions-workaround.zsh"
 
   # save all to init script
   zgenom save
@@ -87,17 +89,6 @@ fi
 # Make python3.9 the default if it is avaiable
 if command_exists python3.9; then
   alias python='python3.9'
-fi
-
-# Source all dotfiles in the ~/.zshrc.d directory
-# https://github.com/unixorn/zsh-quickstart-kit/blob/master/zsh/.zshrc
-if [ -n "$(/bin/ls -A ~/.zshrc.d)" ]; then
-  for dotfile in $(/bin/ls -A ~/.zshrc.d)
-  do
-    if [ -r ~/.zshrc.d/$dotfile ]; then
-      source ~/.zshrc.d/$dotfile
-    fi
-  done
 fi
 
 if command_exists register-python-argcomplete; then

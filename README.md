@@ -38,3 +38,12 @@ https://www.jwillikers.com/backup-and-restore-a-gpg-key
 
 Load gnome terminal settings
 `dconf load -f /org/gnome/terminal/ < gnome-terminal.dconf`
+
+Dump settings:
+`dconf dump /org/gnome/terminal/ > gnome-terminal.dconf`
+
+Uninstall snap: https://fedingo.com/how-to-remove-snap-in-ubuntu/
+
+
+Shows terminal code for key combinations
+`showkey -a`

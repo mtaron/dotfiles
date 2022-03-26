@@ -9,33 +9,33 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-function command_exists()
+command_exists()
 {
-    which "$@" > /dev/null 2>&1
+  command -v "$@" >/dev/null 2>&1
 }
 
 # Location for storing plugins
 ZGEN_DIR="$HOME/.zgenom"
 ZSHELL_DIR="$HOME/.zsh"
 
-ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
-ZSH_COMPDUMP=$ZSH_CACHE_DIR/.zcompdump
-HISTFILE="$ZSH_CACHE_DIR/.zsh_history"
+# ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+# export ZSH_COMPDUMP=$ZSH_CACHE_DIR/.zcompdump
+# HISTFILE="$ZSH_CACHE_DIR/.zsh_history"
 
 # Disable Oh-My-ZSH's internal updating.
 DISABLE_AUTO_UPDATE=true
 
 ZSH_AUTOSUGGEST_STRATEGY=(completion)
 
-export EDITOR='code'
-export VISUAL=${EDITOR}
-export TZ='America/Los_Angeles'
+# export EDITOR='code'
+# export VISUAL=${EDITOR}
+# export TZ='America/Los_Angeles'
 
 # https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-pagination.html
 export AWS_PAGER=""
 
-# https://docs.docker.com/develop/develop-images/build_enhancements/
-export DOCKER_BUILDKIT=1
+# # https://docs.docker.com/develop/develop-images/build_enhancements/
+# export DOCKER_BUILDKIT=1
 
 # Load plugin manager
 source "${HOME}/zgenom/zgenom.zsh"

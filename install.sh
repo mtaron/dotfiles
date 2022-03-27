@@ -29,7 +29,6 @@ if ! chezmoi="$(command -v chezmoi)"; then
 fi
 
 # POSIX way to get script's dir: https://stackoverflow.com/a/29834779/12156188
-# shellcheck disable=SC2312
 script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
 
 if [ -n "${DOTFILES_ONE_SHOT-}" ]; then

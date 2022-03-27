@@ -1,0 +1,9 @@
+{{ if not .gnome -}}
+private_dot_config/private_user-dirs.dirs
+{{- end }}
+
+{{ if ne .chezmoi.osRelease.id "ubuntu" -}}
+# bat needs to be symlinked on ubuntu to avoid package name conflict
+# https://github.com/sharkdp/bat#on-ubuntu-using-apt
+private_dot_local/bin/symlink_bat
+{{- end }}

@@ -1,19 +1,8 @@
-# shellcheck disable=SC2148
-
 # Use Ctrl+Z as interrupt instead of Ctrl+C
-# This must be done before Powerlevel10k instant prompt
 stty intr ^Z
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
-command_exists()
-{
-  command -v "$@" >/dev/null 2>&1
+has() {
+  command -v "$1" 1>/dev/null 2>&1
 }
 
 # Location for storing plugins
@@ -23,9 +12,6 @@ ZGEN_DIR="$XDG_CACHE_HOME/zgenom"
 DISABLE_AUTO_UPDATE=true
 
 ZSH_AUTOSUGGEST_STRATEGY=(completion)
-
-# https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-pagination.html
-export AWS_PAGER=""
 
 # # https://docs.docker.com/develop/develop-images/build_enhancements/
 # export DOCKER_BUILDKIT=1
@@ -82,24 +68,13 @@ if ! zgenom saved; then
 fi
 
 # Make python3.9 the default if it is avaiable
-if command_exists python3.9; then
+if has python3.9; then
   alias python='python3.9'
-fi
-
-if command_exists register-python-argcomplete; then
-  # pipx completions https://pypa.github.io/pipx/
-  eval "$(register-python-argcomplete pipx)"
-fi
-
-if command_exists pnpm; then
-  # tabtab source for packages
-  # uninstall by removing these lines
-  [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 fi
 
 # Dedupe $PATH using a ZSH builtin
 # https://til.hashrocket.com/posts/7evpdebn7g-remove-duplicates-in-zsh-path
 typeset -aU path
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-#[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Set prompt
+eval "$(starship init zsh)"

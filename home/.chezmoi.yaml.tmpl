@@ -1,4 +1,67 @@
-{{- /* Checks if running interactively, which is not the case for GitHub Codespaces */ -}}
-{{- $interactive := stdinIsATTY -}}
+{{- /* environment/hardware tags */ -}}
+{{- $devcontainer := false -}}{{/* devcontainer (codespaces, vscode) */}}
+{{- $codespaces   := false -}}{{/* github codespaces */}}
+{{- $vscontainer  := false -}}{{/* vs code remote containers */}}
+{{- $isGnome      := lookPath "gnome-shell" | not | not -}}
 
-sourceDir: {{ .chezmoi.sourceDir | quote }}
+{{- /* devcontainer detection */ -}}
+{{- if (env "CODESPACES") -}}
+{{- $codespaces = true -}}
+{{- end -}}
+{{- if (env "REMOTE_CONTAINERS_IPC") -}}
+{{- $vscontainer = true -}}
+{{- end -}}
+{{- if or $codespaces $vscontainer -}}
+{{- $devcontainer = true -}}
+{{- end -}}
+
+{{- /* boolean feature tags */ -}}
+{{- $headless  := false -}}{{/* no graphical interface */}}
+{{- $transient := false -}}{{/* temporary machine (VM/cloud instances/container) */}}
+
+{{- if .configured -}}
+{{-   $headless  = .headless -}}
+{{-   $transient = .transient -}}
+{{- else -}}
+{{- /* preset detection */ -}}
+{{-   if $devcontainer -}}
+{{-     $headless  = true -}}
+{{-     $transient = true -}}
+{{-   end -}}
+{{/* base configration */}}
+{{-   if and (not $headless) stdinIsATTY -}}
+{{-       $headless = promptBool "headless" false -}}
+{{-   end -}}
+{{-   if and (not $transient) stdinIsATTY -}}
+{{-       $transient = promptBool "transient" false -}}
+{{-   end -}}
+{{- end -}}
+
+{{- /* email configuration */ -}}
+{{- $email := get .user "email" -}}
+{{- $defaultEmail := "michael@taron.dev" -}}
+{{- if not $email -}}
+{{-   if stdinIsATTY -}}
+{{-     $email = promptString "email" $defaultEmail -}}
+{{-   else -}}
+{{-     $email = $defaultEmail -}}
+{{-   end -}}
+{{- end -}}
+
+#diff:
+#  {{- /* setting this empty does not work, despite the docs. */}}
+#  pager: "cat"
+
+data:
+  configured: true  {{- /* This is false if chezmoi init has not been run before */}}
+
+  {{/* These all need to be lowercase or referencing them won't work
+         https://www.chezmoi.io/user-guide/frequently-asked-questions/design/#why-does-chezmoi-convert-all-my-template-variables-to-lowercase */ -}}
+  headless: {{ $headless }}
+  transient: {{ $transient }}
+  gnome: {{ $isGnome }}
+
+  user:
+    name: "Michael Taron"
+    email: {{ $email | quote }}
+    github: "mtaron"

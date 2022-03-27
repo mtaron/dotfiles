@@ -1,18 +1,21 @@
 # shellcheck disable=SC2148
 
-# This file is executed automatically during start-up.
+# This file is executed automatically during start-up. Log in and out required to reapply.
 # Variables defined here are available to shells and GUI applications.
 # https://help.ubuntu.com/community/EnvironmentVariables#A.2BAH4-.2F.profile
 
 # XDG base directories
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
-export XDG_CONFIG_HOME="$HOME"/.config
-export XDG_DATA_HOME="$HOME"/.local/share
-export XDG_CACHE_HOME="$HOME"/.cache
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_BIN_DIR="$HOME/.local/bin"
 
 export VISUAL=code
+
+export PAGER='less --quit-if-one-screen'
 
 # Check if this is needed
 # export TZ='America/Los_Angeles'
 
-PATH="${HOME}/.local/bin:${PATH}"
+PATH="$XDG_BIN_DIR/.local/bin:$PATH"

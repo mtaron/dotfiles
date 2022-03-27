@@ -38,8 +38,6 @@ Shows terminal code for key combinations
 `showkey -a`
 
 
-dotfiles_dir="$HOME"/.local/share/dotfiles
-
 https://github.com/baskerville/sxhkd
 
 https://github.com/cblessing24/dotfiles
@@ -55,7 +53,7 @@ https://help.ubuntu.com/community/EnvironmentVariables
 https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 
 
-Get scripts current directory
+Get scripts current directory in zsh
 `"${${(%):-%x}:a:h}"`
 
 
@@ -74,12 +72,4 @@ Added
 - ripgrep
 - podman
 - jq
-- amplitude
 - bat
-
-BINDIR="$HOME"/.local/bin sh -c "$(curl -fsLS chezmoi.io/get)"
-
-```
-# Remove ALL kernel images and headers EXCEPT the one in use
-alias kclean='sudo aptitude remove -P ?and(~i~nlinux-(ima|hea) ?not(~n`uname -r`))'
-```

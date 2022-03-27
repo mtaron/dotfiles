@@ -13,6 +13,9 @@ export XDG_BIN_DIR="$HOME/.local/bin"
 
 export VISUAL=code
 
+# Color man pages with bat
+# https://github.com/sharkdp/bat#man
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export PAGER='less --quit-if-one-screen'
 
 # Check if this is needed

@@ -1,16 +1,48 @@
-#!/bin/bash
+#!/bin/sh
 
-# https://stackoverflow.com/questions/11685135/how-to-get-parent-folder-of-executing-script-in-zsh
-script_dir=$(dirname "${BASH_SOURCE:-$0}")
+echo_task() {
+  printf "\033[0;34m--> %s\033[0m\n" "$*"
+}
 
-if [ ! -d "$HOME/zgenom" ]; then
-  git clone https://github.com/jandamm/zgenom.git "$HOME/zgenom"
+error() {
+  printf "\033[0;31m%s\033[0m\n" "$*" >&2
+  exit 1
+}
+
+# -e: exit on error
+# -u: exit on unset variables
+set -eu
+
+if ! chezmoi="$(command -v chezmoi)"; then
+  bin_dir="${HOME}/.local/bin"
+  chezmoi="${bin_dir}/chezmoi"
+  echo_task "Installing chezmoi to ${chezmoi}"
+  if command -v curl >/dev/null; then
+    chezmoi_install_script="$(curl -fsSL chezmoi.io/get)"
+  elif command -v wget >/dev/null; then
+    chezmoi_install_script="$(wget -qO- chezmoi.io/get)"
+  else
+    error "To install chezmoi, you must have curl or wget."
+  fi
+  sh -c "${chezmoi_install_script}" -- -b "${bin_dir}"
+  unset chezmoi_install_script bin_dir
 fi
 
-mkdir -p "$HOME/.zshrc.d"
+# POSIX way to get script's dir: https://stackoverflow.com/a/29834779/12156188
+# shellcheck disable=SC2312
+script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
 
-stow zshrc     --dir "$script_dir" --target "$HOME"
-stow p10k      --dir "$script_dir" --target "$HOME"
+if [ -n "${DOTFILES_ONE_SHOT-}" ]; then
+  chezmoi_extra_args="--one-shot"
+else
+  chezmoi_extra_args="--apply"
+fi
 
-rm -rf "$HOME/.zgenom"
-source "$HOME/.zshrc"
+if [ -n "${DOTFILES_DEBUG-}" ]; then
+  chezmoi_extra_args="${chezmoi_extra_args} --debug"
+fi
+
+echo_task "Running chezmoi init"
+# replace current process with chezmoi init
+# shellcheck disable=SC2086
+exec "${chezmoi}" init --source "${script_dir}" ${chezmoi_extra_args}

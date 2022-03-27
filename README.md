@@ -90,3 +90,8 @@ Need to add this to dotfiles; /home/mtaron/.config/user-dirs.dirs
 
 
 BINDIR="$HOME"/.local/bin sh -c "$(curl -fsLS chezmoi.io/get)"
+
+```
+# Remove ALL kernel images and headers EXCEPT the one in use
+alias kclean='sudo aptitude remove -P ?and(~i~nlinux-(ima|hea) ?not(~n`uname -r`))'
+```

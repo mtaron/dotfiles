@@ -1,0 +1,4 @@
+{{- /* Checks if running interactively, which is not the case for GitHub Codespaces */ -}}
+{{- $interactive := stdinIsATTY -}}
+
+sourceDir: {{ .chezmoi.sourceDir | quote }}

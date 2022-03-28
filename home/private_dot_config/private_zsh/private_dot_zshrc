@@ -32,6 +32,8 @@ if ! zgenom saved; then
   # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/aws
   zgenom ohmyzsh plugins/aws
 
+  zgenom ohmyzsh plugins/gh
+
   # SSH keys are subkeys of GPG
   # https://opensource.com/article/19/4/gpg-subkeys-ssh
   zgenom ohmyzsh plugins/gpg-agent
@@ -55,6 +57,14 @@ if ! zgenom saved; then
 
   zgen load hlissner/zsh-autopair
 
+  if has starship; then
+    starship completions zsh > "$ZSH_COMPLETIONS/_starship"
+  fi
+
+  if has chezmoi; then
+    chezmoi completion zsh > "$ZSH_COMPLETIONS/_chezmoi"
+  fi
+
   # zgenom load "$ZSHELL_DIR/keybindings.zsh"
   # zgenom load "$ZSHELL_DIR/functions.zsh"
   # zgenom load "$ZSHELL_DIR/aliases.zsh"
@@ -74,7 +84,10 @@ fi
 
 # Dedupe $PATH using a ZSH builtin
 # https://til.hashrocket.com/posts/7evpdebn7g-remove-duplicates-in-zsh-path
-typeset -aU path
+typeset -aU path fpath
+
+# autoload -U compinit
+# compinit -i
 
 # Set prompt
 eval "$(starship init zsh)"

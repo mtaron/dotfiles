@@ -1,13 +1,6 @@
-# shellcheck disable=SC2148
-
 # zsh paths
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 export HISTFILE="$ZDOTDIR/.zsh_history"
-
-# Custom functions and completions directory
-export ZSH_COMPLETIONS="${XDG_DATA_HOME:-$HOME/.local/share}/zsh/completions"
-export ZSH_FUNCTIONS="${XDG_DATA_HOME:-$HOME/.local/share}/zsh/completions"
-fpath=($ZSH_FUNCTIONS $ZSH_COMPLETIONS $fpath)
 
 # oh-my-zsh paths
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"

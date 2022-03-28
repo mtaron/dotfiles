@@ -16,6 +16,8 @@ ZSH_AUTOSUGGEST_STRATEGY=(completion)
 # # https://docs.docker.com/develop/develop-images/build_enhancements/
 # export DOCKER_BUILDKIT=1
 
+ZSH_COMPLETIONS="$ZDOTDIR/completions"
+
 # Load plugin manager
 source "$XDG_DATA_HOME/zgenom/zgenom.zsh"
 
@@ -32,8 +34,6 @@ if ! zgenom saved; then
   # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/aws
   zgenom ohmyzsh plugins/aws
 
-  zgenom ohmyzsh plugins/gh
-
   # SSH keys are subkeys of GPG
   # https://opensource.com/article/19/4/gpg-subkeys-ssh
   zgenom ohmyzsh plugins/gpg-agent
@@ -46,9 +46,6 @@ if ! zgenom saved; then
   zgenom load zsh-users/zsh-autosuggestions
 
   # zgenom load MichaelAquilina/zsh-autoswitch-virtualenv
-
-  # Theme
-  #zgenom load romkatv/powerlevel10k powerlevel10k
 
   zgenom load chrissicool/zsh-256color
 
@@ -64,6 +61,12 @@ if ! zgenom saved; then
   if has chezmoi; then
     chezmoi completion zsh > "$ZSH_COMPLETIONS/_chezmoi"
   fi
+
+  if has gh; then
+    gh completion --shell zsh > "$ZSH_COMPLETIONS/_gh"
+  fi
+
+  [[ -d "$ZSH_COMPLETIONS" ]] && zgenom load "$ZSH_COMPLETIONS"
 
   # zgenom load "$ZSHELL_DIR/keybindings.zsh"
   # zgenom load "$ZSHELL_DIR/functions.zsh"
@@ -82,12 +85,9 @@ if has python3.9; then
   alias python='python3.9'
 fi
 
-# Dedupe $PATH using a ZSH builtin
+# Dedupe paths using a ZSH builtin
 # https://til.hashrocket.com/posts/7evpdebn7g-remove-duplicates-in-zsh-path
 typeset -aU path fpath
-
-# autoload -U compinit
-# compinit -i
 
 # Set prompt
 eval "$(starship init zsh)"

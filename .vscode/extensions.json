@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+      "mads-hartmann.bash-ide-vscode",
+      "timonwong.shellcheck",
+      "ms-kubernetes-tools.vscode-kubernetes-tools",
+      "tim-koehler.helm-intellisense"
+    ]
+  }

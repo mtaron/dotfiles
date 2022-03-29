@@ -1,0 +1,14 @@
+{
+    "shellcheck.ignorePatterns": {
+        "**/*_zshenv": true,
+        "**/*_zshrc": true,
+    },
+    "files.associations": {
+        "*.yaml.tmpl": "helm",
+        ".chezmoi*.yaml": "helm",
+        ".chezmoiignore": "helm",
+        ".chezmoiremove": "helm",
+        "**/.chezmoitemplates/*": "helm",
+        "private_dot_profile": "shellscript"
+    }
+}

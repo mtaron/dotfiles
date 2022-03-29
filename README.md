@@ -73,3 +73,7 @@ Added
 - podman
 - jq
 - bat
+
+
+https://github.com/jmdaemon/chezmoi
+https://github.com/torjacob/dotfiles/tree/master/zsh

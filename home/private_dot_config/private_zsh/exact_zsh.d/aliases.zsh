@@ -8,3 +8,5 @@ alias up='sudo apt update && sudo apt -V --yes upgrade'
 alias clean='git clean --force -X -d'
 
 alias cf='aws cloudformation'
+
+alias c='code .'

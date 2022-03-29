@@ -1,0 +1,59 @@
+[user]
+	name = {{ .user.name }}
+	email = {{ .user.email }}
+
+[pull]
+	ff = true
+	rebase = true
+
+[push]
+	default = current
+
+[init]
+	defaultBranch = main
+
+[diff]
+	# Git diff will use (i)ndex, (w)ork tree, (c)ommit and (o)bject
+	# instead of a/b/c/d as prefixes for patches
+	mnemonicprefix = true
+	algorithm = patience
+	colorMoved = default
+{{- if lookPath "code" }}
+	guitool = vscode
+	tool = vscode
+
+[merge]
+	tool = vscode
+
+[mergetool "vscode"]
+	cmd = code --wait \"$MERGED\"
+
+[difftool "vscode"]
+	cmd = code --wait --diff \"$LOCAL\" \"$REMOTE\"
+
+[difftool]
+    prompt = false
+{{- end }}
+
+[rebase]
+	autoSquash = true
+	autoStash = true
+	stat = true
+
+{{- if lookPath "git-lfs" }}
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+{{- end }}
+
+[alias]
+	prune = fetch --prune
+	stash-all = stash save --include-untracked
+
+[github]
+	user = mtaron
+
+[fetch]
+	prune = true

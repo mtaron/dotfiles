@@ -12,13 +12,14 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_BIN_DIR="$HOME/.local/bin"
 
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export LESSHISTFILE="$XDG_DATA_HOME/less/history"
 
 export VISUAL=code
 
 # Color man pages with bat
 # https://github.com/sharkdp/bat#man
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-export PAGER='less --quit-if-one-screen'
+export PAGER='less --quit-if-one-screen --MOUSE'
 
 # Check if this is needed
 # export TZ='America/Los_Angeles'

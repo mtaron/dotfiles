@@ -4,6 +4,7 @@
         "**/*_zshrc*": true,
     },
     "files.associations": {
+        "config.tmpl": "helm",
         "*.yaml.tmpl": "helm",
         ".chezmoi*.yaml": "helm",
         ".chezmoiignore": "helm",

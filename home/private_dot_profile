@@ -11,6 +11,8 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_BIN_DIR="$HOME/.local/bin"
 
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+
 export VISUAL=code
 
 # Color man pages with bat

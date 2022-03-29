@@ -1,7 +1,7 @@
 {
     "shellcheck.ignorePatterns": {
         "**/*_zshenv": true,
-        "**/*_zshrc": true,
+        "**/*_zshrc*": true,
     },
     "files.associations": {
         "*.yaml.tmpl": "helm",

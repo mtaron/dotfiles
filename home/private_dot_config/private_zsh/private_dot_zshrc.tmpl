@@ -66,24 +66,22 @@ if ! zgenom saved; then
     gh completion --shell zsh > "$ZSH_COMPLETIONS/_gh"
   fi
 
-  [[ -d "$ZSH_COMPLETIONS" ]] && zgenom load "$ZSH_COMPLETIONS"
+  zgenom load "$ZDOTDIR/zsh.d"
 
-  # zgenom load "$ZSHELL_DIR/keybindings.zsh"
-  # zgenom load "$ZSHELL_DIR/functions.zsh"
-  # zgenom load "$ZSHELL_DIR/aliases.zsh"
-  # zgenom load "$ZSHELL_DIR/autosuggestions-workaround.zsh"
+  [[ -d "$ZSH_COMPLETIONS" ]] && zgenom load "$ZSH_COMPLETIONS"
 
   # save all to init script
   zgenom save
-
-  # Compile your zsh files
-  # zgenom compile "$HOME/.zshrc"
 fi
 
 # Make python3.9 the default if it is avaiable
 if has python3.9; then
   alias python='python3.9'
 fi
+
+{{ if not .transient -}}
+export PIP_REQUIRE_VIRTUALENV="1"
+{{- end }}
 
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup.py"
 

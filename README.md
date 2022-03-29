@@ -77,3 +77,6 @@ Added
 
 https://github.com/jmdaemon/chezmoi
 https://github.com/torjacob/dotfiles/tree/master/zsh
+
+# set DOCKER_HOST to podman
+export DOCKER_HOST=unix:///run/user/$(id -u)/podman/podman.sock

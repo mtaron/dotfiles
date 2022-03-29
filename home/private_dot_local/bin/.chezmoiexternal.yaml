@@ -1,16 +1,4 @@
 {{ if eq .chezmoi.os "linux" -}}
-# shell prompt: starship
-# https://www.chezmoi.io/user-guide/include-files-from-elsewhere/#extract-a-single-file-from-an-archive
-# can be brew installed on MacOs
-starship:
-  type: file
-  url: "https://github.com/starship/starship/releases/download/{{ (gitHubLatestRelease "starship/starship").TagName }}/starship-x86_64-unknown-linux-gnu.tar.gz"
-  refreshPeriod: "168h"
-  executable: true
-  filter:
-    command: tar
-    args: ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "starship"]
-
 # script to remove old linux kernels so /boot doesn't fill up
 kernel-clean:
   type: file

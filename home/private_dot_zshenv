@@ -10,4 +10,6 @@ export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
 export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME/aws/credentials"
 export AWS_DATA_PATH="$XDG_CONFIG_HOME/aws/models"
 
+# docker
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+export DOCKER_BUILDKIT=1

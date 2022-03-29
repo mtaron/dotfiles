@@ -85,6 +85,8 @@ if has python3.9; then
   alias python='python3.9'
 fi
 
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup.py"
+
 # Dedupe paths using a ZSH builtin
 # https://til.hashrocket.com/posts/7evpdebn7g-remove-duplicates-in-zsh-path
 typeset -aU path fpath

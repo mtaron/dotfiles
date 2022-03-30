@@ -9,6 +9,12 @@
 [push]
 	default = current
 
+[credential]
+	helper =
+{{- if lookPath "git-credential-manager-core" }}
+	helper = manager-core
+{{- end }}
+
 [init]
 	defaultBranch = main
 

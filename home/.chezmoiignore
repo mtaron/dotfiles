@@ -5,7 +5,7 @@
 .config/private_user-dirs.dirs
 {{- end }}
 
-{{ if ne .chezmoi.osRelease.id "ubuntu" -}}
+{{ if lookPath "batcat" -}}
 # bat needs to be symlinked on ubuntu to avoid package name conflict
 # https://github.com/sharkdp/bat#on-ubuntu-using-apt
 .local/bin/symlink_bat

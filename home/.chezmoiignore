@@ -5,8 +5,13 @@
 .config/private_user-dirs.dirs
 {{- end }}
 
-{{ if lookPath "batcat" -}}
+{{ if not (lookPath "batcat") -}}
 # bat needs to be symlinked on ubuntu to avoid package name conflict
 # https://github.com/sharkdp/bat#on-ubuntu-using-apt
-.local/bin/symlink_bat
+.local/bin/bat
+{{- end }}
+
+{{ if not (lookPath "fdfind") -}}
+# fd needs to be symlinked on ubuntu to avoid package name conflict
+.local/bin/fd
 {{- end }}

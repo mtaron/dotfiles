@@ -10,6 +10,7 @@
         ".chezmoiignore": "helm",
         ".chezmoiremove": "helm",
         "**/.chezmoitemplates/*": "helm",
-        "private_dot_profile": "shellscript"
+        "private_dot_profile": "shellscript",
+        "*.sh.tmpl": "shellscript"
     }
 }

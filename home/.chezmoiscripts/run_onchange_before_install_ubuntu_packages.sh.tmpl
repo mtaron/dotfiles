@@ -1,0 +1,28 @@
+{{- if eq (index .chezmoi.osRelease "id") "ubuntu" -}}
+#!/bin/sh -e
+
+echo "Asking for root credentials..."
+sudo -v
+
+echo "Installing packages with APT..."
+sudo apt-get update
+sudo apt-get install --yes \
+  bat \
+  direnv \
+  exa \
+  fd-find \
+  fzf \
+  git \
+  git-lfs \
+  jq \
+  ripgrep \
+  shellcheck \
+  unzip \
+  xclip \
+{{- if not .transient }}
+  fonts-ibm-plex \
+  fonts-cascadia-code \
+{{- end }}
+  zoxide
+
+{{- end -}}

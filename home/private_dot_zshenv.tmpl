@@ -18,3 +18,7 @@ export AWS_DATA_PATH="$XDG_CONFIG_HOME/aws/models"
 # docker
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export DOCKER_BUILDKIT=1
+
+# Would be nice if 
+# https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-install
+[[ -d "$HOME/.dotnet/tools" ]] && PATH="$HOME/.dotnet/tools:$PATH"

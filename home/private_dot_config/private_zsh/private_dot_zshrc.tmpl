@@ -96,15 +96,6 @@ if has az; then
   source /usr/local/etc/bash_completion.d/az
 fi
 
-# Make python3.9 the default if it is avaiable
-if has python3.9; then
-  alias python='python3.9'
-fi
-
-{{ if not .transient -}}
-export PIP_REQUIRE_VIRTUALENV="1"
-{{- end }}
-
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup.py"
 
 # Dedupe paths using a ZSH builtin

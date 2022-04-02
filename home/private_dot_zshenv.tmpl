@@ -10,3 +10,5 @@ export HISTFILE="$ZDOTDIR/.zsh_history"
 # oh-my-zsh paths
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
 
+# custom python startup that does not write history to $HOME
+export PYTHONSTARTUP="${XDG_CONFIG_HOME:-$HOME/.config}/python/startup.py"

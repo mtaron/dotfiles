@@ -1,6 +1,13 @@
-update-shell()
+reset-shell()
 {
     chezmoi apply
     zgenom reset
-    source "$ZDOTDIR/.zshrc"
+    exec zsh
+}
+
+update-shell()
+{
+    zgenom update
+    chezmoi update
+    exec zsh
 }

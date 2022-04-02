@@ -8,6 +8,4 @@ alias cf='aws cloudformation'
 
 alias c='code .'
 
-alias z='zoxide'
-
 alias dotfiles='code $XDG_DATA_HOME/chezmoi'

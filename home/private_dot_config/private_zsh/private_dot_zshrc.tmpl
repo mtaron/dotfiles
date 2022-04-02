@@ -13,16 +13,17 @@ has() {
   command -v "$1" 1>/dev/null 2>&1
 }
 
+# Incrementally add history to $HISTFILE instead of waiting for shell exit.
+# This allows for running 'exec zsh' without losing history.
+setopt inc_append_history
+
 # Location for storing plugins
 ZGEN_DIR="$XDG_CACHE_HOME/zgenom"
 
-# Disable Oh-My-ZSH's internal updating.
+# Disable Oh-My-ZSH's internal updating
 DISABLE_AUTO_UPDATE=true
 
 ZSH_AUTOSUGGEST_STRATEGY=(completion)
-
-# # https://docs.docker.com/develop/develop-images/build_enhancements/
-# export DOCKER_BUILDKIT=1
 
 ZSH_COMPLETIONS="$ZDOTDIR/completions"
 
@@ -30,9 +31,6 @@ ZSH_COMPLETIONS="$ZDOTDIR/completions"
 source "$XDG_DATA_HOME/zgenom/zgenom.zsh"
 
 if ! zgenom saved; then
-  # To update the saved shell init, run `zgenom reset`
-  echo "Creating a zgenom save"
-
   zgenom ohmyzsh
 
   # Adds 'acs' alias that lists aliases grouped by plugin
@@ -66,10 +64,6 @@ if ! zgenom saved; then
 
   zgenom load romkatv/powerlevel10k powerlevel10k
 
-  if has starship; then
-    starship completions zsh > "$ZSH_COMPLETIONS/_starship"
-  fi
-
   if has chezmoi; then
     chezmoi completion zsh > "$ZSH_COMPLETIONS/_chezmoi"
   fi
@@ -82,12 +76,12 @@ if ! zgenom saved; then
 
   [[ -d "$ZSH_COMPLETIONS" ]] && zgenom load "$ZSH_COMPLETIONS"
 
-  # save all to init script
   zgenom save
 fi
 
 # This plugin apparently doesn't work when included in the zgenom save.
 if has dotnet; then
+  export DOTNET_CLI_TELEMETRY_OPTOUT=1
   zgenom ohmyzsh plugins/dotnet
 fi
 
@@ -95,8 +89,6 @@ if has az; then
   autoload -U +X bashcompinit && bashcompinit
   source /usr/local/etc/bash_completion.d/az
 fi
-
-export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup.py"
 
 # Dedupe paths using a ZSH builtin
 # https://til.hashrocket.com/posts/7evpdebn7g-remove-duplicates-in-zsh-path

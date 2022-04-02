@@ -1,6 +1,7 @@
 {{- /* environment/hardware tags */ -}}
-{{- $devcontainer := false -}}{{/* devcontainer (codespaces, vscode) */}}
+{{- $devcontainer := false -}}{{/* devcontainer (codespaces, gitpod, vscode) */}}
 {{- $codespaces   := false -}}{{/* github codespaces */}}
+{{- $gitpod       := false -}}{{/* gitpod */}}
 {{- $vscontainer  := false -}}{{/* vs code remote containers */}}
 {{- $isGnome      := lookPath "gnome-shell" | not | not -}}
 
@@ -8,10 +9,13 @@
 {{- if (env "CODESPACES") -}}
 {{- $codespaces = true -}}
 {{- end -}}
+{{- if (env "GITPOD_WORKSPACE_ID") -}}
+{{- $gitpod = true -}}
+{{- end -}}
 {{- if (env "REMOTE_CONTAINERS_IPC") -}}
 {{- $vscontainer = true -}}
 {{- end -}}
-{{- if or $codespaces $vscontainer -}}
+{{- if or $codespaces $gitpod $vscontainer -}}
 {{- $devcontainer = true -}}
 {{- end -}}
 
@@ -65,3 +69,9 @@ data:
     name: "Michael Taron"
     email: {{ $email | quote }}
     github: "mtaron"
+
+  devcontainer:
+    any: {{ $devcontainer }}
+    codespaces: {{ $codespaces }}
+    gitpod: {{ $gitpod }}
+    vscontainer: {{ $vscontainer }}

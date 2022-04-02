@@ -11,9 +11,19 @@
 
 [credential]
 	helper =
-{{- if lookPath "git-credential-manager-core" }}
+{{- if and (lookPath "gp") .devcontainer.gitpod }}
+	helper = {{ lookPath "gp" }} credential-helper
+{{ else if lookPath "git-credential-manager-core" }}
 	helper = manager-core
 {{- end }}
+[credential "https://github.com"]
+	username = {{ .user.github }}
+{{- if and (lookPath "gh") (not .devcontainer.gitpod) }}
+	helper =
+	helper = {{ lookPath "gh" }} auth git-credential
+{{- end }}
+[credential "https://dev.azure.com"]
+	useHttpPath = true
 
 [init]
 	defaultBranch = main
@@ -58,11 +68,5 @@
 	prune = fetch --prune
 	stash-all = stash save --include-untracked
 
-[github]
-	user = mtaron
-
 [fetch]
 	prune = true
-
-[credential "https://dev.azure.com"]
-	useHttpPath = true

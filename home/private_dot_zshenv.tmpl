@@ -10,15 +10,3 @@ export HISTFILE="$ZDOTDIR/.zsh_history"
 # oh-my-zsh paths
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
 
-# https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html#envvars-list
-export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
-export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME/aws/credentials"
-export AWS_DATA_PATH="$XDG_CONFIG_HOME/aws/models"
-
-# docker
-export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
-export DOCKER_BUILDKIT=1
-
-# Would be nice if 
-# https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-install
-[[ -d "$HOME/.dotnet/tools" ]] && PATH="$HOME/.dotnet/tools:$PATH"

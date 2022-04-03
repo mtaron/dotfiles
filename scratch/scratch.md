@@ -42,7 +42,7 @@ Get a script's current directory in zsh
 
 ### Other dotfiles to look at
 https://github.com/jmdaemon/chezmoi
-
+https://github.com/neersighted/dotfiles
 
 ### Need to set up podman
 set DOCKER_HOST to podman

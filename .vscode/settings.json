@@ -6,6 +6,7 @@
     "files.associations": {
         "config.tmpl": "helm",
         "*.yaml.tmpl": "helm",
+        "*.json.tmpl": "helm",
         ".chezmoi*.yaml": "helm",
         ".chezmoiignore": "helm",
         ".chezmoiremove": "helm",

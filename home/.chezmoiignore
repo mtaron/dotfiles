@@ -21,3 +21,8 @@
 .local/share/applications/code-url-handler.desktop
 .local/share/applications/defaults.list
 {{- end }}
+
+{{ if or (ne .chezmoi.os "linux") .transient -}}
+# Only have VS_PORTABLE working for linux at this point.
+.config/vscode/**
+{{- end }}

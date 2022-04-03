@@ -14,21 +14,25 @@ jobs:
       - run: |
           set -ex
 
-          ./install.sh
-          echo "::debug::install script finished"
+          echo_task() {
+            printf "\033[0;34m--> %s\033[0m\n" "$*"
+          }
 
-          echo "::debug::home"
+          ./install.sh
+          echo "install script finished"
+
+          echo_task home
           ls -a $HOME
 
-          echo "::debug::config"
+          echo_task .config
           ls -a "$HOME/.config"
 
-          echo "::debug::testing profile"
-          source ~/.config/.profile
+          echo_task .profile
+          source "$HOME/.profile"
 
-          echo "::debug::testing zshenv"
-          source ~/.config/.zshenv
+          echo_task .zshenv
+          source "$HOME/.zshenv"
 
-          echo "::debug::testing zshrc"
-          source ~/.config/zsh/.zshrc
+          echo_task .zshrc
+          source "$HOME/.config/zsh/.zshrc"
 

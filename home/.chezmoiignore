@@ -2,7 +2,7 @@
 # https://www.chezmoi.io/reference/special-files-and-directories/chezmoiignore/
 
 {{ if not .gnome -}}
-.config/private_user-dirs.dirs
+.config/user-dirs.dirs
 {{- end }}
 
 {{ if not (lookPath "batcat") -}}

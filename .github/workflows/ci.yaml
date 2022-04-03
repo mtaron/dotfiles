@@ -42,7 +42,7 @@ jobs:
 
           echo_task .zshrc
           cat "$HOME/.config/zsh/.zshrc" && source "$HOME/.config/zsh/.zshrc"
-        shell: zsh {0}
+        shell: zsh --errexit {0}
         env:
           # This can't be done in a non-interactive shell
           ZGEN_AUTOLOAD_COMPINIT: 0

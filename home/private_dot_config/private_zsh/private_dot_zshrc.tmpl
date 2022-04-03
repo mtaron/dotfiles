@@ -1,6 +1,8 @@
+{{ if stdinIsATTY -}}
 # Use Ctrl+Z as interrupt instead of Ctrl+C
 # This must be done before Powerlevel10k instant prompt
 stty intr ^Z
+{{- end}}
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]

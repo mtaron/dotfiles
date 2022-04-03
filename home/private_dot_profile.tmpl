@@ -33,7 +33,7 @@ export DOCKER_BUILDKIT=1
 export DOCKER_HOST="unix:///run/user/$(id -u)/podman/podman.sock"
 {{- end }}
 
-{{ if eq .chezmoi.os "linux" -}}
+{{ if and (eq .chezmoi.os "linux") (not .headless) -}}
 export VSCODE_PORTABLE="$XDG_CONFIG_HOME/vscode"
 {{- end }}
 

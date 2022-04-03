@@ -37,4 +37,4 @@ jobs:
 
           echo_task .zshrc
           cat "$HOME/.config/zsh/.zshrc" && source "$HOME/.config/zsh/.zshrc"
-        shell: zsh --errexit {0}
+        shell: zsh {0}

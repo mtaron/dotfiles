@@ -48,11 +48,24 @@ https://github.com/neersighted/dotfiles
 set DOCKER_HOST to podman
 `export DOCKER_HOST=unix:///run/user/$(id -u)/podman/podman.sock`
 
-### Add this is chezmoi?
+### System Packages
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 
 sudo apt update
 sudo apt install gh
 
-### Add vscode install to chezmoi? Use VSCODE_PORTABLE? apt update seems to have issues...
+bat
+direnv
+exa
+fd-find
+fzf
+git
+git-lfs
+jq
+ripgrep
+shellcheck
+unzip
+xclip
+fonts-ibm-plex
+fonts-cascadia-code

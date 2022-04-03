@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install zsh and fzf
+      - name: Install zsh
         run: |
           sudo apt-get update
-          sudo apt-get install zsh fzf
+          sudo apt-get install zsh
       - name: chezmoi install
         run: |
           echo_task() {
@@ -26,8 +26,16 @@ jobs:
           echo_task 'home directory'
           ls -a $HOME
 
+          echo_task 'Valdiate that profile and .zshenv are created'
+          [[ -f "$HOME/.profile" ]] || exit 1
+          [[ -f "$HOME/.zshenv" ]]  || exit 1
+
           echo_task 'config directory'
           ls -a "$HOME/.config"
+
+          echo_task 'Valdiate that git config and .zshrc are created'
+          [[ -f "$HOME/.config/git/config" ]] || exit 1
+          [[ -f "$HOME/.config/zsh/.zshrc" ]] || exit 1
       - name: test environment
         run: |
           echo_task() {
@@ -37,14 +45,10 @@ jobs:
           echo_task .profile
           cat "$HOME/.profile" && source "$HOME/.profile"
 
+          [[ -v GNUPGHOME ]] || exit 1
+
           echo_task .zshenv
           cat "$HOME/.zshenv" && source "$HOME/.zshenv"
 
-          echo_task .zshrc
-          cat "$HOME/.config/zsh/.zshrc" && source "$HOME/.config/zsh/.zshrc"
+          [[ -v ZSH_CACHE_DIR ]] || exit 1
         shell: zsh --errexit {0}
-        env:
-          # This can't be done in a non-interactive shell
-          ZGEN_AUTOLOAD_COMPINIT: 0
-          # Disable oh-my-zsh warning about runner's completion environment
-          ZSH_DISABLE_COMPFIX: "true"

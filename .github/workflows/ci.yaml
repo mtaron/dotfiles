@@ -28,11 +28,11 @@ jobs:
           ls -a "$HOME/.config"
 
           echo_task .profile
-          source "$HOME/.profile"
+          cat "$HOME/.profile" && source "$HOME/.profile"
 
           echo_task .zshenv
-          source "$HOME/.zshenv"
+          cat "$HOME/.zshenv" && source "$HOME/.zshenv"
 
           echo_task .zshrc
-          source "$HOME/.config/zsh/.zshrc"
+          cat "$HOME/.config/zsh/.zshrc" && source "$HOME/.config/zsh/.zshrc"
 

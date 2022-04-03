@@ -15,7 +15,20 @@ jobs:
           set -ex
 
           ./install.sh
+          echo "::debug::install script finished"
+
+          echo "::debug::home"
+          ls -a $HOME
+
+          echo "::debug::config"
+          ls -a "$HOME/.config"
+
+          echo "::debug::testing profile"
           source ~/.config/.profile
+
+          echo "::debug::testing zshenv"
           source ~/.config/.zshenv
+
+          echo "::debug::testing zshrc"
           source ~/.config/zsh/.zshrc
 

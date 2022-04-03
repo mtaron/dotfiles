@@ -1,0 +1,19 @@
+[Default Applications]
+text/comma-separated-values=vscode.desktop
+text/csv=vscode.desktop
+text/plain=vscode.desktop
+text/spreadsheet=vscode.desktop
+text/tab-separated-values=vscode.desktop
+text/x-comma-separated-values=vscode.desktop
+text/x-c++hdr=vscode.desktop
+text/x-c++src=vscode.desktop
+text/x-xsrc=vscode.desktop
+text/x-chdr=vscode.desktop
+text/x-csrc=vscode.desktop
+text/x-dtd=vscode.desktop
+text/x-java=vscode.desktop
+text/mathml=vscode.desktop
+text/x-python=vscode.desktop
+text/x-sql=vscode.desktop
+application/x-code-workspace=vscode.desktop
+x-scheme-handler/vscode=code-url-handler.desktop

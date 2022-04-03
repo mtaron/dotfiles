@@ -15,3 +15,9 @@
 # fd needs to be symlinked on ubuntu to avoid package name conflict
 .local/bin/fd
 {{- end }}
+
+{{ if or (ne .chezmoi.os "linux") .headless -}}
+.local/share/applications/vscode.desktop
+.local/share/applications/code-url-handler.desktop
+.local/share/applications/defaults.list
+{{- end }}

@@ -16,4 +16,7 @@ install-vs-code()
 
     # Create a symbolic link to add code to the path
     ln -s "$code_dir/bin/code" "$XDG_BIN_DIR/code"
+
+    # Create a symbolic link for zsh completions
+    ln -s "$code_dir/resources/completions/zsh/_code" "$ZDOTDIR/completions/_code"
 }

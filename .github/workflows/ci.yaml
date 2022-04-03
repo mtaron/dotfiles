@@ -46,3 +46,5 @@ jobs:
         env:
           # This can't be done in a non-interactive shell
           ZGEN_AUTOLOAD_COMPINIT: 0
+          # Disable oh-my-zsh warning about runner's completion environment
+          ZSH_DISABLE_COMPFIX: "true"

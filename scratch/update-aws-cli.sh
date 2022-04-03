@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html#cliv2-linux-upgrade
 
 # Remove any previous install. Don't want multiple Python installs building up.

@@ -14,7 +14,6 @@ install-vs-code()
     curl --show-error --silent --fail --location "https://code.visualstudio.com/sha/download?build=stable&os=linux-x64" \
         | tar --extract --ungzip --directory "$XDG_DATA_HOME" --transform s/VSCode-linux-x64/vscode/
 
+    # Create a symbolic link to add code to the path
     ln -s "$code_dir/bin/code" "$XDG_BIN_DIR/code"
-
-    # TODO: Need to add application link
 }

@@ -1,5 +1,5 @@
 {{- if eq (index .chezmoi.osRelease "id") "ubuntu" -}}
-#!/bin/sh -e
+#!/usr/bin/env -S sh -e
 
 echo "Asking for root credentials..."
 sudo -v
@@ -21,8 +21,7 @@ sudo apt-get install --yes \
   xclip \
 {{- if not .transient }}
   fonts-ibm-plex \
-  fonts-cascadia-code \
+  fonts-cascadia-code
 {{- end }}
-  zoxide
 
 {{- end -}}

@@ -11,28 +11,38 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install zsh
+      - name: Install zsh and fzf
         run: |
           sudo apt-get update
-          sudo apt-get install zsh
+          sudo apt-get install zsh fzf
       - name: chezmoi install
         run: |
-          ./install.sh
-          echo "install script finished"
+          echo_task() {
+            printf "\033[0;34m--> %s\033[0m\n" "$*"
+          }
 
-          echo "\nhome directory"
+          ./install.sh
+
+          echo_task 'home directory'
           ls -a $HOME
 
-          echo "\n.config directory"
+          echo_task 'config directory'
           ls -a "$HOME/.config"
-      - name:
+      - name: test environment
         run: |
-          echo "\n.profile"
+          echo_task() {
+            printf "\033[0;34m--> %s\033[0m\n" "$*"
+          }
+
+          echo_task .profile
           cat "$HOME/.profile" && source "$HOME/.profile"
 
-          echo "\n.zshenv"
+          echo_task .zshenv
           cat "$HOME/.zshenv" && source "$HOME/.zshenv"
 
-          echo "\n.zshrc"
+          echo_task .zshrc
           cat "$HOME/.config/zsh/.zshrc" && source "$HOME/.config/zsh/.zshrc"
-        shell: zsh --errexit {0}
+        shell: zsh {0}
+        env:
+          # This can't be done in a non-interactive shell
+          ZGEN_AUTOLOAD_COMPINIT: 0

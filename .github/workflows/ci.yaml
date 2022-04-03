@@ -15,26 +15,24 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install zsh
-      - run: |
-          echo_task() {
-            printf "\033[0;34m--> %s\033[0m\n" "$*"
-          }
-
+      - name: chezmoi install
+        run: |
           ./install.sh
           echo "install script finished"
 
-          echo_task home
+          echo "\nhome directory"
           ls -a $HOME
 
-          echo_task .config
+          echo "\n.config directory"
           ls -a "$HOME/.config"
-
-          echo_task .profile
+      - name:
+        run: |
+          echo "\n.profile"
           cat "$HOME/.profile" && source "$HOME/.profile"
 
-          echo_task .zshenv
+          echo "\n.zshenv"
           cat "$HOME/.zshenv" && source "$HOME/.zshenv"
 
-          echo_task .zshrc
+          echo "\n.zshrc"
           cat "$HOME/.config/zsh/.zshrc" && source "$HOME/.config/zsh/.zshrc"
-        shell: zsh {0}
+        shell: zsh --errexit {0}

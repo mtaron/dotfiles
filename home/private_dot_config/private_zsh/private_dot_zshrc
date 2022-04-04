@@ -95,5 +95,4 @@ fi
 # https://til.hashrocket.com/posts/7evpdebn7g-remove-duplicates-in-zsh-path
 typeset -aU path fpath
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f "$ZDOTDIR/.p10k.zsh" ]] || source "$ZDOTDIR/.p10k.zsh"

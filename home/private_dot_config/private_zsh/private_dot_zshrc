@@ -1,8 +1,14 @@
 # Use Ctrl+Z as interrupt instead of Ctrl+C
 # This must be done before Powerlevel10k instant prompt
-[[ -o interactive ]] && stty intr ^Z
+if [[ -o interactive ]]; then
+  stty intr ^Z
+else
+  # .zshrc should never be loaded in a non-interactive shell,
+  # but it's interesting that is mostly works with auto compinit disabled.
+  ZGEN_AUTOLOAD_COMPINIT=0
+fi
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Enable Powerlevel10k instant prompt. Should stay close to the top of .zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then

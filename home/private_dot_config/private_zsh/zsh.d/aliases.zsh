@@ -8,4 +8,7 @@ alias cf='aws cloudformation'
 
 alias c='code .'
 
+alias k='kubectl'
+alias kl='kubectl logs --follow'
+
 alias dotfiles='code $XDG_DATA_HOME/chezmoi'

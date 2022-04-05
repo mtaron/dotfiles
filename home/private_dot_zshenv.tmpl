@@ -1,7 +1,7 @@
 {{ if eq .chezmoi.os "darwin" -}}
 # On MacOS .profile is not read by the OS, so running it here.
 source "$HOME/.profile"
-{{- end }}
+{{- end -}}
 
 # zsh paths
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"

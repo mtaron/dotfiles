@@ -45,5 +45,3 @@ echo_task "Running chezmoi init"
 # replace current process with chezmoi init
 # shellcheck disable=SC2086
 exec "${chezmoi}" init --source "${script_dir}" ${chezmoi_extra_args}
-
-exec zsh

@@ -1,4 +1,4 @@
-{{ if eq .chezmoi.os "darwin" -}}
+{{ if or .headless (eq .chezmoi.os "darwin") -}}
 # On MacOS .profile is not read by the OS, so running it here.
 source "$HOME/.profile"
 {{- end -}}

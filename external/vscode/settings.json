@@ -1,8 +1,6 @@
 {
     "diffEditor.renderSideBySide": false,
-    "dotfiles.installCommand": "~/.local/share/chezmoi/install.sh",
     "dotfiles.repository": "https://github.com/mtaron/dotfiles.git",
-    "dotfiles.targetPath": "~/.local/share/chezmoi",
     "editor.bracketPairColorization.enabled": true,
     "editor.cursorSmoothCaretAnimation": true,
     "editor.fontFamily": "'Cascadia Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
@@ -30,6 +28,7 @@
     "terminal.integrated.defaultProfile.linux": "zsh",
     "terminal.integrated.enablePersistentSessions": false,
     "terminal.integrated.fontFamily": "'Cascadia Mono PL', 'FontAwesome'",
+    "terminal.integrated.fontWeight": "300",
     "terminal.integrated.scrollback": 4000,
     "terminal.integrated.shellIntegration.showWelcome": false,
     "window.dialogStyle": "custom",

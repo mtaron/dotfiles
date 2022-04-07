@@ -21,7 +21,6 @@
     "git.enableSmartCommit": true,
     "python.terminal.activateEnvironment": false,
     "redhat.telemetry.enabled": false,
-    "remote.containers.dotfiles.installCommand": "~/.local/share/chezmoi/install.sh --one-shot",
     "svelte.enable-ts-plugin": true,
     "telemetry.telemetryLevel": "error",
     "terminal.integrated.allowChords": false,

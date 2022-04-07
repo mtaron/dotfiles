@@ -12,7 +12,7 @@
 {{- if (env "GITPOD_WORKSPACE_ID") -}}
 {{- $gitpod = true -}}
 {{- end -}}
-{{- if (env "REMOTE_CONTAINERS_IPC") -}}
+{{- if (env "REMOTE_CONTAINERS") -}}
 {{- $vscontainer = true -}}
 {{- end -}}
 {{- if or $codespaces $gitpod $vscontainer -}}

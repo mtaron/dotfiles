@@ -13,7 +13,19 @@ export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
 # custom python startup that does not write history to $HOME
 export PYTHONSTARTUP="${XDG_CONFIG_HOME:-$HOME/.config}/python/startup.py"
 
-{{ if lookPath "func" -}}
+{{ if lookPath "env" -}}
 # disable Azure Function Tools telemetry
 export FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=1
+{{- end }}
+
+export-if-unset()
+{
+    [[ -v $1 ]] || export $1="$2"
+}
+
+{{ if lookPath "aws" -}}
+# https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html#envvars-list
+export-if-unset AWS_CONFIG_FILE "$XDG_CONFIG_HOME/aws/config"
+export-if-unset AWS_SHARED_CREDENTIALS_FILE "$XDG_CONFIG_HOME/aws/credentials"
+export-if-unset AWS_DATA_PATH "$XDG_CONFIG_HOME/aws/models"
 {{- end }}

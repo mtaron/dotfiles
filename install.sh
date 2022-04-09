@@ -31,14 +31,7 @@ fi
 # POSIX way to get script's dir: https://stackoverflow.com/a/29834779/12156188
 script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
 
-if [ -n "${REMOTE_CONTAINERS-}" ]; then
-  chezmoi_extra_args="--one-shot"
-else
-  chezmoi_extra_args="--apply"
-fi
-
-
 echo_task "Running chezmoi init"
 # replace current process with chezmoi init
 # shellcheck disable=SC2086
-exec "${chezmoi}" init --source "${script_dir}" "$@" ${chezmoi_extra_args}
+exec "${chezmoi}" init --source "${script_dir}" "$@"

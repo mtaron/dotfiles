@@ -1,6 +1,8 @@
 {
     "diffEditor.renderSideBySide": false,
     "dotfiles.repository": "https://github.com/mtaron/dotfiles.git",
+    "dotfiles.installCommand": "~/.local/share/chezmoi/install.sh",
+    "dotfiles.targetPath": "~/.local/share/chezmoi",
     "editor.bracketPairColorization.enabled": true,
     "editor.cursorSmoothCaretAnimation": true,
     "editor.fontFamily": "'Cascadia Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",

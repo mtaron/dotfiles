@@ -93,7 +93,7 @@ if [[ -f /usr/local/etc/bash_completion.d/az ]]; then
 fi
 
 argcomplete="$(command -v register-python-argcomplete || command -v register-python-argcomplete3)"
-if has pipx && [[ -f argcomplete ]]; then
+if has pipx && [[ -f $argcomplete ]]; then
   eval "$($argcomplete pipx)"
 fi
 

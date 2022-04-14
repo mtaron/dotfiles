@@ -92,8 +92,9 @@ if [[ -f /usr/local/etc/bash_completion.d/az ]]; then
   source /usr/local/etc/bash_completion.d/az
 fi
 
-if has pipx && has register-python-argcomplete; then
-  eval "$(register-python-argcomplete pipx)"
+argcomplete="$(command -v register-python-argcomplete || command -v register-python-argcomplete3)"
+if has pipx && [[ -f argcomplete ]]; then
+  eval "$($argcomplete pipx)"
 fi
 
 # Dedupe paths using a ZSH builtin

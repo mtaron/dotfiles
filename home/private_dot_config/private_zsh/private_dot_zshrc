@@ -71,16 +71,11 @@ if ! zgenom saved; then
 
   zgenom load romkatv/powerlevel10k powerlevel10k
 
-  if has chezmoi; then
-    chezmoi completion zsh > "$ZSH_COMPLETIONS/_chezmoi"
-  fi
-
-  if has gh; then
-    gh completion --shell zsh > "$ZSH_COMPLETIONS/_gh"
-  fi
-
   zgenom load "$ZDOTDIR/zsh.d"
 
+  # Completions
+  has chezmoi && chezmoi completion zsh > "$ZSH_COMPLETIONS/_chezmoi"
+  has gh && gh completion --shell zsh > "$ZSH_COMPLETIONS/_gh"
   [[ -d "$ZSH_COMPLETIONS" ]] && zgenom load "$ZSH_COMPLETIONS"
 
   zgenom save
@@ -95,6 +90,10 @@ fi
 if [[ -f /usr/local/etc/bash_completion.d/az ]]; then
   autoload -U +X bashcompinit && bashcompinit
   source /usr/local/etc/bash_completion.d/az
+fi
+
+if has pipx && has register-python-argcomplete; then
+  eval "$(register-python-argcomplete pipx)"
 fi
 
 # Dedupe paths using a ZSH builtin

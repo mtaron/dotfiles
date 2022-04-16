@@ -76,6 +76,7 @@ if ! zgenom saved; then
   # Completions
   has chezmoi && chezmoi completion zsh > "$ZSH_COMPLETIONS/_chezmoi"
   has gh && gh completion --shell zsh > "$ZSH_COMPLETIONS/_gh"
+  has poetry && poetry completions zsh > "$ZSH_COMPLETIONS/_poetry"
   [[ -d "$ZSH_COMPLETIONS" ]] && zgenom load "$ZSH_COMPLETIONS"
 
   zgenom save

@@ -22,7 +22,7 @@
     "python.terminal.activateEnvironment": false,
     "redhat.telemetry.enabled": false,
     "svelte.enable-ts-plugin": true,
-    "telemetry.telemetryLevel": "error",
+    "telemetry.telemetryLevel": "off",
     "terminal.integrated.allowChords": false,
     "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.cursorBlinking": true,
@@ -70,5 +70,9 @@
         "!Split",
         "!Split sequence"
     ],
-    "yaml.validate": false
+    "yaml.validate": false,
+    "extensions.ignoreRecommendations": true,
+    "remote.containers.defaultExtensions": [
+        "eamodio.gitlens"
+    ]
 }

@@ -16,6 +16,8 @@ export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
 
 export VISUAL=code
 
+export GPG_TTY=$(tty)
+
 # Color man pages with bat
 # https://github.com/sharkdp/bat#man
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"

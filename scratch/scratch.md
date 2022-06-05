@@ -69,3 +69,6 @@ unzip
 xclip
 fonts-ibm-plex
 fonts-cascadia-code
+
+
+> Use `gh auth login --scopes=read:packages` in order to pull packages from GHCR.

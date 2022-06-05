@@ -1,0 +1,6 @@
+{
+    "credHelpers": {
+        "docker.pkg.github.com": "gh",
+        "ghcr.io": "gh"
+    }
+}

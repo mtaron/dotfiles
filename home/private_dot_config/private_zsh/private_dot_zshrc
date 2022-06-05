@@ -45,9 +45,9 @@ if ! zgenom saved; then
 
   # Use 'acp' command to change profiles
   # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/aws
-  zgenom ohmyzsh plugins/aws
+  has aws && zgenom ohmyzsh plugins/aws
 
-  zgenom ohmyzsh plugins/kubectx
+  has kubectl && zgenom ohmyzsh plugins/kubectx
 
   # SSH keys are subkeys of GPG
   # https://opensource.com/article/19/4/gpg-subkeys-ssh

@@ -26,3 +26,8 @@
 # Only have VS_PORTABLE working for linux at this point.
 .config/vscode/**
 {{- end }}
+
+{{ if not (lookPath "gh") -}}
+.local/bin/docker-credential-gh
+.config/docker/config.json
+{{- end }}

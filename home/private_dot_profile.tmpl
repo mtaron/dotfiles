@@ -23,13 +23,6 @@ export GPG_TTY=$(tty)
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export PAGER='less --quit-if-one-screen --mouse'
 
-{{ if lookPath "docker" -}}
-export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
-export DOCKER_BUILDKIT=1
-{{- else if lookPath "podman" -}}
-export DOCKER_HOST="unix:///run/user/$(id -u)/podman/podman.sock"
-{{- end }}
-
 {{ if and (eq .chezmoi.os "linux") (not .headless) -}}
 export VSCODE_PORTABLE="$XDG_CONFIG_HOME/vscode"
 {{- end }}

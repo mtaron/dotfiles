@@ -78,6 +78,7 @@ if ! zgenom saved; then
   has gh && gh completion --shell zsh > "$ZSH_COMPLETIONS/_gh"
   has poetry && poetry completions zsh > "$ZSH_COMPLETIONS/_poetry"
   has kubectl && kubectl completion zsh > "$ZSH_COMPLETIONS/_kubectl"
+  has k3d && k3d completion zsh > "$ZSH_COMPLETIONS/_k3d"
   [[ -d "$ZSH_COMPLETIONS" ]] && zgenom load "$ZSH_COMPLETIONS"
 
   zgenom save

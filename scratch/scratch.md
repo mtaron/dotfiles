@@ -55,6 +55,13 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githu
 sudo apt update
 sudo apt install gh
 
+https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-using-native-package-management
+
+curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo dd of=/usr/share/keyrings/kubernetes-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+sudo apt install kubectl
+
 bat
 direnv
 exa

@@ -11,8 +11,6 @@ export XDG_BIN_DIR="$HOME/.local/bin"
 
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export LESSHISTFILE="$XDG_DATA_HOME/less/history"
-export IPYTHONDIR="$XDG_CONFIG_HOME/jupyter"
-export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
 
 export VISUAL=code
 
@@ -25,6 +23,12 @@ export PAGER='less --quit-if-one-screen --mouse'
 
 {{ if and (eq .chezmoi.os "linux") (not .headless) -}}
 export VSCODE_PORTABLE="$XDG_CONFIG_HOME/vscode"
+{{- end }}
+{{ if lookPath "ipython" -}}
+export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
+{{- end }}
+{{ if lookPath "jupyter" -}}
+export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
 {{- end }}
 
 # https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-install

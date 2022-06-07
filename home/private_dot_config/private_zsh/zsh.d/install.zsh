@@ -1,8 +1,6 @@
-
 # Downloads VS Code in Portable Mode
 # https://code.visualstudio.com/docs/editor/portable
 # This has the advantage of a clean home directory and apt update of code seems hit or miss anyways.
-
 install-vs-code()
 {
     code_dir="$XDG_DATA_HOME/vscode"
@@ -19,4 +17,21 @@ install-vs-code()
 
     # Create a symbolic link for zsh completions
     ln -sf "$code_dir/resources/completions/zsh/_code" "$ZDOTDIR/completions/_code"
+}
+
+# Installs the latest k3d using the GitHub CLI
+# https://github.com/k3d-io/k3d/
+install-k3d()
+{
+    tmp_dir=$(mktemp -d)
+    gh release download --repo k3d-io/k3d --pattern k3d-linux-amd64 --dir "$tmp_dir"
+    chmod 700 "$tmp_dir/k3d-linux-amd64"
+    mv -f "$tmp_dir/k3d-linux-amd64" "$XDG_BIN_DIR/k3d"
+    rm -rf "$tmp_dir"
+}
+
+# https://helm.sh/docs/intro/install/#from-script
+install-helm()
+{
+    HELM_INSTALL_DIR=$XDG_BIN_DIR get-helm-3 --no-sudo
 }

@@ -6,3 +6,8 @@ kernel-clean:
   executable: true
   refreshPeriod: "744h"
 {{ end -}}
+get-helm-3:
+  type: file
+  url: "https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
+  executable: true
+  refreshPeriod: "744h"

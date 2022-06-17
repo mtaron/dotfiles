@@ -43,6 +43,7 @@ if ! zgenom saved; then
   zgenom ohmyzsh plugins/aliases
   zgenom ohmyzsh plugins/copypath
   zgenom ohmyzsh plugins/direnv
+  zgenom ohmyzsh plugins/yarn
 
   # Use 'acp' command to change profiles
   # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/aws

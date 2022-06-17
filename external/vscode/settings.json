@@ -1,7 +1,7 @@
 {
     "diffEditor.renderSideBySide": false,
-    "dotfiles.repository": "https://github.com/mtaron/dotfiles.git",
     "dotfiles.installCommand": "~/.local/share/chezmoi/install.sh",
+    "dotfiles.repository": "https://github.com/mtaron/dotfiles.git",
     "dotfiles.targetPath": "~/.local/share/chezmoi",
     "editor.bracketPairColorization.enabled": true,
     "editor.cursorSmoothCaretAnimation": true,
@@ -13,15 +13,16 @@
     "editor.tabCompletion": "on",
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
+    "extensions.ignoreRecommendations": true,
     "files.autoSave": "afterDelay",
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
     "git.autofetch": true,
+    "git.branchPrefix": "mtaron",
     "git.confirmSync": false,
     "git.enableSmartCommit": true,
     "python.terminal.activateEnvironment": false,
     "redhat.telemetry.enabled": false,
-    "svelte.enable-ts-plugin": true,
     "telemetry.telemetryLevel": "off",
     "terminal.integrated.allowChords": false,
     "terminal.integrated.copyOnSelection": true,
@@ -41,7 +42,6 @@
     "workbench.enableExperiments": false,
     "workbench.list.smoothScrolling": true,
     "workbench.startupEditor": "none",
-    "extensions.ignoreRecommendations": true,
     "remote.containers.defaultExtensions": [
         "eamodio.gitlens"
     ]

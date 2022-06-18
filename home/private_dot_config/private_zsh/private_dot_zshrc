@@ -42,8 +42,8 @@ if ! zgenom saved; then
   # Adds 'acs' alias that lists aliases grouped by plugin
   zgenom ohmyzsh plugins/aliases
   zgenom ohmyzsh plugins/copypath
-  zgenom ohmyzsh plugins/direnv
-  zgenom ohmyzsh plugins/yarn
+  has direnv && zgenom ohmyzsh plugins/direnv
+  has yarn && zgenom ohmyzsh plugins/yarn
 
   # Use 'acp' command to change profiles
   # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/aws
@@ -61,8 +61,6 @@ if ! zgenom saved; then
 
   zgenom load zsh-users/zsh-syntax-highlighting
   zgenom load zsh-users/zsh-autosuggestions
-
-  # zgenom load MichaelAquilina/zsh-autoswitch-virtualenv
 
   zgenom load chrissicool/zsh-256color
 
@@ -93,6 +91,7 @@ if has dotnet; then
   zgenom ohmyzsh plugins/dotnet
 fi
 
+# Azure CLI
 if [[ -f /usr/local/etc/bash_completion.d/az ]]; then
   autoload -U +X bashcompinit && bashcompinit
   source /usr/local/etc/bash_completion.d/az

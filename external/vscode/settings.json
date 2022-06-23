@@ -1,4 +1,5 @@
 {
+    "cfnLint.validateUsingJsonSchema": true,
     "diffEditor.renderSideBySide": false,
     "dotfiles.installCommand": "~/.local/share/chezmoi/install.sh",
     "dotfiles.repository": "https://github.com/mtaron/dotfiles.git",
@@ -44,5 +45,34 @@
     "workbench.startupEditor": "none",
     "remote.containers.defaultExtensions": [
         "eamodio.gitlens"
+    ],
+    "yaml.customTags": [
+        "!And",
+        "!And sequence",
+        "!If",
+        "!If sequence",
+        "!Not",
+        "!Not sequence",
+        "!Equals",
+        "!Equals sequence",
+        "!Or",
+        "!Or sequence",
+        "!FindInMap",
+        "!FindInMap sequence",
+        "!Base64",
+        "!Join",
+        "!Join sequence",
+        "!Cidr",
+        "!Ref",
+        "!Sub",
+        "!Sub sequence",
+        "!GetAtt",
+        "!GetAZs",
+        "!ImportValue",
+        "!ImportValue sequence",
+        "!Select",
+        "!Select sequence",
+        "!Split",
+        "!Split sequence"
     ]
 }

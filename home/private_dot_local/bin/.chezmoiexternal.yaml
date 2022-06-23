@@ -1,4 +1,4 @@
-{{ if eq .chezmoi.os "linux" -}}
+{{ if and (eq .chezmoi.os "linux") (not .headless) -}}
 # script to remove old linux kernels so /boot doesn't fill up
 kernel-clean:
   type: file

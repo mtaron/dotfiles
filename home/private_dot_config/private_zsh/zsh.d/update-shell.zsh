@@ -1,6 +1,6 @@
 reset-shell()
 {
-    chezmoi apply
+    has chezmoi && chezmoi apply
     zgenom reset
     exec zsh
 }
@@ -8,6 +8,6 @@ reset-shell()
 update-shell()
 {
     zgenom update
-    chezmoi update
+    has chezmoi && chezmoi update
     exec zsh
 }

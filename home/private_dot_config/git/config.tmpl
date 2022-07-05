@@ -14,7 +14,11 @@
 {{- if and (lookPath "gp") .devcontainer.gitpod }}
 	helper = {{ lookPath "gp" }} credential-helper
 {{ else if lookPath "git-credential-manager-core" }}
-	helper = manager-core
+	helper = {{ lookPath "git-credential-manager-core" }}
+{{- end }}
+	azreposCredentialType = oauth
+{{- if .gnome }}
+	credentialStore = secretservice
 {{- end }}
 [credential "https://github.com"]
 	username = {{ .user.github }}

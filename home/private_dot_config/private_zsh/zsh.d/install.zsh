@@ -45,6 +45,5 @@ install-git-credential-manager()
         --pattern 'gcm-linux_amd*.deb' \
         --dir "$tmp_dir"
     sudo dpkg --install gcm-linux_amd*.deb
-    git-credential-manager-core configure
     rm -rf "$tmp_dir"
 }

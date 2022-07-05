@@ -51,7 +51,7 @@ install-git-credential-manager()
 # https://github.com/microsoft/artifacts-credprovider#installation-on-linux-and-mac
 install-nuget-credential-provider()
 {
-    plugin_path=${NUGET_PLUGIN_PATHS:-"$HOME/.nuget/plugins"}
+    plugin_path="$XDG_DATA_HOME/NuGet/plugins"
     uri="https://github.com/Microsoft/artifacts-credprovider/releases/latest/download/Microsoft.Net6.NuGet.CredentialProvider.tar.gz"
 
     mkdir --parents "$plugin_path"

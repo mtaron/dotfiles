@@ -39,7 +39,7 @@ export-if-unset AZURE_CONFIG_DIR "$XDG_CONFIG_HOME"/azure
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export-if-unset DOTNET_CLI_HOME "$XDG_CONFIG_HOME"/dotnet
 export-if-unset NUGET_PACKAGES "$XDG_CACHE_HOME"/nuget
-export-if-unset NUGET_PLUGIN_PATHS "$XDG_DATA_HOME"/NuGet/plugins
+export-if-unset NUGET_PLUGIN_PATHS "$XDG_DATA_HOME"/NuGet/plugins/CredentialProvider.Microsoft/CredentialProvider.Microsoft.dll
 {{- end }}
 
 {{ if lookPath "docker" -}}

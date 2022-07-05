@@ -87,14 +87,13 @@ fi
 
 # This plugin apparently doesn't work when included in the zgenom save.
 if has dotnet; then
-  export DOTNET_CLI_TELEMETRY_OPTOUT=1
   zgenom ohmyzsh plugins/dotnet
 fi
 
 # Azure CLI
-if [[ -f /usr/local/etc/bash_completion.d/az ]]; then
+if [[ -f /etc/bash_completion.d/azure-cli ]]; then
   autoload -U +X bashcompinit && bashcompinit
-  source /usr/local/etc/bash_completion.d/az
+  source /etc/bash_completion.d/azure-cli
 fi
 
 argcomplete="$(command -v register-python-argcomplete || command -v register-python-argcomplete3)"

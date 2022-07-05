@@ -47,3 +47,19 @@ install-git-credential-manager()
     sudo dpkg --install gcm-linux_amd*.deb
     rm -rf "$tmp_dir"
 }
+
+# https://github.com/microsoft/artifacts-credprovider#installation-on-linux-and-mac
+install-nuget-credential-provider()
+{
+    plugin_path=${NUGET_PLUGIN_PATHS:-"$HOME/.nuget/plugins"}
+    uri="https://github.com/Microsoft/artifacts-credprovider/releases/latest/download/Microsoft.Net6.NuGet.CredentialProvider.tar.gz"
+
+    mkdir --parents "$plugin_path"
+
+    # Remove existing plugin if it's already installed
+    rm --recursive --force "$plugin_path"/CredentialProvider.Microsoft
+
+    curl --header "Accept: application/octet-stream" \
+        --show-error --silent --fail --location \
+        "$uri" | tar --extract --ungzip --strip-components=2 --directory "$plugin_path" "plugins/netcore"
+}

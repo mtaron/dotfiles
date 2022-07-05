@@ -35,3 +35,16 @@ install-helm()
 {
     HELM_INSTALL_DIR=$XDG_BIN_DIR get-helm-3 --no-sudo
 }
+
+# https://github.com/GitCredentialManager/git-credential-manager#download-and-install
+install-git-credential-manager()
+{
+    tmp_dir=$(mktemp -d)
+    gh release download \
+        --repo GitCredentialManager/git-credential-manager \
+        --pattern 'gcm-linux_amd*.deb' \
+        --dir "$tmp_dir"
+    sudo dpkg --install gcm-linux_amd*.deb
+    git-credential-manager-core configure
+    rm -rf "$tmp_dir"
+}

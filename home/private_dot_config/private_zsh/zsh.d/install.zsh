@@ -63,3 +63,14 @@ install-nuget-credential-provider()
         --show-error --silent --fail --location \
         "$uri" | tar --extract --ungzip --strip-components=2 --directory "$plugin_path" "plugins/netcore"
 }
+
+# https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10#download-azcopy
+install-azcopy()
+{
+    rm --force "$XDG_BIN_DIR"/azcopy
+
+    curl --header "Accept: application/octet-stream" \
+        --show-error --silent --fail --location \
+        https://aka.ms/downloadazcopy-v10-linux \
+    | tar --extract --ungzip --directory "$XDG_BIN_DIR" --strip-components=1 --wildcards "*/azcopy"
+}

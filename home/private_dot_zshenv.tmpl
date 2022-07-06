@@ -43,6 +43,11 @@ export-if-unset NUGET_PLUGIN_PATHS "$XDG_DATA_HOME"/NuGet/plugins/CredentialProv
 export PATH="$DOTNET_CLI_HOME/.dotnet/tools:$PATH"
 {{- end }}
 
+{{ if lookPath "azcopy" -}}
+export AZCOPY_JOB_PLAN_LOCATION="$XDG_CACHE_HOME"/azcopy
+export AZCOPY_LOG_LOCATION=/tmp/azcopy
+{{- end }}
+
 {{ if lookPath "docker" -}}
 export DOCKER_BUILDKIT=1
 export-if-unset DOCKER_CONFIG "$XDG_CONFIG_HOME/docker"

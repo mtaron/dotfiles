@@ -1,4 +1,5 @@
 {
+    "azureFunctions.showProjectWarning": false,
     "cfnLint.validateUsingJsonSchema": true,
     "diffEditor.renderSideBySide": false,
     "dotfiles.installCommand": "~/.local/share/chezmoi/install.sh",

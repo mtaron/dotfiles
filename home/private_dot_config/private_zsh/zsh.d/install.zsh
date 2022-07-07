@@ -74,3 +74,31 @@ install-azcopy()
         https://aka.ms/downloadazcopy-v10-linux \
     | tar --extract --ungzip --directory "$XDG_BIN_DIR" --strip-components=1 --wildcards "*/azcopy"
 }
+
+
+# https://github.com/Azure/kubelogin
+install-kubelogin()
+{
+    rm --force "$XDG_BIN_DIR"/kubelogin
+
+    tmp_dir=$(mktemp -d)
+    gh release download \
+        --repo Azure/kubelogin \
+        --pattern 'kubelogin-linux-amd64.zip' \
+        --dir "$tmp_dir"
+    unzip -j -d "$XDG_BIN_DIR" "$tmp_dir"/kubelogin-linux-amd64.zip
+    rm -rf "$tmp_dir"
+}
+
+install-pulumi()
+{
+    rm --force "$XDG_BIN_DIR"/pulumi*
+
+    tmp_dir=$(mktemp -d)
+    gh release download \
+        --repo pulumi/pulumi \
+        --pattern 'pulumi-*-linux-x64.tar.gz' \
+        --dir "$tmp_dir"
+    tar --extract --ungzip --directory "$XDG_BIN_DIR" --strip-components=1 --file "$tmp_dir"/pulumi-*-linux-x64.tar.gz
+    rm -rf "$tmp_dir"
+}

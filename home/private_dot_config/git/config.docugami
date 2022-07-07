@@ -1,3 +1,0 @@
-[credential "azrepos:org/classifyprocess"]
-	azureAuthority = https://login.microsoftonline.com/36a81f24-9b50-497e-9bf9-927de14bb0ab
-	username = mtaron@docugami.com

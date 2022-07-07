@@ -54,8 +54,3 @@ export-if-unset DOCKER_CONFIG "$XDG_CONFIG_HOME/docker"
 {{- else if lookPath "podman" -}}
 export-if-unset DOCKER_HOST "unix:///run/user/$(id -u)/podman/podman.sock"
 {{- end }}
-
-{{ if lookPath "kubectl" -}}
-export-if-unset KUBECONFIG "$XDG_CONFIG_HOME/kubectl"
-export-if-unset KUBECACHEDIR "$XDG_CACHE_HOME/kubectl"
-{{- end }}

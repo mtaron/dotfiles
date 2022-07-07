@@ -1,5 +1,6 @@
 {
     "azureFunctions.showProjectWarning": false,
+    "azureFunctions.showPythonVenvWarning": false,
     "cfnLint.validateUsingJsonSchema": true,
     "diffEditor.renderSideBySide": false,
     "dotfiles.installCommand": "~/.local/share/chezmoi/install.sh",
@@ -20,9 +21,10 @@
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
     "git.autofetch": true,
-    "git.branchPrefix": "mtaron",
+    "git.branchPrefix": "mtaron/",
     "git.confirmSync": false,
     "git.enableSmartCommit": true,
+    "git.mergeEditor": true,
     "python.terminal.activateEnvironment": false,
     "redhat.telemetry.enabled": false,
     "telemetry.telemetryLevel": "off",

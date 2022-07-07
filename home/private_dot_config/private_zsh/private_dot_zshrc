@@ -80,6 +80,7 @@ if ! zgenom saved; then
   has kubectl && kubectl completion zsh > "$ZSH_COMPLETIONS/_kubectl"
   has k3d && k3d completion zsh > "$ZSH_COMPLETIONS/_k3d"
   has helm && helm completion zsh > "$ZSH_COMPLETIONS/_helm"
+  has pulumi && pulumi gen-completion zsh > "$ZSH_COMPLETIONS/"_pulumi
   [[ -d "$ZSH_COMPLETIONS" ]] && zgenom load "$ZSH_COMPLETIONS"
 
   zgenom save

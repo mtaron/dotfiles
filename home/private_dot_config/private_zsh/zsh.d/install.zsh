@@ -102,3 +102,12 @@ install-pulumi()
     tar --extract --ungzip --directory "$XDG_BIN_DIR" --strip-components=1 --file "$tmp_dir"/pulumi-*-linux-x64.tar.gz
     rm -rf "$tmp_dir"
 }
+
+# https://support.zoom.us/hc/en-us/articles/204206269-Installing-or-updating-Zoom-on-Linux
+install-zoom()
+{
+    tmp_dir=$(mktemp -d)
+    curl --show-error --silent --fail --location https://zoom.us/client/latest/zoom_amd64.deb --output "$tmp_dir/zoom_amd64.deb"
+    sudo apt install "$tmp_dir/zoom_amd64.deb"
+    rm -rf "$tmp_dir"
+}

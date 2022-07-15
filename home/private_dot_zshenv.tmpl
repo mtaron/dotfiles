@@ -23,6 +23,8 @@ export-if-unset()
     [[ -v $1 ]] || export $1="$2"
 }
 
+export-if-unset PYENV_ROOT "$XDG_DATA_HOME/pyenv"
+
 {{ if lookPath "aws" -}}
 # https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html#envvars-list
 export-if-unset AWS_CONFIG_FILE "$XDG_CONFIG_HOME/aws/config"
@@ -53,4 +55,8 @@ export DOCKER_BUILDKIT=1
 export-if-unset DOCKER_CONFIG "$XDG_CONFIG_HOME/docker"
 {{- else if lookPath "podman" -}}
 export-if-unset DOCKER_HOST "unix:///run/user/$(id -u)/podman/podman.sock"
+{{- end }}
+
+{{ if lookPath "pyenv" -}}
+eval "$(pyenv init --path)"
 {{- end }}

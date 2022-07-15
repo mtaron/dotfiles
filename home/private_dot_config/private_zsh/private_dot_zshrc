@@ -51,6 +51,8 @@ if ! zgenom saved; then
 
   has kubectl && zgenom ohmyzsh plugins/kubectx
 
+  has pyenv && zgenom ohmyzsh plugins/pyenv
+
   # SSH keys are subkeys of GPG
   # https://opensource.com/article/19/4/gpg-subkeys-ssh
   zgenom ohmyzsh plugins/gpg-agent

@@ -13,10 +13,10 @@ install-vs-code()
         | tar --extract --ungzip --directory "$XDG_DATA_HOME" --transform s/VSCode-linux-x64/vscode/
 
     # Create a symbolic link to add code to the path
-    ln -sf "$code_dir/bin/code" "$XDG_BIN_DIR/code"
+    ln --symbolic --force "$code_dir/bin/code" "$XDG_BIN_DIR/code"
 
     # Create a symbolic link for zsh completions
-    ln -sf "$code_dir/resources/completions/zsh/_code" "$ZDOTDIR/completions/_code"
+    ln --symbolic --force "$code_dir/resources/completions/zsh/_code" "$ZDOTDIR/completions/_code"
 }
 
 # Installs the latest k3d using the GitHub CLI
@@ -110,4 +110,13 @@ install-zoom()
     curl --show-error --silent --fail --location https://zoom.us/client/latest/zoom_amd64.deb --output "$tmp_dir/zoom_amd64.deb"
     sudo apt install "$tmp_dir/zoom_amd64.deb"
     rm -rf "$tmp_dir"
+}
+
+# https://github.com/pyenv/pyenv-installer
+install-pyenv()
+{
+    export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
+    curl --show-error --silent --fail --location https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+
+    ln --symbolic --force "$PYENV_ROOT/bin/pyenv" "$XDG_BIN_DIR/pyenv"
 }

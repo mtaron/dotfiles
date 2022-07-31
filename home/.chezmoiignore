@@ -20,6 +20,7 @@
 .local/share/applications/vscode.desktop
 .local/share/applications/code-url-handler.desktop
 .local/share/applications/defaults.list
+.local/share/applications/kitty.desktop
 {{- end }}
 
 {{ if or (ne .chezmoi.os "linux") .transient -}}

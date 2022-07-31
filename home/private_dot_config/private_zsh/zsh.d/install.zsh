@@ -23,7 +23,7 @@ install-vs-code()
 # https://github.com/k3d-io/k3d/
 install-k3d()
 {
-    tmp_dir=$(mktemp -d)
+    tmp_dir=$(mktemp --directory)
     gh release download --repo k3d-io/k3d --pattern k3d-linux-amd64 --dir "$tmp_dir"
     chmod 700 "$tmp_dir/k3d-linux-amd64"
     mv -f "$tmp_dir/k3d-linux-amd64" "$XDG_BIN_DIR/k3d"
@@ -39,7 +39,7 @@ install-helm()
 # https://github.com/GitCredentialManager/git-credential-manager#download-and-install
 install-git-credential-manager()
 {
-    tmp_dir=$(mktemp -d)
+    tmp_dir=$(mktemp --directory)
     gh release download \
         --repo GitCredentialManager/git-credential-manager \
         --pattern 'gcm-linux_amd*.deb' \
@@ -81,7 +81,7 @@ install-kubelogin()
 {
     rm --force "$XDG_BIN_DIR"/kubelogin
 
-    tmp_dir=$(mktemp -d)
+    tmp_dir=$(mktemp --directory)
     gh release download \
         --repo Azure/kubelogin \
         --pattern 'kubelogin-linux-amd64.zip' \
@@ -94,7 +94,7 @@ install-pulumi()
 {
     rm --force "$XDG_BIN_DIR"/pulumi*
 
-    tmp_dir=$(mktemp -d)
+    tmp_dir=$(mktemp --directory)
     gh release download \
         --repo pulumi/pulumi \
         --pattern 'pulumi-*-linux-x64.tar.gz' \
@@ -106,7 +106,7 @@ install-pulumi()
 # https://support.zoom.us/hc/en-us/articles/204206269-Installing-or-updating-Zoom-on-Linux
 install-zoom()
 {
-    tmp_dir=$(mktemp -d)
+    tmp_dir=$(mktemp --directory)
     curl --show-error --silent --fail --location https://zoom.us/client/latest/zoom_amd64.deb --output "$tmp_dir/zoom_amd64.deb"
     sudo apt install "$tmp_dir/zoom_amd64.deb"
     rm -rf "$tmp_dir"
@@ -119,4 +119,28 @@ install-pyenv()
     curl --show-error --silent --fail --location https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 
     ln --symbolic --force "$PYENV_ROOT/bin/pyenv" "$XDG_BIN_DIR/pyenv"
+}
+
+# https://sw.kovidgoyal.net/kitty/binary/#install-kitty
+install-kitty()
+{
+    destination="$XDG_DATA_HOME"/kitty
+
+    rm --recursive --force "$destination"
+
+    tmp_dir=$(mktemp --directory)
+
+    gh release download \
+        --repo kovidgoyal/kitty \
+        --pattern 'kitty*x86_64.txz' \
+        --dir "$tmp_dir"
+
+    mkdir "$destination"
+    tar --extract --xz \
+        --directory "$destination" \
+        --file "$tmp_dir"/*x86_64.txz
+
+    rm --recursive --force "$tmp_dir"
+
+    ln --symbolic --force "$destination"/bin/kitty "$XDG_BIN_DIR"/kitty
 }

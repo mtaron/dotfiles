@@ -18,16 +18,3 @@ bindkey '^K' backward-kill-line
 
 # esc: break
 bindkey '\e' send-break
-
-# zsh selection doesn't automatically map to the system clipboard
-# https://unix.stackexchange.com/a/51938
-# clipcopy is defined in oh-my-zsh and might require xclip to be installed on linux.
-# x-copy-region-as-kill() {
-#   zle copy-region-as-kill
-#   printf %s "$CUTBUFFER" | clipcopy 2>/dev/null || true
-# }
-
-# # This binding is only needed doing shift-selection and doesn't work in GNOME terminal,
-# # but VS Code works great.
-# zle -N x-copy-region-as-kill
-# bindkey -M shift-select '^C' x-copy-region-as-kill

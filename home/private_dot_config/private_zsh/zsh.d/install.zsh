@@ -144,3 +144,21 @@ install-kitty()
 
     ln --symbolic --force "$destination"/bin/kitty "$XDG_BIN_DIR"/kitty
 }
+
+# Temporary workaround for https://github.com/cli/cli/issues/6175
+install-gh()
+{
+    tmp_dir=$(mktemp --directory)
+
+    download_url=$(
+        curl --silent --location --show-error --fail https://api.github.com/repos/cli/cli/releases/latest \
+        | jq -r '.assets[] | select(.name | test(".*_linux_amd64.deb$")) | .browser_download_url' )
+
+    curl --show-error --silent --fail --location $download_url --output "$tmp_dir"/gh.deb
+
+    sudo dpkg --install "$tmp_dir"/gh.deb
+
+    rm "$tmp_dir"/gh.deb
+
+    gh --version
+}

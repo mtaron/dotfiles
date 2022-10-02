@@ -17,6 +17,8 @@ install-vs-code()
 
     # Create a symbolic link for zsh completions
     ln --symbolic --force "$code_dir/resources/completions/zsh/_code" "$ZDOTDIR/completions/_code"
+
+    code --version
 }
 
 # Installs the latest k3d using the GitHub CLI
@@ -28,12 +30,16 @@ install-k3d()
     chmod 700 "$tmp_dir/k3d-linux-amd64"
     mv -f "$tmp_dir/k3d-linux-amd64" "$XDG_BIN_DIR/k3d"
     rm -rf "$tmp_dir"
+
+    k3d --version
 }
 
 # https://helm.sh/docs/intro/install/#from-script
 install-helm()
 {
     HELM_INSTALL_DIR=$XDG_BIN_DIR get-helm-3 --no-sudo
+
+    helm version
 }
 
 # https://github.com/GitCredentialManager/git-credential-manager#download-and-install
@@ -74,7 +80,6 @@ install-azcopy()
         https://aka.ms/downloadazcopy-v10-linux \
     | tar --extract --ungzip --directory "$XDG_BIN_DIR" --strip-components=1 --wildcards "*/azcopy"
 }
-
 
 # https://github.com/Azure/kubelogin
 install-kubelogin()
@@ -121,44 +126,22 @@ install-pyenv()
     ln --symbolic --force "$PYENV_ROOT/bin/pyenv" "$XDG_BIN_DIR/pyenv"
 }
 
-# https://sw.kovidgoyal.net/kitty/binary/#install-kitty
-install-kitty()
+update-tools()
 {
-    destination="$XDG_DATA_HOME"/kitty
-
-    rm --recursive --force "$destination"
-
-    tmp_dir=$(mktemp --directory)
-
-    gh release download \
-        --repo kovidgoyal/kitty \
-        --pattern 'kitty*x86_64.txz' \
-        --dir "$tmp_dir"
-
-    mkdir "$destination"
-    tar --extract --xz \
-        --directory "$destination" \
-        --file "$tmp_dir"/*x86_64.txz
-
-    rm --recursive --force "$tmp_dir"
-
-    ln --symbolic --force "$destination"/bin/kitty "$XDG_BIN_DIR"/kitty
+    zgenom selfupdate
+    has azcopy && install-azcopy
+    has chezmoi && chezmoi upgrade
+    has helm && install-helm
+    has k3d && install-k3d
+    has kubelogin && install-kubelogin
+    has pulumi && install-pulumi
+    has pyenv && install-pyenv
+    has code && install-vs-code
+    [[ -d "$XDG_DATA_HOME/NuGet/plugins" ]] && install-nuget-credential-provider
 }
 
-# Temporary workaround for https://github.com/cli/cli/issues/6175
-install-gh()
+update-tools-sudo()
 {
-    tmp_dir=$(mktemp --directory)
-
-    download_url=$(
-        curl --silent --location --show-error --fail https://api.github.com/repos/cli/cli/releases/latest \
-        | jq -r '.assets[] | select(.name | test(".*_linux_amd64.deb$")) | .browser_download_url' )
-
-    curl --show-error --silent --fail --location $download_url --output "$tmp_dir"/gh.deb
-
-    sudo dpkg --install "$tmp_dir"/gh.deb
-
-    rm "$tmp_dir"/gh.deb
-
-    gh --version
+    has git-credential-manager-core && install-git-credential-manager
+    has zoom && install-zoom
 }

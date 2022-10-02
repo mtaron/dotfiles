@@ -2,12 +2,12 @@ reset-shell()
 {
     chezmoi apply
     zgenom reset
-    exec zsh
+    zsh
 }
 
 update-shell()
 {
     zgenom update
     chezmoi update
-    exec zsh
+    zsh
 }

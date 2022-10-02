@@ -77,5 +77,6 @@
         "!Select sequence",
         "!Split",
         "!Split sequence"
-    ]
+    ],
+    "terminal.integrated.shellIntegration.enabled": false
 }

@@ -108,6 +108,33 @@ install-pulumi()
     rm -rf "$tmp_dir"
 }
 
+install-task()
+{
+    task_dir="$XDG_DATA_HOME/task"
+
+    # Remove old install
+    rm -rf "$task_dir"
+
+    mkdir "$task_dir"
+
+    tmp_dir=$(mktemp --directory)
+    gh release download \
+        --repo go-task/task \
+        --pattern 'task_linux_amd64.tar.gz' \
+        --dir "$tmp_dir"
+    tar --extract --ungzip --directory "$task_dir" --file "$tmp_dir"/task_linux_amd64.tar.gz
+
+    # Create a symbolic link to add task to the path
+    ln --symbolic --force "$task_dir/task" "$XDG_BIN_DIR/task"
+
+    # Create a symbolic link for zsh completions
+    ln --symbolic --force "$task_dir/completion/zsh/_task" "$ZDOTDIR/completions/_task"
+
+    rm -rf "$tmp_dir"
+
+    task --version
+}
+
 # https://support.zoom.us/hc/en-us/articles/204206269-Installing-or-updating-Zoom-on-Linux
 install-zoom()
 {
@@ -137,6 +164,7 @@ update-tools()
     has pulumi && install-pulumi
     has pyenv && install-pyenv
     has code && install-vs-code
+    has task && install-task
     [[ -d "$XDG_DATA_HOME/NuGet/plugins" ]] && install-nuget-credential-provider
 }
 

@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+# https://github.com/neersighted/dotfiles/blob/master/home/private_dot_config/git/executable_keycommand.sh
+
 set -e
 
 GITHUB_USER="mtaron"

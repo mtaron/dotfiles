@@ -156,6 +156,24 @@ install-pyenv()
     ln --symbolic --force "$PYENV_ROOT/bin/pyenv" "$XDG_BIN_DIR/pyenv"
 }
 
+# https://github.com/auth0/auth0-cli#linux
+install-auth0-cli()
+{
+    rm --force "$XDG_BIN_DIR"/auth0
+
+    tmp_dir=$(mktemp --directory)
+    gh release download \
+        --repo auth0/auth0-cli \
+        --pattern 'auth0-cli_*_Linux_x86_64.tar.gz' \
+        --dir "$tmp_dir"
+
+    tar --extract --ungzip --directory "$XDG_BIN_DIR" --file "$tmp_dir"/auth0-cli_*_Linux_x86_64.tar.gz
+
+    rm -rf "$tmp_dir"
+
+    auth0 --version
+}
+
 update-tools()
 {
     zgenom selfupdate
@@ -168,6 +186,7 @@ update-tools()
     has pyenv && install-pyenv
     has code && install-vs-code
     has task && install-task
+    has auth0 && install-auth0-cli
     [[ -d "$XDG_DATA_HOME/NuGet/plugins" ]] && install-nuget-credential-provider
 }
 

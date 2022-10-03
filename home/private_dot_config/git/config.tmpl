@@ -2,9 +2,6 @@
 	name = {{ .user.name }}
 	email = {{ .user.email }}
 
-[commit]
-	gpgSign = true
-
 [pull]
 	ff = true
 	rebase = true
@@ -31,6 +28,11 @@
 {{- end }}
 [credential "https://dev.azure.com"]
 	useHttpPath = true
+
+[gpg]
+	format = ssh
+[gpg.ssh]
+	defaultKeyCommand = {{ .chezmoi.homeDir }}/.config/git/keycommand.sh
 
 [init]
 	defaultBranch = main

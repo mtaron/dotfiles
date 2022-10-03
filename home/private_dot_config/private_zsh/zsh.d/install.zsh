@@ -48,9 +48,9 @@ install-git-credential-manager()
     tmp_dir=$(mktemp --directory)
     gh release download \
         --repo GitCredentialManager/git-credential-manager \
-        --pattern 'gcm-linux_amd*.deb' \
+        --pattern 'gcm-linux_amd64.*.deb' \
         --dir "$tmp_dir"
-    sudo dpkg --install gcm-linux_amd*.deb
+    sudo dpkg --install "$tmp_dir"/gcm-linux_amd64.*.deb
     rm -rf "$tmp_dir"
 }
 
@@ -148,6 +148,9 @@ install-zoom()
 install-pyenv()
 {
     export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
+
+    rm -rf "$PYENV_ROOT"
+
     curl --show-error --silent --fail --location https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 
     ln --symbolic --force "$PYENV_ROOT/bin/pyenv" "$XDG_BIN_DIR/pyenv"

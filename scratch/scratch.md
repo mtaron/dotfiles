@@ -79,3 +79,7 @@ fonts-cascadia-code
 
 
 > Use `gh auth login --scopes=read:packages` in order to pull packages from GHCR.
+
+
+https://developer.1password.com/docs/cli/get-started/#install
+

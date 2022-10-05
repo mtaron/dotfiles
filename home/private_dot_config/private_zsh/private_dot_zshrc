@@ -53,10 +53,6 @@ if ! zgenom saved; then
 
   has pyenv && zgenom ohmyzsh plugins/pyenv
 
-  # SSH keys are subkeys of GPG
-  # https://opensource.com/article/19/4/gpg-subkeys-ssh
-  zgenom ohmyzsh plugins/gpg-agent
-
   # Fuzzy history search
   # https://github.com/junegunn/fzf
   zgenom ohmyzsh plugins/fzf
@@ -83,7 +79,7 @@ if ! zgenom saved; then
   has k3d && k3d completion zsh > "$ZSH_COMPLETIONS/_k3d"
   has helm && helm completion zsh > "$ZSH_COMPLETIONS/_helm"
   has pulumi && pulumi gen-completion zsh > "$ZSH_COMPLETIONS/_pulumi"
-  has auth0 && auth0 completion zsh > "$ZSH_COMPLETIONS/_auth0"
+  has op && op completion zsh > "$ZSH_COMPLETIONS/_op"
   [[ -d "$ZSH_COMPLETIONS" ]] && zgenom load "$ZSH_COMPLETIONS"
 
   zgenom save

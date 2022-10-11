@@ -1,6 +1,16 @@
 [user]
 	name = {{ .user.name }}
 	email = {{ .user.email }}
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBxrqgACvlX4mbARRNnm6SJpq/7GKMFGXpFjjinOhUpR
+
+[gpg]
+	format = ssh
+
+[gpg "ssh"]
+	program = "/opt/1Password/op-ssh-sign"
+
+[commit]
+	gpgsign = true
 
 [pull]
 	ff = true
@@ -28,7 +38,6 @@
 {{- end }}
 [credential "https://dev.azure.com"]
 	useHttpPath = true
-
 
 [init]
 	defaultBranch = main

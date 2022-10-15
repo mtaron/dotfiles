@@ -6,11 +6,13 @@
 [gpg]
 	format = ssh
 
+{{ if stat "/opt/1Password/op-ssh-sign" }}
 [gpg "ssh"]
 	program = "/opt/1Password/op-ssh-sign"
 
 [commit]
 	gpgsign = true
+{{ end }}
 
 [pull]
 	ff = true

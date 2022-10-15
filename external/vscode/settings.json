@@ -78,5 +78,8 @@
         "!Split",
         "!Split sequence"
     ],
-    "terminal.integrated.shellIntegration.enabled": false
+    "terminal.integrated.shellIntegration.enabled": false,
+    "git.pullBeforeCheckout": true,
+    "terminal.integrated.smoothScrolling": true,
+    "markdown.validate.enabled": true
 }

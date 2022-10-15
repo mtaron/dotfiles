@@ -33,6 +33,6 @@
 .config/docker/config.json
 {{- end }}
 
-{{ if not (stat "/opt/1Password") -}}
+{{ if or (not (stat "/opt/1Password")) .transient -}}
 .ssh/config
 {{- end }}

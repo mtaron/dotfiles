@@ -46,7 +46,7 @@
     "workbench.enableExperiments": false,
     "workbench.list.smoothScrolling": true,
     "workbench.startupEditor": "none",
-    "remote.containers.defaultExtensions": [
+    "dev.containers.defaultExtensions": [
         "eamodio.gitlens"
     ],
     "yaml.customTags": [

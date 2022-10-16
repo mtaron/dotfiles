@@ -25,6 +25,10 @@ export-if-unset()
 
 export-if-unset PYENV_ROOT "$XDG_DATA_HOME/pyenv"
 
+{{ if lookPath "terraform" -}}
+export-if-unset TF_CLI_CONFIG_FILE "$XDG_CONFIG_HOME/terraform/terraformrc"
+{{- end }}
+
 {{ if lookPath "aws" -}}
 # https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html#envvars-list
 export-if-unset AWS_CONFIG_FILE "$XDG_CONFIG_HOME/aws/config"

@@ -53,6 +53,11 @@ if ! zgenom saved; then
 
   has pyenv && zgenom ohmyzsh plugins/pyenv
 
+  if has terraform; then
+    mkdir --parents "$XDG_CACHE_HOME/terraform/plugins"
+    zgenom ohmyzsh plugins/terraform
+  fi
+
   # Fuzzy history search
   # https://github.com/junegunn/fzf
   zgenom ohmyzsh plugins/fzf

@@ -32,7 +32,3 @@
 .local/bin/docker-credential-gh
 .config/docker/config.json
 {{- end }}
-
-{{ if or (not (stat "/opt/1Password")) .transient -}}
-.ssh/config
-{{- end }}

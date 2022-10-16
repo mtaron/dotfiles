@@ -1,18 +1,13 @@
 [user]
 	name = {{ .user.name }}
 	email = {{ .user.email }}
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBxrqgACvlX4mbARRNnm6SJpq/7GKMFGXpFjjinOhUpR
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILAaPwK+CJJZPjw8dH9fLqiMsoLOojmIvmAhIuxHzZhj
 
 [gpg]
 	format = ssh
 
-{{ if stat "/opt/1Password/op-ssh-sign" }}
-[gpg "ssh"]
-	program = "/opt/1Password/op-ssh-sign"
-
 [commit]
 	gpgsign = true
-{{ end }}
 
 [pull]
 	ff = true

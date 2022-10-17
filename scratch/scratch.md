@@ -83,3 +83,9 @@ fonts-cascadia-code
 
 https://developer.1password.com/docs/cli/get-started/#install
 
+If you copy a SSH key to another machine, you need to do this:
+
+chmod 600 id_rsa
+chmod 644 id_rsa.pub
+
+https://stackoverflow.com/a/51564078

@@ -1,0 +1,13 @@
+# Reference: https://learning.postman.com/docs/getting-started/installation-and-updates/#installing-postman-on-linux
+
+[Desktop Entry]
+Name=Postman
+Exec=/home/mtaron/.local/share/postman/Postman %U
+Icon=/home/mtaron/.local/share/postman/icons/icon_128x128.png
+Terminal=false
+Type=Application
+StartupNotify=false
+Encoding=UTF-8
+Categories=Development;
+MimeType=x-scheme-handler/postman
+Keywords=postman;

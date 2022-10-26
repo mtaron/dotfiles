@@ -156,6 +156,22 @@ install-pyenv()
     ln --symbolic --force "$PYENV_ROOT/bin/pyenv" "$XDG_BIN_DIR/pyenv"
 }
 
+# https://learning.postman.com/docs/getting-started/installation-and-updates/#installing-postman-on-linux
+install-postman()
+{
+    postman_dir="$XDG_DATA_HOME/postman"
+
+    # Remove old install
+    rm -rf "$postman_dir"
+
+    mkdir "$postman_dir"
+
+    curl --show-error --silent --fail \
+        --header "Accept: application/octet-stream" \
+        --location https://dl.pstmn.io/download/latest/linux64 \
+        | tar --extract --ungzip --directory "$postman_dir" --strip-components=2
+}
+
 update-tools()
 {
     zgenom selfupdate

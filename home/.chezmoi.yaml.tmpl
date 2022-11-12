@@ -23,22 +23,17 @@
 {{- $headless  := false -}}{{/* no graphical interface */}}
 {{- $transient := false -}}{{/* temporary machine (VM/cloud instances/container) */}}
 
-{{- if .configured -}}
-{{-   $headless  = .headless -}}
-{{-   $transient = .transient -}}
-{{- else -}}
 {{- /* preset detection */ -}}
-{{-   if $devcontainer -}}
-{{-     $headless  = true -}}
-{{-     $transient = true -}}
-{{-   end -}}
+{{- if $devcontainer -}}
+{{-   $headless  = true -}}
+{{-   $transient = true -}}
+{{- end -}}
 {{/* base configration */}}
-{{-   if and (not $headless) stdinIsATTY -}}
-{{-       $headless = promptBool "headless" false -}}
-{{-   end -}}
-{{-   if and (not $transient) stdinIsATTY -}}
-{{-       $transient = promptBool "transient" false -}}
-{{-   end -}}
+{{- if and (not $headless) stdinIsATTY -}}
+{{-     $headless = promptBoolOnce "headless" false -}}
+{{- end -}}
+{{- if and (not $transient) stdinIsATTY -}}
+{{-     $transient = promptBoolOnce "transient" false -}}
 {{- end -}}
 
 {{- /* email configuration */ -}}
@@ -46,7 +41,7 @@
 {{- $defaultEmail := "michael@taron.dev" -}}
 {{- if not $email -}}
 {{-   if stdinIsATTY -}}
-{{-     $email = promptString "email" $defaultEmail -}}
+{{-     $email = promptStringOnce "email" $defaultEmail -}}
 {{-   else -}}
 {{-     $email = $defaultEmail -}}
 {{-   end -}}
@@ -57,8 +52,6 @@
 #  pager: "cat"
 
 data:
-  configured: true  {{- /* This is false if chezmoi init has not been run before */}}
-
   {{/* These all need to be lowercase or referencing them won't work
          https://www.chezmoi.io/user-guide/frequently-asked-questions/design/#why-does-chezmoi-convert-all-my-template-variables-to-lowercase */ -}}
   headless: {{ $headless }}

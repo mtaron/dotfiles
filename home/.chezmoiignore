@@ -37,3 +37,7 @@
 {{ if not (lookPath "terraform") -}}
 .config/terraform/
 {{- end }}
+
+{{ if not (lookPath "pnpm") -}}
+.config/zsh/completions/_pnpm
+{{- end }}

@@ -16,3 +16,5 @@ alias dotfiles='code $XDG_DATA_HOME/chezmoi'
 alias activate='source .venv/bin/activate'
 
 alias psudo='sudo env "PATH=$PATH"'
+
+alias pn='pnpm'

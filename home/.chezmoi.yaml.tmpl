@@ -30,22 +30,14 @@
 {{- end -}}
 {{/* base configration */}}
 {{- if and (not $headless) stdinIsATTY -}}
-{{-     $headless = promptBoolOnce "headless" false -}}
+{{-     $headless = promptBoolOnce . "headless" "Headless" false -}}
 {{- end -}}
 {{- if and (not $transient) stdinIsATTY -}}
-{{-     $transient = promptBoolOnce "transient" false -}}
+{{-     $transient = promptBoolOnce . "transient" "Transient" false -}}
 {{- end -}}
 
 {{- /* email configuration */ -}}
-{{- $email := get .user "email" -}}
-{{- $defaultEmail := "michael@taron.dev" -}}
-{{- if not $email -}}
-{{-   if stdinIsATTY -}}
-{{-     $email = promptStringOnce "email" $defaultEmail -}}
-{{-   else -}}
-{{-     $email = $defaultEmail -}}
-{{-   end -}}
-{{- end -}}
+{{ $email := promptStringOnce .user "email" "Email address" "michael@taron.dev" }}
 
 #diff:
 #  {{- /* setting this empty does not work, despite the docs. */}}

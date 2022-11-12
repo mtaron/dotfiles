@@ -37,7 +37,7 @@
 {{- end -}}
 
 {{- /* email configuration */ -}}
-{{ $email := promptStringOnce .user "email" "Email address" "michael@taron.dev" }}
+{{ $email := promptStringOnce . "user.email" "Email address" "michael@taron.dev" }}
 
 #diff:
 #  {{- /* setting this empty does not work, despite the docs. */}}

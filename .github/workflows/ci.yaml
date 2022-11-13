@@ -11,10 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Install zsh
         run: |
-          sudo apt-get update
-          sudo apt-get install zsh
+          sudo apt-get update && sudo apt-get install zsh
+
       - name: chezmoi install
         run: |
           echo_task() {
@@ -36,6 +37,13 @@ jobs:
           echo_task 'Valdiate that git config and .zshrc are created'
           [[ -f "$HOME/.config/git/config" ]] || exit 1
           [[ -f "$HOME/.config/zsh/.zshrc" ]] || exit 1
+
+          echo_task 'Valdiate user email from environment variable'
+          email=$(chezmoi data | jq -r '.user.email')
+          [[ "$email" == "test@taron.dev" ]] || exit 1
+        env:
+          GIT_EMAIL: test@taron.dev
+
       - name: test environment
         run: |
           echo_task() {

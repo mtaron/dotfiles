@@ -20,10 +20,16 @@ if ! chezmoi="$(command -v chezmoi)"; then
   unset chezmoi_install_script bin_dir
 fi
 
+if [ -z "$GIT_EMAIL" ]; then
+  set_email=""
+else
+  set_email="--promptString email=$GIT_EMAIL"
+fi
+
 # POSIX way to get script's dir: https://stackoverflow.com/a/29834779/12156188
 script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
 
-set -- init --apply --source="${script_dir}"
+set -- init --apply --source="${script_dir}" "$set_email"
 
 echo "Running 'chezmoi $*'" >&2
 # exec: replace current process with chezmoi

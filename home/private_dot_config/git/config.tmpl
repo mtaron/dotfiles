@@ -24,7 +24,7 @@
 	helper = {{ lookPath "git-credential-manager-core" }}
 {{- end }}
 	azreposCredentialType = oauth
-{{- if .gnome }}
+{{- if .isGnome }}
 	credentialStore = secretservice
 {{- end }}
 [credential "https://github.com"]

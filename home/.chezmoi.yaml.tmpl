@@ -37,18 +37,15 @@
 {{- end -}}
 
 {{- /* email configuration */ -}}
-{{ $email := promptStringOnce . "user.email" "Email address" "michael@taron.dev" }}
-
-#diff:
-#  {{- /* setting this empty does not work, despite the docs. */}}
-#  pager: "cat"
+{{- $email := default "michael@taron.dev" (env "GIT_AUTHOR_EMAIL") -}}
+{{- if stdinIsATTY -}}
+{{     $email := promptStringOnce . "user.email" "Email address" $email }}
+{{- end -}}
 
 data:
-  {{/* These all need to be lowercase or referencing them won't work
-         https://www.chezmoi.io/user-guide/frequently-asked-questions/design/#why-does-chezmoi-convert-all-my-template-variables-to-lowercase */ -}}
   headless: {{ $headless }}
   transient: {{ $transient }}
-  gnome: {{ $isGnome }}
+  isGnome: {{ $isGnome }}
 
   user:
     name: "Michael Taron"

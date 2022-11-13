@@ -10,7 +10,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Install zsh
         run: |
@@ -18,47 +18,43 @@ jobs:
 
       - name: chezmoi install
         run: |
-          echo_task() {
-            printf "\033[0;34m--> %s\033[0m\n" "$*"
-          }
-
+          echo "Install"
           ./install.sh
 
-          echo_task 'home directory'
+          echo "home directory"
           ls -a $HOME
 
-          echo_task 'Valdiate that profile and .zshenv are created'
+          echo "Valdiate that profile and .zshenv are created"
           [[ -f "$HOME/.profile" ]] || exit 1
           [[ -f "$HOME/.zshenv" ]]  || exit 1
 
-          echo_task 'config directory'
+          echo "config directory"
           ls -a "$HOME/.config"
 
-          echo_task 'Valdiate that git config and .zshrc are created'
+          echo "Valdiate that git config and .zshrc are created"
           [[ -f "$HOME/.config/git/config" ]] || exit 1
           [[ -f "$HOME/.config/zsh/.zshrc" ]] || exit 1
 
-          echo_task 'Valdiate user email from environment variable'
+          echo "Valdiate user email from environment variable"
           email=$(chezmoi data | jq -r '.user.email')
           [[ "$email" == "test@taron.dev" ]] || exit 1
+
+          echo "Validate that Gnome files are excluded in CI"
+          [[ -f "$HOME/.config/user-dirs.dirs" ]] && exit 1
         env:
-          GIT_EMAIL: test@taron.dev
+          GIT_AUTHOR_EMAIL: test@taron.dev
 
       - name: test environment
         run: |
-          echo_task() {
-            printf "\033[0;34m--> %s\033[0m\n" "$*"
-          }
-
-          echo_task .profile
+          echo ".profile"
           cat "$HOME/.profile" && source "$HOME/.profile"
 
-          echo_task 'Ensure an environment variable from .profile is set'
+          echo "Ensure an environment variable from .profile is set"
           [[ -v GNUPGHOME ]] || exit 1
 
-          echo_task .zshenv
+          echo ".zshenv"
           cat "$HOME/.zshenv" && source "$HOME/.zshenv"
 
-          echo_task 'Ensure an environment variable from .zshenv is set'
+          echo "Ensure an environment variable from .zshenv is set"
           [[ -v ZSH_CACHE_DIR ]] || exit 1
         shell: zsh --errexit {0}

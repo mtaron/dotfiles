@@ -23,7 +23,7 @@ fi
 if [ -z "$GIT_EMAIL" ]; then
   set_email=""
 else
-  set_email="--promptString email=$GIT_EMAIL"
+  set_email="--promptString user.email=$GIT_EMAIL"
 fi
 
 # POSIX way to get script's dir: https://stackoverflow.com/a/29834779/12156188

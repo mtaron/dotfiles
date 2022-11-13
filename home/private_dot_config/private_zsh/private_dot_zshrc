@@ -101,6 +101,12 @@ if [[ -f /etc/bash_completion.d/azure-cli ]]; then
   source /etc/bash_completion.d/azure-cli
 fi
 
+# pnpm completions need to be sourced
+if has pnpm; then
+  alias pn='pnpm'
+  source "$ZSH_COMPLETIONS/_pnpm"
+fi
+
 argcomplete="$(command -v register-python-argcomplete || command -v register-python-argcomplete3)"
 if has pipx && [[ -f $argcomplete ]]; then
   eval "$($argcomplete pipx)"

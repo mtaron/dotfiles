@@ -40,7 +40,7 @@ jobs:
           [[ "$email" == "test@taron.dev" ]] || exit 1
 
           echo "Validate that Gnome files are excluded in CI"
-          [[ -f "$HOME/.config/user-dirs.dirs" ]] && exit 1
+          [[ ! -f "$HOME/.config/user-dirs.dirs" ]] || exit 1
         env:
           GIT_AUTHOR_EMAIL: test@taron.dev
 

@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+set -eu
+
 zsh_path="$(command -v zsh)"
 if [ "$zsh_path" ] && [ "$SHELL" != "$zsh_path" ]; then
     echo "Changing default shell to zsh"

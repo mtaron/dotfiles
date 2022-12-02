@@ -2,6 +2,7 @@
     "recommendations": [
       "mads-hartmann.bash-ide-vscode",
       "timonwong.shellcheck",
-      "tim-koehler.helm-intellisense"
+      "tim-koehler.helm-intellisense",
+      "rogalmic.bash-debug"
     ]
   }

@@ -2,16 +2,21 @@
     "shellcheck.ignorePatterns": {
         "**/*_zshenv": true,
         "**/*_zshrc*": true,
+        "**/symlink_*": true,
     },
+    "shellcheck.customArgs": [
+        "--external-sources"
+    ],
+    // Disable bashIde shellchecking since it conflicts with shellcheck extension.
+    "bashIde.shellcheckPath": "",
     "files.associations": {
-        "config.tmpl": "helm",
-        "*.yaml.tmpl": "helm",
-        "*.json.tmpl": "helm",
         ".chezmoi*.yaml": "helm",
         ".chezmoiignore": "helm",
         ".chezmoiremove": "helm",
+        "*_zshrc": "shellscript",
+        "*.sh.tmpl": "shellscript",
+        "*.tmpl": "helm",
         "**/.chezmoitemplates/*": "helm",
         "private_dot_profile": "shellscript",
-        "*.sh.tmpl": "shellscript"
     }
 }

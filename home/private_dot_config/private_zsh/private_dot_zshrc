@@ -85,6 +85,7 @@ if ! zgenom saved; then
   has helm && helm completion zsh > "$ZSH_COMPLETIONS/_helm"
   has pulumi && pulumi gen-completion zsh > "$ZSH_COMPLETIONS/_pulumi"
   has op && op completion zsh > "$ZSH_COMPLETIONS/_op"
+  has flyctl && flyctl completion zsh > "$ZSH_COMPLETIONS/_flyctl"
   [[ -d "$ZSH_COMPLETIONS" ]] && zgenom load "$ZSH_COMPLETIONS"
 
   zgenom save

@@ -8,12 +8,17 @@ else
   ZGEN_AUTOLOAD_COMPINIT=0
 fi
 
+# https://github.com/romkatv/powerlevel10k#how-do-i-initialize-direnv-when-using-instant-prompt
+(( ${+commands[direnv]} )) && emulate zsh -c "$(direnv export zsh)"
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of .zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+
+(( ${+commands[direnv]} )) && emulate zsh -c "$(direnv hook zsh)"
 
 has() {
   command -v "$1" 1>/dev/null 2>&1
@@ -22,6 +27,8 @@ has() {
 # Incrementally add history to $HISTFILE instead of waiting for shell exit.
 # This allows for running 'exec zsh' without losing history.
 setopt inc_append_history
+
+export GPG_TTY=$TTY
 
 # Location for storing plugins
 ZGEN_DIR="$XDG_CACHE_HOME/zgenom"
@@ -42,7 +49,6 @@ if ! zgenom saved; then
   # Adds 'acs' alias that lists aliases grouped by plugin
   zgenom ohmyzsh plugins/aliases
   zgenom ohmyzsh plugins/copypath
-  has direnv && zgenom ohmyzsh plugins/direnv
   has yarn && zgenom ohmyzsh plugins/yarn
 
   # Use 'acp' command to change profiles

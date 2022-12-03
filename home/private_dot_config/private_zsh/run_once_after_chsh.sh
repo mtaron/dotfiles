@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-set -eu
+set -e
 
 zsh_path="$(command -v zsh)"
 if [ "$zsh_path" ] && [ "$SHELL" != "$zsh_path" ]; then

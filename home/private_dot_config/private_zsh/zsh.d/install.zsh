@@ -21,24 +21,20 @@ install-vs-code()
     code --version
 }
 
-# Installs the latest k3d using the GitHub CLI
-# https://github.com/k3d-io/k3d/
+# https://k3d.io/
 install-k3d()
 {
-    tmp_dir=$(mktemp --directory)
-    gh release download --repo k3d-io/k3d --pattern k3d-linux-amd64 --dir "$tmp_dir"
-    chmod 700 "$tmp_dir/k3d-linux-amd64"
-    mv -f "$tmp_dir/k3d-linux-amd64" "$XDG_BIN_DIR/k3d"
-    rm -rf "$tmp_dir"
-
+    rm --force "$XDG_BIN_DIR"/k3d
+    curl --show-error --silent --fail --location "https://github.com/k3d-io/k3d/releases/latest/download/k3d-linux-amd64" \
+        --output "$XDG_BIN_DIR"/k3d
+    chmod u+x "$XDG_BIN_DIR"/k3d
     k3d --version
 }
 
 # https://helm.sh/docs/intro/install/#from-script
 install-helm()
 {
-    HELM_INSTALL_DIR=$XDG_BIN_DIR get-helm-3 --no-sudo
-
+    HELM_INSTALL_DIR="$XDG_BIN_DIR" get-helm-3 --no-sudo
     helm version
 }
 
@@ -87,11 +83,9 @@ install-kubelogin()
     rm --force "$XDG_BIN_DIR"/kubelogin
 
     tmp_dir=$(mktemp --directory)
-    gh release download \
-        --repo Azure/kubelogin \
-        --pattern 'kubelogin-linux-amd64.zip' \
-        --dir "$tmp_dir"
-    unzip -j -d "$XDG_BIN_DIR" "$tmp_dir"/kubelogin-linux-amd64.zip
+    curl --show-error --silent --fail --location "https://github.com/Azure/kubelogin/releases/latest/download/kubelogin-linux-amd64.zip" \
+        --output "$tmp_dir"/kubelogin.zip
+    unzip -j -d "$XDG_BIN_DIR" "$tmp_dir"/kubelogin.zip
     rm -rf "$tmp_dir"
 }
 
@@ -108,31 +102,28 @@ install-pulumi()
     rm -rf "$tmp_dir"
 }
 
+# https://taskfile.dev/installation/
 install-task()
 {
-    task_dir="$XDG_DATA_HOME/task"
-
-    # Remove old install
-    rm -rf "$task_dir"
-
-    mkdir "$task_dir"
-
     tmp_dir=$(mktemp --directory)
-    gh release download \
-        --repo go-task/task \
-        --pattern 'task_linux_amd64.tar.gz' \
-        --dir "$tmp_dir"
-    tar --extract --ungzip --directory "$task_dir" --file "$tmp_dir"/task_linux_amd64.tar.gz
-
-    # Create a symbolic link to add task to the path
-    ln --symbolic --force "$task_dir/task" "$XDG_BIN_DIR/task"
-
-    # Create a symbolic link for zsh completions
-    ln --symbolic --force "$task_dir/completion/zsh/_task" "$ZDOTDIR/completions/_task"
-
+    curl --show-error --silent --fail --location "https://github.com/go-task/task/releases/latest/download/task_linux_amd64.deb" \
+        --output "$tmp_dir"/task_linux_amd64.deb
+    sudo dpkg --install "$tmp_dir"/task_linux_amd64.deb
     rm -rf "$tmp_dir"
-
     task --version
+}
+
+# https://pnpm.io/installation
+install-pnpm()
+{
+    rm --force "$XDG_BIN_DIR"/pnpm
+
+    curl --show-error --silent --fail --location "https://github.com/pnpm/pnpm/releases/latest/download/pnpm-linux-x64" \
+        --output "$XDG_BIN_DIR"/pnpm
+    chmod u+x "$XDG_BIN_DIR"/pnpm
+
+    mkdir --parents "$XDG_DATA_HOME/pnpm"
+    pnpm --version
 }
 
 # https://support.zoom.us/hc/en-us/articles/204206269-Installing-or-updating-Zoom-on-Linux
@@ -150,9 +141,7 @@ install-pyenv()
     export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
 
     rm -rf "$PYENV_ROOT"
-
     curl --show-error --silent --fail --location https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
-
     ln --symbolic --force "$PYENV_ROOT/bin/pyenv" "$XDG_BIN_DIR/pyenv"
 }
 
@@ -172,6 +161,17 @@ install-postman()
         | tar --extract --ungzip --directory "$postman_dir" --strip-components=2
 }
 
+# https://github.com/FiloSottile/mkcert#linux
+install-mkcert()
+{
+    rm --force "$XDG_BIN_DIR"/mkcert
+
+    # sudo apt install libnss3-tools
+    curl --show-error --silent --fail --location "https://dl.filippo.io/mkcert/latest?for=linux/amd64" --output "$XDG_BIN_DIR"/mkcert
+    chmod u+x "$XDG_BIN_DIR"/mkcert
+    mkcert --version
+}
+
 update-tools()
 {
     zgenom selfupdate
@@ -181,9 +181,10 @@ update-tools()
     has k3d && install-k3d
     has kubelogin && install-kubelogin
     has pulumi && install-pulumi
-    has pyenv && install-pyenv
+    has pyenv && pyenv update
     has code && install-vs-code
-    has task && install-task
+    has pnpm && install-pnpm
+    has mkcert && install-mkcert
     [[ -d "$XDG_DATA_HOME/NuGet/plugins" ]] && install-nuget-credential-provider
 }
 
@@ -191,4 +192,5 @@ update-tools-sudo()
 {
     has git-credential-manager-core && install-git-credential-manager
     has zoom && install-zoom
+    has task && install-task
 }

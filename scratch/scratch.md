@@ -89,3 +89,10 @@ chmod 600 id_rsa
 chmod 644 id_rsa.pub
 
 https://stackoverflow.com/a/51564078
+
+
+Certs:
+https://www.ibm.com/docs/en/hpvs/1.2.x?topic=reference-openssl-configuration-examples
+https://betterprogramming.pub/how-to-create-trusted-ssl-certificates-for-your-local-development-13fd5aad29c6
+https://www.richud.com/wiki/Ubuntu_chrome_browser_import_self_signed_certificat
+https://www.openssl.org/docs/man1.0.2/man5/x509v3_config.html <- name constraints

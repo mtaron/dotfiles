@@ -52,5 +52,6 @@
     "terminal.integrated.shellIntegration.enabled": false,
     "git.pullBeforeCheckout": true,
     "terminal.integrated.smoothScrolling": true,
-    "markdown.validate.enabled": true
+    "markdown.validate.enabled": true,
+    "window.experimental.useSandbox": true
 }

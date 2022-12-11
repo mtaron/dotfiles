@@ -10,6 +10,7 @@ install-vs-code()
 
     # --transform renames the downloaded folder to 'vscode'
     curl --show-error --silent --fail --location "https://code.visualstudio.com/sha/download?build=stable&os=linux-x64" \
+        --header "Accept: application/octet-stream" \
         | tar --extract --ungzip --directory "$XDG_DATA_HOME" --transform s/VSCode-linux-x64/vscode/
 
     # Create a symbolic link to add code to the path
@@ -89,17 +90,17 @@ install-kubelogin()
     rm -rf "$tmp_dir"
 }
 
+# https://www.pulumi.com/docs/
 install-pulumi()
 {
     rm --force "$XDG_BIN_DIR"/pulumi*
 
-    tmp_dir=$(mktemp --directory)
-    gh release download \
-        --repo pulumi/pulumi \
-        --pattern 'pulumi-*-linux-x64.tar.gz' \
-        --dir "$tmp_dir"
-    tar --extract --ungzip --directory "$XDG_BIN_DIR" --strip-components=1 --file "$tmp_dir"/pulumi-*-linux-x64.tar.gz
-    rm -rf "$tmp_dir"
+    version=$(curl --retry 3 --fail --silent --location "https://www.pulumi.com/latest-version")
+
+    curl --show-error --silent --fail \
+        --location "https://github.com/pulumi/pulumi/releases/latest/download/pulumi-v$version-linux-x64.tar.gz" \
+        --header "Accept: application/octet-stream" \
+        | tar --extract --ungzip --directory "$XDG_BIN_DIR" --strip-components=1
 }
 
 # https://taskfile.dev/installation/

@@ -114,6 +114,25 @@ install-task()
     task --version
 }
 
+install-go()
+{
+    rm -rf "$XDG_DATA_HOME/go"
+
+    go_version=1.19
+
+    latest=$(curl --show-error --silent --fail "https://go.dev/dl/?mode=json" \
+        | jq --arg version "go$go_version" -r '.[] | select(.stable == true) | .version | select(startswith($version))')
+
+    curl --show-error --silent --fail --location "https://go.dev/dl/$latest.linux-amd64.tar.gz" \
+            --header "Accept: application/octet-stream" \
+            | tar --extract --ungzip --directory "$XDG_DATA_HOME"
+
+    ln --symbolic --force "$XDG_DATA_HOME/go/bin/go" "$XDG_BIN_DIR/go"
+    ln --symbolic --force "$XDG_DATA_HOME/go/bin/gofmt" "$XDG_BIN_DIR/gofmt"
+
+    go version
+}
+
 # https://pnpm.io/installation
 install-pnpm()
 {
@@ -186,6 +205,7 @@ update-tools()
     has code && install-vs-code
     has pnpm && install-pnpm
     has mkcert && install-mkcert
+    has go && install-go
     [[ -d "$XDG_DATA_HOME/NuGet/plugins" ]] && install-nuget-credential-provider
 }
 

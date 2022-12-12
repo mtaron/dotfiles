@@ -64,6 +64,10 @@ if ! zgenom saved; then
     zgenom ohmyzsh plugins/terraform
   fi
 
+  if has go; then
+    zgenom ohmyzsh plugins/golang
+  fi
+
   # Fuzzy history search
   # https://github.com/junegunn/fzf
   zgenom ohmyzsh plugins/fzf

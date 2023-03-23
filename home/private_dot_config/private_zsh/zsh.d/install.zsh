@@ -90,6 +90,30 @@ install-kubelogin()
     rm -rf "$tmp_dir"
 }
 
+# https://github.com/Azure/azure-functions-core-tools
+# Needed this because the package feed was not updated quickly enough
+install-azure-function-tools()
+{
+    install_path="$XDG_DATA_HOME"/azure-functions-core-tools
+    rm -rf "$install_path"
+
+    tmp_dir=$(mktemp --directory)
+
+    gh release download \
+        --repo Azure/azure-functions-core-tools \
+        --pattern 'Azure.Functions.Cli.linux-x64.*.zip' \
+        --dir "$tmp_dir"
+
+    unzip -q -d "$install_path" "$tmp_dir"/Azure.Functions.Cli.linux-x64.*.zip
+    chmod u+x "$install_path"/func
+    chmod u+x "$install_path"/gozip
+
+    ln --symbolic --force "$install_path/func" "$XDG_BIN_DIR/func"
+    ln --symbolic --force "$install_path/gozip" "$XDG_BIN_DIR/gozip"
+
+    rm -rf "$tmp_dir"
+}
+
 # https://www.pulumi.com/docs/
 install-pulumi()
 {
@@ -206,6 +230,7 @@ update-tools()
     has pnpm && install-pnpm
     has mkcert && install-mkcert
     has go && install-go
+    has func && install-azure-function-tools
     [[ -d "$XDG_DATA_HOME/NuGet/plugins" ]] && install-nuget-credential-provider
 }
 

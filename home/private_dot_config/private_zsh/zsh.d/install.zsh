@@ -22,6 +22,27 @@ install-vs-code()
     code --version
 }
 
+install-vs-code-insiders()
+{
+    code_dir="$XDG_DATA_HOME/vscode-insiders"
+
+    # Remove old install
+    rm -rf "$code_dir"
+
+    # --transform renames the downloaded folder to 'vscode-insiders'
+    curl --show-error --silent --fail --location "https://code.visualstudio.com/sha/download?build=insider&os=linux-x64" \
+        --header "Accept: application/octet-stream" \
+        | tar --extract --ungzip --directory "$XDG_DATA_HOME" --transform s/VSCode-linux-x64/vscode-insiders/
+
+    # Create a symbolic link to add code-insiders to the path
+    ln --symbolic --force "$code_dir/bin/code-insiders" "$XDG_BIN_DIR/code-insiders"
+
+    # Create a symbolic link for zsh completions
+    ln --symbolic --force "$code_dir/resources/completions/zsh/_code-insiders" "$ZDOTDIR/completions/_code-insiders"
+
+    code-insiders --version
+}
+
 # https://k3d.io/
 install-k3d()
 {

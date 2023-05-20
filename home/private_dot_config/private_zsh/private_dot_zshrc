@@ -80,7 +80,7 @@ if ! zgenom saved; then
   # Ctrl + Shift + Arrow to select by word
   zgenom load jirutka/zsh-shift-select
 
-  zgen load hlissner/zsh-autopair
+  zgenom load hlissner/zsh-autopair
 
   zgenom load romkatv/powerlevel10k powerlevel10k
 
@@ -96,6 +96,7 @@ if ! zgenom saved; then
   has pulumi && pulumi gen-completion zsh > "$ZSH_COMPLETIONS/_pulumi"
   has op && op completion zsh > "$ZSH_COMPLETIONS/_op"
   has flyctl && flyctl completion zsh > "$ZSH_COMPLETIONS/_flyctl"
+  has rye && rye self completion --shell zsh > "$ZSH_COMPLETIONS/_rye"
   [[ -d "$ZSH_COMPLETIONS" ]] && zgenom load "$ZSH_COMPLETIONS"
 
   zgenom save

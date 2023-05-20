@@ -191,6 +191,13 @@ install-pnpm()
     pnpm --version
 }
 
+# https://rye-up.com/guide/installation/#installing-rye
+install-rye()
+{
+    export RYE_HOME="$XDG_DATA_HOME/rye"
+    curl -sSf https://rye-up.com/get | bash
+}
+
 # https://support.zoom.us/hc/en-us/articles/204206269-Installing-or-updating-Zoom-on-Linux
 install-zoom()
 {
@@ -252,6 +259,7 @@ update-tools()
     has mkcert && install-mkcert
     has go && install-go
     has func && install-azure-function-tools
+    has rye && rye self update
     [[ -d "$XDG_DATA_HOME/NuGet/plugins" ]] && install-nuget-credential-provider
 }
 

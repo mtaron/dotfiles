@@ -3,7 +3,7 @@
 # This has the advantage of a clean home directory and apt update of code seems hit or miss anyways.
 install-vs-code()
 {
-    code_dir="$XDG_DATA_HOME/vscode"
+    local code_dir="$XDG_DATA_HOME/vscode"
 
     # Remove old install
     rm -rf "$code_dir"
@@ -24,7 +24,7 @@ install-vs-code()
 
 install-vs-code-insiders()
 {
-    code_dir="$XDG_DATA_HOME/vscode-insiders"
+    local code_dir="$XDG_DATA_HOME/vscode-insiders"
 
     # Remove old install
     rm -rf "$code_dir"
@@ -63,7 +63,7 @@ install-helm()
 # https://github.com/GitCredentialManager/git-credential-manager#download-and-install
 install-git-credential-manager()
 {
-    tmp_dir=$(mktemp --directory)
+    local tmp_dir=$(mktemp --directory)
     gh release download \
         --repo GitCredentialManager/git-credential-manager \
         --pattern 'gcm-linux_amd64.*.deb' \
@@ -75,8 +75,8 @@ install-git-credential-manager()
 # https://github.com/microsoft/artifacts-credprovider#installation-on-linux-and-mac
 install-nuget-credential-provider()
 {
-    plugin_path="$XDG_DATA_HOME/NuGet/plugins"
-    uri="https://github.com/Microsoft/artifacts-credprovider/releases/latest/download/Microsoft.Net6.NuGet.CredentialProvider.tar.gz"
+    local plugin_path="$XDG_DATA_HOME/NuGet/plugins"
+    local uri="https://github.com/Microsoft/artifacts-credprovider/releases/latest/download/Microsoft.Net6.NuGet.CredentialProvider.tar.gz"
 
     mkdir --parents "$plugin_path"
 
@@ -104,7 +104,7 @@ install-kubelogin()
 {
     rm --force "$XDG_BIN_DIR"/kubelogin
 
-    tmp_dir=$(mktemp --directory)
+    local tmp_dir=$(mktemp --directory)
     curl --show-error --silent --fail --location "https://github.com/Azure/kubelogin/releases/latest/download/kubelogin-linux-amd64.zip" \
         --output "$tmp_dir"/kubelogin.zip
     unzip -j -d "$XDG_BIN_DIR" "$tmp_dir"/kubelogin.zip
@@ -115,10 +115,10 @@ install-kubelogin()
 # Needed this because the package feed was not updated quickly enough
 install-azure-function-tools()
 {
-    install_path="$XDG_DATA_HOME"/azure-functions-core-tools
+    local install_path="$XDG_DATA_HOME"/azure-functions-core-tools
     rm -rf "$install_path"
 
-    tmp_dir=$(mktemp --directory)
+    local tmp_dir=$(mktemp --directory)
 
     gh release download \
         --repo Azure/azure-functions-core-tools \
@@ -140,7 +140,7 @@ install-pulumi()
 {
     rm --force "$XDG_BIN_DIR"/pulumi*
 
-    version=$(curl --retry 3 --fail --silent --location "https://www.pulumi.com/latest-version")
+    local version=$(curl --retry 3 --fail --silent --location "https://www.pulumi.com/latest-version")
 
     curl --show-error --silent --fail \
         --location "https://github.com/pulumi/pulumi/releases/latest/download/pulumi-v$version-linux-x64.tar.gz" \
@@ -151,7 +151,7 @@ install-pulumi()
 # https://taskfile.dev/installation/
 install-task()
 {
-    tmp_dir=$(mktemp --directory)
+    local tmp_dir=$(mktemp --directory)
     curl --show-error --silent --fail --location "https://github.com/go-task/task/releases/latest/download/task_linux_amd64.deb" \
         --output "$tmp_dir"/task_linux_amd64.deb
     sudo dpkg --install "$tmp_dir"/task_linux_amd64.deb
@@ -163,9 +163,9 @@ install-go()
 {
     rm -rf "$XDG_DATA_HOME/go"
 
-    go_version=1.19
+    local go_version=1.20
 
-    latest=$(curl --show-error --silent --fail "https://go.dev/dl/?mode=json" \
+    local latest=$(curl --show-error --silent --fail "https://go.dev/dl/?mode=json" \
         | jq --arg version "go$go_version" -r '.[] | select(.stable == true) | .version | select(startswith($version))')
 
     curl --show-error --silent --fail --location "https://go.dev/dl/$latest.linux-amd64.tar.gz" \
@@ -181,6 +181,8 @@ install-go()
 # https://pnpm.io/installation
 install-pnpm()
 {
+    export PNPM_HOME="$XDG_DATA_HOME/pnpm"
+
     rm --force "$XDG_BIN_DIR"/pnpm
 
     curl --show-error --silent --fail --location "https://github.com/pnpm/pnpm/releases/latest/download/pnpm-linux-x64" \
@@ -201,7 +203,7 @@ install-rye()
 # https://support.zoom.us/hc/en-us/articles/204206269-Installing-or-updating-Zoom-on-Linux
 install-zoom()
 {
-    tmp_dir=$(mktemp --directory)
+    local tmp_dir=$(mktemp --directory)
     curl --show-error --silent --fail --location https://zoom.us/client/latest/zoom_amd64.deb --output "$tmp_dir/zoom_amd64.deb"
     sudo apt install "$tmp_dir/zoom_amd64.deb"
     rm -rf "$tmp_dir"
@@ -215,22 +217,6 @@ install-pyenv()
     rm -rf "$PYENV_ROOT"
     curl --show-error --silent --fail --location https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
     ln --symbolic --force "$PYENV_ROOT/bin/pyenv" "$XDG_BIN_DIR/pyenv"
-}
-
-# https://learning.postman.com/docs/getting-started/installation-and-updates/#installing-postman-on-linux
-install-postman()
-{
-    postman_dir="$XDG_DATA_HOME/postman"
-
-    # Remove old install
-    rm -rf "$postman_dir"
-
-    mkdir "$postman_dir"
-
-    curl --show-error --silent --fail \
-        --header "Accept: application/octet-stream" \
-        --location https://dl.pstmn.io/download/latest/linux64 \
-        | tar --extract --ungzip --directory "$postman_dir" --strip-components=2
 }
 
 # https://github.com/FiloSottile/mkcert#linux

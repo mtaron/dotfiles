@@ -25,7 +25,6 @@
     "git.confirmSync": false,
     "git.enableSmartCommit": true,
     "git.mergeEditor": true,
-    "python.terminal.activateEnvironment": false,
     "redhat.telemetry.enabled": false,
     "telemetry.telemetryLevel": "off",
     "terminal.integrated.allowChords": false,

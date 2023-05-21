@@ -19,7 +19,6 @@
 {{ if or (ne .chezmoi.os "linux") .headless -}}
 .local/share/applications/vscode.desktop
 .local/share/applications/code-url-handler.desktop
-.local/share/applications/postman.desktop
 .local/share/applications/defaults.list
 .config/autostart/
 {{- end }}

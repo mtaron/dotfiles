@@ -17,4 +17,3 @@ text/x-python=vscode.desktop
 text/x-sql=vscode.desktop
 application/x-code-workspace=vscode.desktop
 x-scheme-handler/vscode=code-url-handler.desktop
-x-scheme-handler/postman=postman.desktop

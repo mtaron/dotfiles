@@ -54,5 +54,9 @@
     "terminal.integrated.smoothScrolling": true,
     "markdown.validate.enabled": true,
     "window.experimental.useSandbox": true,
-    "editor.formatOnType": true
+    "editor.formatOnType": true,
+    "shellcheck.customArgs": [
+        "--source-path=SCRIPTDIR",
+        "--external-sources"
+    ],
 }

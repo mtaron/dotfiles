@@ -102,9 +102,10 @@ if ! zgenom saved; then
   zgenom save
 fi
 
-# This plugin apparently doesn't work when included in the zgenom save.
+# These completions apparently doesn't work when included in the zgenom save.
 if has dotnet; then
-  zgenom ohmyzsh plugins/dotnet
+  alias dn='dotnet'
+  source "$ZSH_COMPLETIONS"/_dotnet_suggest
 fi
 
 # Azure CLI

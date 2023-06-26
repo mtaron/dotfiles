@@ -47,6 +47,8 @@ export-if-unset NUGET_PLUGIN_PATHS "$XDG_DATA_HOME"/NuGet/plugins/CredentialProv
 export PATH="$DOTNET_CLI_HOME/.dotnet/tools:$PATH"
 {{- end }}
 
+export-if-unset NVM_DIR "$XDG_CONFIG_HOME/nvm"
+
 {{ if lookPath "azcopy" -}}
 export AZCOPY_JOB_PLAN_LOCATION="$XDG_CACHE_HOME"/azcopy
 export AZCOPY_LOG_LOCATION=/tmp/azcopy

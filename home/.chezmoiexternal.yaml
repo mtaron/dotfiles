@@ -4,3 +4,11 @@
   url: https://github.com/jandamm/zgenom.git
   clone:
     args: [ "--depth", "1" ]
+
+# node version manager
+.config/nvm:
+  type: git-repo
+  url: https://github.com/nvm-sh/nvm.git
+  refreshPeriod: "168h"
+  clone:
+    args: [ "--depth", "1" ]

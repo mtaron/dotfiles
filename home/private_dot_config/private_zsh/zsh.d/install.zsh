@@ -251,7 +251,7 @@ update-tools()
 
 update-tools-sudo()
 {
-    has git-credential-manager-core && install-git-credential-manager
+    has git-credential-manager && install-git-credential-manager
     has zoom && install-zoom
     has task && install-task
 }

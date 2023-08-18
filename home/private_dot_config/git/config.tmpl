@@ -20,8 +20,8 @@
 	helper =
 {{- if and (lookPath "gp") .devcontainer.gitpod }}
 	helper = {{ lookPath "gp" }} credential-helper
-{{ else if lookPath "git-credential-manager-core" }}
-	helper = {{ lookPath "git-credential-manager-core" }}
+{{ else if lookPath "git-credential-manager" }}
+	helper = {{ lookPath "git-credential-manager" }}
 {{- end }}
 	azreposCredentialType = oauth
 {{- if .isGnome }}

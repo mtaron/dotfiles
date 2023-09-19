@@ -103,5 +103,11 @@
     {
         "key": "alt+`",
         "command": "workbench.action.toggleMaximizedPanel"
+    },
+    {
+        "key": "ctrl+k tab",
+        "command": "type",
+        "args": { "text": "\t" },
+        "when": "editorTextFocus"
     }
 ]

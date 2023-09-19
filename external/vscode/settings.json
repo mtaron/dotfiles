@@ -2,7 +2,6 @@
     "azureFunctions.showProjectWarning": false,
     "azureFunctions.showPythonVenvWarning": false,
     "cfnLint.validateUsingJsonSchema": true,
-    "diffEditor.renderSideBySide": false,
     "dotfiles.installCommand": "~/.local/share/chezmoi/install.sh",
     "dotfiles.repository": "https://github.com/mtaron/dotfiles.git",
     "dotfiles.targetPath": "~/.local/share/chezmoi",
@@ -17,7 +16,7 @@
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
     "extensions.ignoreRecommendations": true,
-    "files.autoSave": "afterDelay",
+    "files.autoSave": "onFocusChange",
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
     "git.autofetch": true,
@@ -52,10 +51,20 @@
     "git.pullBeforeCheckout": true,
     "terminal.integrated.smoothScrolling": true,
     "markdown.validate.enabled": true,
-    "window.experimental.useSandbox": true,
     "editor.formatOnType": true,
     "shellcheck.customArgs": [
         "--source-path=SCRIPTDIR",
         "--external-sources"
     ],
+    "python.terminal.activateEnvironment": false,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "diffEditor.renderSideBySide": false,
+    "dotnetAcquisitionExtension.existingDotnetPath": [
+        {
+            "extensionId": "ms-dotnettools.csdevkit",
+            "path": "/usr/bin/dotnet"
+        }
+    ]
 }

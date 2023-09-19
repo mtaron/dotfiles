@@ -72,6 +72,24 @@ install-git-credential-manager()
     rm -rf "$tmp_dir"
 }
 
+# https://github.com/protocolbuffers/protobuf
+install-protobuf-compiler()
+{
+    local install_path="$XDG_DATA_HOME"/protoc
+    rm -rf "$install_path"
+
+    local tmp_dir=$(mktemp --directory)
+    gh release download \
+        --repo protocolbuffers/protobuf \
+        --pattern 'protoc-*-linux-x86_64.zip' \
+        --dir "$tmp_dir"
+    unzip -q -d "$install_path" "$tmp_dir"/protoc-*-linux-x86_64.zip
+
+    ln --symbolic --force "$install_path/bin/protoc" "$XDG_BIN_DIR/protoc"
+
+    rm -rf "$tmp_dir"
+}
+
 # https://github.com/microsoft/artifacts-credprovider#installation-on-linux-and-mac
 install-nuget-credential-provider()
 {
@@ -245,6 +263,7 @@ update-tools()
     has mkcert && install-mkcert
     has go && install-go
     has func && install-azure-function-tools
+    has protoc && install-protobuf-compiler
     has rye && rye self update
     [[ -d "$XDG_DATA_HOME/NuGet/plugins" ]] && install-nuget-credential-provider
 }

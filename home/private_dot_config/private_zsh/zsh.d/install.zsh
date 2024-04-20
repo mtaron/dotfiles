@@ -60,16 +60,18 @@ install-helm()
     helm version
 }
 
-# https://github.com/GitCredentialManager/git-credential-manager#download-and-install
+# https://github.com/git-ecosystem/git-credential-manager/blob/release/docs/install.md#linux
 install-git-credential-manager()
 {
     local tmp_dir=$(mktemp --directory)
     gh release download \
-        --repo GitCredentialManager/git-credential-manager \
+        --repo git-ecosystem/git-credential-manager \
         --pattern 'gcm-linux_amd64.*.deb' \
         --dir "$tmp_dir"
     sudo dpkg --install "$tmp_dir"/gcm-linux_amd64.*.deb
     rm -rf "$tmp_dir"
+
+    git-credential-manager configure
 }
 
 # https://github.com/protocolbuffers/protobuf
@@ -88,6 +90,23 @@ install-protobuf-compiler()
     ln --symbolic --force "$install_path/bin/protoc" "$XDG_BIN_DIR/protoc"
 
     rm -rf "$tmp_dir"
+}
+
+# https://github.com/protocolbuffers/protobuf
+install-kustomize()
+{
+    rm --force "$XDG_BIN_DIR"/kustomize
+
+    local tmp_dir=$(mktemp --directory)
+    gh release download \
+        --repo kubernetes-sigs/kustomize \
+        --pattern 'kustomize_v*_linux_amd64.tar.gz' \
+        --dir "$tmp_dir"
+    tar --extract --ungzip --file "$tmp_dir"/kustomize_v*_linux_amd64.tar.gz --directory "$XDG_BIN_DIR"
+
+    rm -rf "$tmp_dir"
+
+    kustomize version
 }
 
 # https://github.com/microsoft/artifacts-credprovider#installation-on-linux-and-mac
@@ -181,7 +200,7 @@ install-go()
 {
     rm -rf "$XDG_DATA_HOME/go"
 
-    local go_version=1.20
+    local go_version=1.22
 
     local latest=$(curl --show-error --silent --fail "https://go.dev/dl/?mode=json" \
         | jq --arg version "go$go_version" -r '.[] | select(.stable == true) | .version | select(startswith($version))')
@@ -265,6 +284,7 @@ update-tools()
     has func && install-azure-function-tools
     has protoc && install-protobuf-compiler
     has rye && rye self update
+    has kustomize && install-install-kustomize
     [[ -d "$XDG_DATA_HOME/NuGet/plugins" ]] && install-nuget-credential-provider
 }
 

@@ -20,7 +20,6 @@
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
     "git.autofetch": true,
-    "git.branchPrefix": "mtaron/",
     "git.confirmSync": false,
     "git.enableSmartCommit": true,
     "git.mergeEditor": true,

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Source: https://github.com/twpayne/chezmoi/blob/master/assets/templates/install.sh
+
 # -e: exit on error
 # -u: exit on unset variables
 set -eu

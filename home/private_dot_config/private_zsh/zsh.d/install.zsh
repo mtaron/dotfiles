@@ -285,6 +285,7 @@ update-tools()
     has protoc && install-protobuf-compiler
     has rye && rye self update
     has kustomize && install-install-kustomize
+    has az && az bicep upgrade
     [[ -d "$XDG_DATA_HOME/NuGet/plugins" ]] && install-nuget-credential-provider
 }
 

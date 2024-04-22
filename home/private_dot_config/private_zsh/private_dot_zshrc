@@ -50,6 +50,8 @@ if ! zgenom saved; then
   zgenom ohmyzsh plugins/aliases
   zgenom ohmyzsh plugins/copypath
   zgenom ohmyzsh plugins/nvm
+  zgenom ohmyzsh plugins/httpie
+  has redis-cli && zgenom ohmyzsh plugins/redis-cli
   has yarn && zgenom ohmyzsh plugins/yarn
 
   # Use 'acp' command to change profiles

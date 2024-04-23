@@ -101,6 +101,7 @@ if ! zgenom saved; then
   has flyctl && flyctl completion zsh > "$ZSH_COMPLETIONS/_flyctl"
   has rye && rye self completion --shell zsh > "$ZSH_COMPLETIONS/_rye"
   has kustomize && kustomize completion zsh > "$ZSH_COMPLETIONS/_kustomize"
+  has pnpm && pnpm completion zsh > "$ZSH_COMPLETIONS/_pnpm"
   [[ -d "$ZSH_COMPLETIONS" ]] && zgenom load "$ZSH_COMPLETIONS"
 
   zgenom save

@@ -6,7 +6,6 @@
     "dotfiles.repository": "https://github.com/mtaron/dotfiles.git",
     "dotfiles.targetPath": "~/.local/share/chezmoi",
     "editor.bracketPairColorization.enabled": true,
-    "editor.cursorSmoothCaretAnimation": "on",
     "editor.fontFamily": "'Cascadia Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.fontLigatures": true,
     "editor.guides.bracketPairs": true,
@@ -35,8 +34,6 @@
     "terminal.integrated.fontWeight": "200",
     "terminal.integrated.fontWeightBold": "200",
     "terminal.integrated.scrollback": 4000,
-    "window.dialogStyle": "custom",
-    "window.titleBarStyle": "custom",
     "workbench.colorTheme": "GitHub Dark Default",
     "workbench.editor.limit.enabled": true,
     "workbench.editor.limit.perEditorGroup": true,
@@ -59,11 +56,14 @@
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter"
     },
-    "diffEditor.renderSideBySide": false,
-    "dotnetAcquisitionExtension.existingDotnetPath": [
-        {
-            "extensionId": "ms-dotnettools.csdevkit",
-            "path": "/usr/bin/dotnet"
-        }
-    ]
+    "window.dialogStyle": "custom",
+    "window.titleBarStyle": "custom",
+    "files.simpleDialog.enable": true,
+    "gitlens.showWhatsNewAfterUpgrades": false,
+    "editor.cursorSmoothCaretAnimation": "explicit",
+    "git.openRepositoryInParentFolders": "always",
+    "dotnet.automaticallyCreateSolutionInWorkspace": false,
+    "python.analysis.nodeExecutable": "node",
+    "jupyter.askForKernelRestart": false,
+    "diffEditor.renderSideBySide": false
 }

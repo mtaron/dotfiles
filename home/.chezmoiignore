@@ -3,6 +3,7 @@
 
 {{ if not .isGnome -}}
 .config/user-dirs.dirs
+files
 {{- end }}
 
 {{ if not (lookPath "batcat") -}}

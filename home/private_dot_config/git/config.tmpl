@@ -18,9 +18,7 @@
 
 [credential]
 	helper =
-{{- if and (lookPath "gp") .devcontainer.gitpod }}
-	helper = {{ lookPath "gp" }} credential-helper
-{{ else if lookPath "git-credential-manager" }}
+{{- if lookPath "git-credential-manager" }}
 	helper = {{ lookPath "git-credential-manager" }}
 {{- end }}
 	azreposCredentialType = oauth
@@ -29,7 +27,7 @@
 {{- end }}
 [credential "https://github.com"]
 	username = {{ .user.github }}
-{{- if and (lookPath "gh") (not .devcontainer.gitpod) }}
+{{- if lookPath "gh" }}
 	helper =
 	helper = {{ lookPath "gh" }} auth git-credential
 {{- end }}
@@ -81,3 +79,8 @@
 
 [fetch]
 	prune = true
+
+{{- if eq .user.email "mtaron@docugami.com" }}
+[credential "azrepos:org/classifyprocess"]
+	username = mtaron@docugami.com
+{{- end }}

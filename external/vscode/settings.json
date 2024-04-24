@@ -6,8 +6,8 @@
     "dotfiles.repository": "https://github.com/mtaron/dotfiles.git",
     "dotfiles.targetPath": "~/.local/share/chezmoi",
     "editor.bracketPairColorization.enabled": true,
-    "editor.fontFamily": "'Cascadia Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-    "editor.fontLigatures": true,
+    "editor.fontFamily": "'Monaspace Neon', monospace",
+    "editor.fontLigatures": "'calt', 'liga', 'dlig', 'ss01', 'ss02', 'ss03', 'ss04', 'ss06', 'ss07'",
     "editor.guides.bracketPairs": true,
     "editor.renderWhitespace": "boundary",
     "editor.smoothScrolling": true,
@@ -30,9 +30,7 @@
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.defaultProfile.linux": "zsh",
     "terminal.integrated.enablePersistentSessions": false,
-    "terminal.integrated.fontFamily": "'CaskaydiaCove Nerd Font Mono', 'Cascadia Mono PL', 'FontAwesome', monospace",
-    "terminal.integrated.fontWeight": "200",
-    "terminal.integrated.fontWeightBold": "200",
+    "terminal.integrated.fontFamily": "'MonaspiceNe NFM', monospace",
     "terminal.integrated.scrollback": 4000,
     "workbench.colorTheme": "GitHub Dark Default",
     "workbench.editor.limit.enabled": true,
@@ -65,5 +63,7 @@
     "dotnet.automaticallyCreateSolutionInWorkspace": false,
     "python.analysis.nodeExecutable": "node",
     "jupyter.askForKernelRestart": false,
-    "diffEditor.renderSideBySide": false
+    "diffEditor.renderSideBySide": false,
+    "terminal.integrated.fontWeight": "350",
+    "terminal.integrated.fontWeightBold": "550"
 }

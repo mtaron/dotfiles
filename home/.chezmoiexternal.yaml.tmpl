@@ -1,0 +1,27 @@
+# dotfile manager: zgenom
+.local/share/zgenom:
+  type: git-repo
+  url: https://github.com/jandamm/zgenom.git
+  clone:
+    args: [ "--depth", "1" ]
+
+# node version manager
+.config/nvm:
+  type: git-repo
+  url: https://github.com/nvm-sh/nvm.git
+  refreshPeriod: "168h"
+  clone:
+    args: [ "--depth", "1" ]
+
+{{ if and (not .transient) (not .headless) -}}
+{{ $nerd_fonts_version := (gitHubLatestRelease "ryanoasis/nerd-fonts").TagName -}}
+.local/share/fonts/monaspice:
+  type: archive
+  url: https://github.com/ryanoasis/nerd-fonts/releases/download/{{ $nerd_fonts_version }}/Monaspace.tar.xz
+{{ $monaspace_version := (gitHubLatestRelease "githubnext/monaspace").TagName -}}
+.local/share/fonts/monaspace:
+  type: archive
+  url: https://github.com/githubnext/monaspace/releases/download/{{ $monaspace_version }}/monaspace-{{ $monaspace_version }}.zip
+  stripComponents: 3
+  include: ["*/fonts/variable/*.ttf", "*/fonts/otf/*.otf"]
+{{- end }}

@@ -1,0 +1,7 @@
+{{- if and (not .transient) (not .headless) -}}
+#!/usr/bin/env sh
+
+{{ $fontFolder := joinPath .chezmoi.homeDir ".local/share/fonts" -}}
+# folder size: {{ (stat $fontFolder).size }}
+fc-cache --really-force --verbose {{ $fontFolder }}
+{{- end -}}

@@ -6,13 +6,13 @@
 
 {{- /* devcontainer detection */ -}}
 {{- if (env "CODESPACES") -}}
-{{- $codespaces = true -}}
+{{-   $codespaces = true -}}
 {{- end -}}
 {{- if (env "REMOTE_CONTAINERS") -}}
-{{- $vscontainer = true -}}
+{{-   $vscontainer = true -}}
 {{- end -}}
 {{- if or $codespaces $vscontainer -}}
-{{- $devcontainer = true -}}
+{{-   $devcontainer = true -}}
 {{- end -}}
 
 {{- /* boolean feature tags */ -}}
@@ -24,18 +24,19 @@
 {{-   $headless  = true -}}
 {{-   $transient = true -}}
 {{- end -}}
+
 {{/* base configration */}}
 {{- if and (not $headless) stdinIsATTY -}}
-{{-     $headless = promptBoolOnce . "headless" "Headless" false -}}
+{{-   $headless = promptBoolOnce . "headless" "headless" false -}}
 {{- end -}}
 {{- if and (not $transient) stdinIsATTY -}}
-{{-     $transient = promptBoolOnce . "transient" "Transient" false -}}
+{{-   $transient = promptBoolOnce . "transient" "transient" false -}}
 {{- end -}}
 
 {{- /* email configuration */ -}}
 {{- $email := default "michael@taron.dev" (env "GIT_AUTHOR_EMAIL") -}}
 {{- if stdinIsATTY -}}
-{{     $email := promptStringOnce . "user.email" "Email address" $email }}
+{{    $email = promptStringOnce . "user.email" "email" $email }}
 {{- end -}}
 
 data:

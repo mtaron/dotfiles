@@ -65,7 +65,7 @@
 	autoStash = true
 	stat = true
 
-{{- if lookPath "git-lfs" }}
+{{ if lookPath "git-lfs" -}}
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -80,7 +80,8 @@
 [fetch]
 	prune = true
 
-{{- if eq .user.email "mtaron@docugami.com" }}
+{{ if eq .user.email "mtaron@docugami.com" -}}
 [credential "azrepos:org/classifyprocess"]
 	username = mtaron@docugami.com
+	azureAuthority = https://login.microsoftonline.com/36a81f24-9b50-497e-9bf9-927de14bb0ab
 {{- end }}

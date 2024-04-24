@@ -1,0 +1,68 @@
+# https://alacritty.org/config-alacritty.html
+
+[window]
+padding = { x = 2, y = 2 }
+dynamic_padding = true
+
+[font]
+normal = { family = "MonaspiceNe NFM", style = "Regular" }
+size = 12
+
+[selection]
+save_to_clipboard = true
+
+[cursor]
+style = { blinking = "On", shape = "Beam" }
+
+[keyboard]
+bindings = [
+    { key = "V", mods="Control", action="Paste"},
+    { key = "Down", mods="Alt", action="ScrollLineDown"},
+    { key = "Up", mods="Alt", action="ScrollLineUp"},
+    { key = "PageDown", action="ScrollPageDown"},
+    { key = "PageUp", action="ScrollPageUp"},
+    { key = "End", mods="Control", action="ScrollToBottom"},
+    { key = "Home", mods="Control", action="ScrollToTop"},
+    { key = "N", mods="Control", action="SpawnNewInstance"},
+    { key = "Q", mods="Control", action="Quit"},
+    { key = "W", mods="Control", action="Quit"},
+    { key = "F11", action="ToggleFullscreen"},
+    { key = "F", mods="Control", action="SearchBackward"},
+]
+
+# https://github.com/alacritty/alacritty-theme/blob/master/themes/github_dark_default.toml
+
+# Default colors
+[colors.primary]
+background = '#0d1117'
+foreground = '#b3b1ad'
+
+# Normal colors
+[colors.normal]
+black   = '#484f58'
+red     = '#ff7b72'
+green   = '#3fb950'
+yellow  = '#d29922'
+blue    = '#58a6ff'
+magenta = '#bc8cff'
+cyan    = '#39c5cf'
+white   = '#b1bac4'
+
+# Bright colors
+[colors.bright]
+black   = '#6e7681'
+red     = '#ffa198'
+green   = '#56d364'
+yellow  = '#e3b341'
+blue    = '#79c0ff'
+magenta = '#d2a8ff'
+cyan    = '#56d4dd'
+white   = '#f0f6fc'
+
+[[colors.indexed_colors]]
+index = 16
+color = '#d18616'
+
+[[colors.indexed_colors]]
+index = 17
+color = '#ffa198'

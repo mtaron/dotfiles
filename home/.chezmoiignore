@@ -19,14 +19,10 @@ files
 
 {{ if or (ne .chezmoi.os "linux") .headless -}}
 .local/share/applications/vscode.desktop
+.config/vscode/**
 .local/share/applications/code-url-handler.desktop
 .local/share/applications/defaults.list
 .config/autostart/
-{{- end }}
-
-{{ if or (ne .chezmoi.os "linux") .transient -}}
-# Only have VS_PORTABLE working for linux at this point.
-.config/vscode/**
 {{- end }}
 
 {{ if not (lookPath "gh") -}}
@@ -36,4 +32,9 @@ files
 
 {{ if not (lookPath "terraform") -}}
 .config/terraform/
+{{- end }}
+
+{{ if ne .chezmoi.os "linux" -}}
+.chezmoiscripts/linux/**
+.local/share/fonts
 {{- end }}

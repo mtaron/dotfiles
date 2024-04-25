@@ -291,6 +291,7 @@ update-tools()
 
 update-tools-sudo()
 {
+    has snap && sudo snap refresh
     has git-credential-manager && install-git-credential-manager
     has zoom && install-zoom
     has task && install-task

@@ -1,5 +1,9 @@
 # dotfiles
 
+```
+sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply mtaron
+```
+
 Tools used:
 - Dotfile manager: [chezmoi](https://www.chezmoi.io/)
 - ZSH plugin manager: [zgenom](https://github.com/jandamm/zgenom)

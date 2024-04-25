@@ -1,34 +1,14 @@
-{{- /* environment/hardware tags */ -}}
-{{- $devcontainer := false -}}{{/* devcontainer (codespaces, vscode) */}}
-{{- $codespaces   := false -}}{{/* github codespaces */}}
-{{- $vscontainer  := false -}}{{/* vs code remote containers */}}
-{{- $isGnome      := lookPath "gnome-shell" | not | not -}}
+{{- $isGnome := lookPath "gnome-shell" | not | not -}}
+{{- $isX := lookPath "xhost" | not | not -}}
 
-{{- /* devcontainer detection */ -}}
-{{- if (env "CODESPACES") -}}
-{{-   $codespaces = true -}}
-{{- end -}}
-{{- if (env "REMOTE_CONTAINERS_IPC") -}}
-{{-   $vscontainer = true -}}
-{{- end -}}
-{{- if or $codespaces $vscontainer -}}
-{{-   $devcontainer = true -}}
-{{- end -}}
+{{- $headless := true -}}
 
-{{- /* boolean feature tags */ -}}
-{{- $headless  := false -}}{{/* no graphical interface */}}
-
-{{- /* preset detection */ -}}
-{{- if $devcontainer -}}
-{{-   $headless  = true -}}
-{{- end -}}
-
-{{/* base configration */}}
-{{- if and (not $headless) stdinIsATTY -}}
+{{- if or $isGnome $isX -}}
+{{-   $headless = false -}}
+{{- else if stdinIsATTY -}}
 {{-   $headless = promptBoolOnce . "headless" "headless" false -}}
 {{- end -}}
 
-{{- /* email configuration */ -}}
 {{- $email := default "michael@taron.dev" (env "GIT_AUTHOR_EMAIL") -}}
 {{- if stdinIsATTY -}}
 {{    $email = promptStringOnce . "user.email" "email" $email }}
@@ -43,7 +23,3 @@ data:
     email: {{ $email | quote }}
     github: "mtaron"
 
-  devcontainer:
-    any: {{ $devcontainer }}
-    codespaces: {{ $codespaces }}
-    vscontainer: {{ $vscontainer }}

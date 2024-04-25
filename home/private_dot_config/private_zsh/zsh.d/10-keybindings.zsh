@@ -1,5 +1,8 @@
 # List of widgets: https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#Zle-Widgets
 
+# Useful for setting up keybindings -> shows terminal code for key combinations
+#   showkey -a
+
 # alt-x: insert last command result
 zmodload -i zsh/parameter
 insert-last-command-output() {

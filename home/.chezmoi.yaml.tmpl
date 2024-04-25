@@ -8,7 +8,7 @@
 {{- if (env "CODESPACES") -}}
 {{-   $codespaces = true -}}
 {{- end -}}
-{{- if (env "REMOTE_CONTAINERS") -}}
+{{- if (env "REMOTE_CONTAINERS_IPC") -}}
 {{-   $vscontainer = true -}}
 {{- end -}}
 {{- if or $codespaces $vscontainer -}}
@@ -17,20 +17,15 @@
 
 {{- /* boolean feature tags */ -}}
 {{- $headless  := false -}}{{/* no graphical interface */}}
-{{- $transient := false -}}{{/* temporary machine (VM/cloud instances/container) */}}
 
 {{- /* preset detection */ -}}
 {{- if $devcontainer -}}
 {{-   $headless  = true -}}
-{{-   $transient = true -}}
 {{- end -}}
 
 {{/* base configration */}}
 {{- if and (not $headless) stdinIsATTY -}}
 {{-   $headless = promptBoolOnce . "headless" "headless" false -}}
-{{- end -}}
-{{- if and (not $transient) stdinIsATTY -}}
-{{-   $transient = promptBoolOnce . "transient" "transient" false -}}
 {{- end -}}
 
 {{- /* email configuration */ -}}
@@ -41,7 +36,6 @@
 
 data:
   headless: {{ $headless }}
-  transient: {{ $transient }}
   isGnome: {{ $isGnome }}
 
   user:

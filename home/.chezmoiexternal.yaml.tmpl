@@ -19,7 +19,7 @@
   url: https://github.com/direnv/direnv/releases/download/{{ $direnv_version }}/direnv.linux-amd64
   executable: true
 
-{{ if and (not .transient) (not .headless) -}}
+{{ if not .headless -}}
 {{ $nerd_fonts_version := (gitHubLatestRelease "ryanoasis/nerd-fonts").TagName -}}
 .local/share/fonts/monaspice:
   type: archive

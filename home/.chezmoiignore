@@ -38,3 +38,7 @@ files
 .chezmoiscripts/linux/**
 .local/share/fonts
 {{- end }}
+
+{{ if not (lookPath "pnpm") -}}
+.config/zsh/completions/_pnpm
+{{- end }}

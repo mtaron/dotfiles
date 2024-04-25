@@ -13,6 +13,9 @@
 {{    $email = promptStringOnce . "user.email" "email" $email }}
 {{- end -}}
 
+gitHub:
+  refreshPeriod: "15m"
+
 data:
   headless: {{ $headless }}
   isGnome: {{ $isGnome }}

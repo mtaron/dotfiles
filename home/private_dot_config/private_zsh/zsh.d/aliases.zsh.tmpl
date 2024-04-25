@@ -18,3 +18,7 @@ alias activate='source .venv/bin/activate'
 alias psudo='sudo env "PATH=$PATH"'
 
 alias rgf='rg --files | rg'
+
+{{- if and (lookPath "chezmoi") (lookPath "gh") }}
+alias chezmoi='GITHUB_TOKEN=$(gh auth token -h github.com 2>/dev/null) chezmoi'
+{{- end }}

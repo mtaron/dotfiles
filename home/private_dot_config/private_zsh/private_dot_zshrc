@@ -101,7 +101,7 @@ if ! zgenom saved; then
   has flyctl && flyctl completion zsh > "$ZSH_COMPLETIONS/_flyctl"
   has rye && rye self completion --shell zsh > "$ZSH_COMPLETIONS/_rye"
   has kustomize && kustomize completion zsh > "$ZSH_COMPLETIONS/_kustomize"
-  has pnpm && pnpm completion zsh > "$ZSH_COMPLETIONS/_pnpm"
+  has kubelogin && kubelogin completion zsh > "$ZSH_COMPLETIONS/_kubelogin"
   [[ -d "$ZSH_COMPLETIONS" ]] && zgenom load "$ZSH_COMPLETIONS"
 
   zgenom save
@@ -113,9 +113,6 @@ if has dotnet; then
   source "$ZSH_COMPLETIONS"/_dotnet_suggest
 fi
 
-if has pnpm; then
-  source "$ZSH_COMPLETIONS/_pnpm"
-fi
 
 # Azure CLI
 if [[ -f /etc/bash_completion.d/azure-cli ]]; then

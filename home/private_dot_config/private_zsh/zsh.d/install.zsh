@@ -92,7 +92,7 @@ install-protobuf-compiler()
     rm -rf "$tmp_dir"
 }
 
-# https://github.com/protocolbuffers/protobuf
+# https://github.com/kubernetes-sigs/kustomize
 install-kustomize()
 {
     rm --force "$XDG_BIN_DIR"/kustomize
@@ -136,18 +136,6 @@ install-azcopy()
     | tar --extract --ungzip --directory "$XDG_BIN_DIR" --strip-components=1 --wildcards "*/azcopy"
 }
 
-# https://github.com/Azure/kubelogin
-install-kubelogin()
-{
-    rm --force "$XDG_BIN_DIR"/kubelogin
-
-    local tmp_dir=$(mktemp --directory)
-    curl --show-error --silent --fail --location "https://github.com/Azure/kubelogin/releases/latest/download/kubelogin-linux-amd64.zip" \
-        --output "$tmp_dir"/kubelogin.zip
-    unzip -j -d "$XDG_BIN_DIR" "$tmp_dir"/kubelogin.zip
-    rm -rf "$tmp_dir"
-}
-
 # https://github.com/Azure/azure-functions-core-tools
 # Needed this because the package feed was not updated quickly enough
 install-azure-function-tools()
@@ -170,19 +158,6 @@ install-azure-function-tools()
     ln --symbolic --force "$install_path/gozip" "$XDG_BIN_DIR/gozip"
 
     rm -rf "$tmp_dir"
-}
-
-# https://www.pulumi.com/docs/
-install-pulumi()
-{
-    rm --force "$XDG_BIN_DIR"/pulumi*
-
-    local version=$(curl --retry 3 --fail --silent --location "https://www.pulumi.com/latest-version")
-
-    curl --show-error --silent --fail \
-        --location "https://github.com/pulumi/pulumi/releases/latest/download/pulumi-v$version-linux-x64.tar.gz" \
-        --header "Accept: application/octet-stream" \
-        | tar --extract --ungzip --directory "$XDG_BIN_DIR" --strip-components=1
 }
 
 # https://taskfile.dev/installation/
@@ -215,21 +190,6 @@ install-go()
     go version
 }
 
-# https://pnpm.io/installation
-install-pnpm()
-{
-    export PNPM_HOME="$XDG_DATA_HOME/pnpm"
-
-    rm --force "$XDG_BIN_DIR"/pnpm
-
-    curl --show-error --silent --fail --location "https://github.com/pnpm/pnpm/releases/latest/download/pnpm-linux-x64" \
-        --output "$XDG_BIN_DIR"/pnpm
-    chmod u+x "$XDG_BIN_DIR"/pnpm
-
-    mkdir --parents "$XDG_DATA_HOME/pnpm"
-    pnpm --version
-}
-
 # https://rye-up.com/guide/installation/#installing-rye
 install-rye()
 {
@@ -256,17 +216,6 @@ install-pyenv()
     ln --symbolic --force "$PYENV_ROOT/bin/pyenv" "$XDG_BIN_DIR/pyenv"
 }
 
-# https://github.com/FiloSottile/mkcert#linux
-install-mkcert()
-{
-    rm --force "$XDG_BIN_DIR"/mkcert
-
-    # sudo apt install libnss3-tools
-    curl --show-error --silent --fail --location "https://dl.filippo.io/mkcert/latest?for=linux/amd64" --output "$XDG_BIN_DIR"/mkcert
-    chmod u+x "$XDG_BIN_DIR"/mkcert
-    mkcert --version
-}
-
 update-tools()
 {
     zgenom selfupdate
@@ -274,12 +223,8 @@ update-tools()
     has chezmoi && chezmoi upgrade
     has helm && install-helm
     has k3d && install-k3d
-    has kubelogin && install-kubelogin
-    has pulumi && install-pulumi
     has pyenv && pyenv update
     has code && install-vs-code
-    has pnpm && install-pnpm
-    has mkcert && install-mkcert
     has go && install-go
     has func && install-azure-function-tools
     has protoc && install-protobuf-compiler

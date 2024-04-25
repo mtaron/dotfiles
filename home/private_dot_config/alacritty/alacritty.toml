@@ -6,6 +6,8 @@ dynamic_padding = true
 
 [font]
 normal = { family = "MonaspiceNe NFM", style = "Regular" }
+bold = { family = "MonaspiceNe NFM", style = "Medium" }
+bold_italic = { family = "MonaspiceNe NFM", style = "Medium Italic" }
 size = 12
 
 [selection]

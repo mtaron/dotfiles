@@ -27,9 +27,10 @@
 {{- end }}
 [credential "https://github.com"]
 	username = {{ .user.github }}
-{{- if lookPath "gh" }}
+{{- $gh := lookPath "gh" -}}
+{{- if $gh }}
 	helper =
-	helper = {{ lookPath "gh" }} auth git-credential
+	helper = {{ quote $gh }} auth git-credential
 {{- end }}
 [credential "https://dev.azure.com"]
 	useHttpPath = true

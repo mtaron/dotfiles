@@ -13,6 +13,12 @@
   clone:
     args: [ "--depth", "1" ]
 
+{{ $direnv_version := (gitHubLatestRelease "direnv/direnv").TagName -}}
+.local/bin/direnv:
+  type: file
+  url: https://github.com/direnv/direnv/releases/download/{{ $direnv_version }}/direnv.linux-amd64
+  executable: true
+
 {{ if and (not .transient) (not .headless) -}}
 {{ $nerd_fonts_version := (gitHubLatestRelease "ryanoasis/nerd-fonts").TagName -}}
 .local/share/fonts/monaspice:

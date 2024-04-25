@@ -113,6 +113,10 @@ if has dotnet; then
   source "$ZSH_COMPLETIONS"/_dotnet_suggest
 fi
 
+if has pnpm; then
+  source "$ZSH_COMPLETIONS/_pnpm"
+fi
+
 # Azure CLI
 if [[ -f /etc/bash_completion.d/azure-cli ]]; then
   autoload -U +X bashcompinit && bashcompinit

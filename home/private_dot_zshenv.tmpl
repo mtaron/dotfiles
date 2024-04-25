@@ -74,3 +74,13 @@ if [[ ! -v "$PNPM_HOME" ]]; then
     export PATH="$PNPM_HOME:$PATH"
 fi
 {{- end }}
+
+{{ if lookPath "pulumi" -}}
+export-if-unset PULUMI_HOME "$XDG_DATA_HOME/pulumi"
+{{- end }}
+
+{{ if lookPath "npm" -}}
+export-if-unset NPM_CONFIG_USERCONFIG "$XDG_CONFIG_HOME/npm/config"
+export-if-unset NPM_CONFIG_CACHE "$XDG_CACHE_HOME/npm"
+export-if-unset NODE_REPL_HISTORY "$XDG_CACHE_HOME/node/repl_history"
+{{- end }}

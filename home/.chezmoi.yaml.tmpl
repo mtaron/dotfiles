@@ -1,9 +1,8 @@
 {{- $isGnome := lookPath "gnome-shell" | not | not -}}
-{{- $isX := lookPath "xhost" | not | not -}}
 
 {{- $headless := true -}}
 
-{{- if or $isGnome $isX -}}
+{{- if $isGnome -}}
 {{-   $headless = false -}}
 {{- else if stdinIsATTY -}}
 {{-   $headless = promptBoolOnce . "headless" "headless" false -}}

@@ -1,0 +1,2 @@
+# empty "cli" directory gets created here even when using portable installs
+.vscode

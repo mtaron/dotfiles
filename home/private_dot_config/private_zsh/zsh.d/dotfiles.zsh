@@ -1,13 +1,13 @@
-reset-shell()
+dotfiles-reset()
 {
     chezmoi apply
     zgenom reset
     exec zsh
 }
 
-update-shell()
+dotfiles-update()
 {
-    zgenom update
     chezmoi update
+    zgenom update
     exec zsh
 }

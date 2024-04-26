@@ -1,24 +1,35 @@
-# Update OS dependencies
+# update OS dependencies
 alias up='sudo apt update && sudo apt -V --yes upgrade'
 
-# Remove untracked files and directories
-alias clean='git clean --force -X -d'
-
-alias cf='aws cloudformation'
-
-alias c='code .'
-
-alias k='kubectl'
-alias kl='kubectl logs --follow'
-
-alias dotfiles='code $XDG_DATA_HOME/chezmoi'
-
-alias activate='source .venv/bin/activate'
-
+# run sudo with the current PATH environment variable
 alias psudo='sudo env "PATH=$PATH"'
 
-alias rgf='rg --files | rg'
+# activate a python virtual environment
+alias activate='source .venv/bin/activate'
 
-{{- if and (lookPath "chezmoi") (lookPath "gh") }}
-alias chezmoi='GITHUB_TOKEN=$(gh auth token -h github.com 2>/dev/null) chezmoi'
+# remove untracked files and directories
+alias clean='git clean --force -X -d'
+
+{{ if lookPath "aws" -}}
+alias cf='aws cloudformation'
+{{- end }}
+
+{{ if lookPath "code" -}}
+alias c='code .'
+alias dotfiles-edit='code $XDG_DATA_HOME/chezmoi'
+{{- end }}
+
+{{ if lookPath "kubectl" -}}
+alias k='kubectl'
+alias kl='kubectl logs --follow'
+{{- end }}
+
+{{ if lookPath "rg" -}}
+alias rgf='rg --files | rg'
+{{- end }}
+
+{{ if and (lookPath "chezmoi") (lookPath "gh") -}}
+# launch chezmoi with a GitHub token, increasing the rate limit on GitHub APIs
+# https://www.chezmoi.io/reference/templates/github-functions/
+alias chezmoi-gh='GITHUB_TOKEN=$(gh auth token -h github.com 2>/dev/null) chezmoi'
 {{- end }}

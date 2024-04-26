@@ -1,6 +1,10 @@
 {{- if not .headless -}}
 #!/usr/bin/env sh
 
+set -e
+
+echo "▶️ installing alacritty"
+
 # https://launchpad.net/~aslatter/+archive/ubuntu/ppa
 sudo add-apt-repository --yes ppa:aslatter/ppa
 sudo apt-get update --yes

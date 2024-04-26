@@ -9,7 +9,10 @@ else
 fi
 
 # https://github.com/romkatv/powerlevel10k#how-do-i-initialize-direnv-when-using-instant-prompt
-(( ${+commands[direnv]} )) && emulate zsh -c "$(direnv export zsh)"
+{{ $hasDirenv := lookPath "direnv" | not | not }}
+{{ if $hasDirenv -}}
+emulate zsh -c "$(direnv export zsh)"
+{{- end }}
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of .zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -18,7 +21,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-(( ${+commands[direnv]} )) && emulate zsh -c "$(direnv hook zsh)"
+{{ if $hasDirenv -}}
+emulate zsh -c "$(direnv hook zsh)"
+{{- end }}
 
 has() {
   command -v "$1" 1>/dev/null 2>&1
@@ -107,23 +112,26 @@ if ! zgenom saved; then
   zgenom save
 fi
 
+{{if lookPath "dotnet" }}
 # These completions apparently doesn't work when included in the zgenom save.
-if has dotnet; then
-  alias dn='dotnet'
-  source "$ZSH_COMPLETIONS"/_dotnet_suggest
-fi
+alias dn='dotnet'
+source "$ZSH_COMPLETIONS"/_dotnet_suggest
+{{ end }}
 
-
+{{ if lookPath "az" }}
 # Azure CLI
 if [[ -f /etc/bash_completion.d/azure-cli ]]; then
   autoload -U +X bashcompinit && bashcompinit
   source /etc/bash_completion.d/azure-cli
 fi
+{{ end }}
 
+{{ if lookPath "pipx" }}
 argcomplete="$(command -v register-python-argcomplete || command -v register-python-argcomplete3)"
 if has pipx && [[ -f $argcomplete ]]; then
   eval "$($argcomplete pipx)"
 fi
+{{ end }}
 
 # Dedupe paths using a ZSH builtin
 # https://til.hashrocket.com/posts/7evpdebn7g-remove-duplicates-in-zsh-path

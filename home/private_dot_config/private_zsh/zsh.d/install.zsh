@@ -160,17 +160,6 @@ install-azure-function-tools()
     rm -rf "$tmp_dir"
 }
 
-# https://taskfile.dev/installation/
-install-task()
-{
-    local tmp_dir=$(mktemp --directory)
-    curl --show-error --silent --fail --location "https://github.com/go-task/task/releases/latest/download/task_linux_amd64.deb" \
-        --output "$tmp_dir"/task_linux_amd64.deb
-    sudo dpkg --install "$tmp_dir"/task_linux_amd64.deb
-    rm -rf "$tmp_dir"
-    task --version
-}
-
 install-go()
 {
     rm -rf "$XDG_DATA_HOME/go"
@@ -239,5 +228,4 @@ update-tools-sudo()
     has snap && sudo snap refresh
     has git-credential-manager && install-git-credential-manager
     has zoom && install-zoom
-    has task && install-task
 }

@@ -3,6 +3,7 @@
 [window]
 padding = { x = 2, y = 2 }
 dynamic_padding = true
+startup_mode = "Maximized"
 
 [font]
 normal = { family = "MonaspiceNe NFM", style = "Regular" }

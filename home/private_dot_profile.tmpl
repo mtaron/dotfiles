@@ -17,6 +17,7 @@ export VISUAL=code
 # Color man pages with bat
 # https://github.com/sharkdp/bat#man
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANROFFOPT="-c"
 export PAGER='less --quit-if-one-screen --mouse'
 
 {{ if and (eq .chezmoi.os "linux") (not .headless) -}}

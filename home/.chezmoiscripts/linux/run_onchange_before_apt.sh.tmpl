@@ -1,0 +1,108 @@
+{{- if not .ephemeral -}}
+#!/usr/bin/env sh
+
+set -eu pipefail
+
+APT_KEYRING=/etc/apt/keyrings
+
+add_apt_key()
+{
+  sudo gpg --yes --dearmor --output "$1"
+}
+
+add_apt_source()
+{
+  sudo tee "/etc/apt/sources.list.d/$1" > /dev/null
+}
+
+echo "▶️ adding apt repositories"
+
+echo "▶️▶️ GitHub"
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+  | add_apt_key $APT_KEYRING/githubcli.gpg
+echo "deb [arch=amd64 signed-by=$APT_KEYRING/githubcli.gpg] https://cli.github.com/packages stable main" \
+  | add_apt_source github-cli.list
+
+{{ if .workload.kubernetes.enabled -}}
+  echo "▶️▶️ Kubernetes {{ .workload.kubernetes.version }}"
+  curl -fsSL https://pkgs.k8s.io/core:/stable:/v{{ .workload.kubernetes.version }}/deb/Release.key \
+    | add_apt_key $APT_KEYRING/kubernetes.gpg
+  echo "deb [signed-by=$APT_KEYRING/kubernetes.gpg] https://pkgs.k8s.io/core:/stable:/v{{ .workload.kubernetes.version }}/deb/ /" \
+    | add_apt_source kubernetes.list
+{{- end }}
+
+echo "▶️▶️ 1Password"
+# https://support.1password.com/install-linux/#debian-or-ubuntu
+curl -fsSL https://downloads.1password.com/linux/keys/1password.asc \
+  | add_apt_key $APT_KEYRING/1password.gpg
+echo "deb [arch=amd64 signed-by=$APT_KEYRING/1password.gpg] https://downloads.1password.com/linux/debian/amd64 stable main" \
+  | add_apt_source 1password.list
+
+sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/
+curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol \
+  | sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol > /dev/null
+
+sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22
+curl -sS https://downloads.1password.com/linux/keys/1password.asc \
+  | add_apt_key /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
+
+{{ if .workload.docker.enabled -}}
+  echo "▶️▶️ Docker"
+  # https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
+    | add_apt_key $APT_KEYRING/docker.gpg
+
+  echo "deb [arch=amd64 signed-by=$APT_KEYRING/docker.gpg] https://download.docker.com/linux/ubuntu {{ .chezmoi.osRelease.versionCodename }} stable" \
+    | add_apt_source docker.list
+{{- end }}
+
+{{ if not .headless -}}
+  echo "▶️▶️ Brave"
+  # https://brave.com/linux/#debian-ubuntu-mint
+  curl -fsSL https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg \
+    | add_apt_key $APT_KEYRING/brave-browser.gpg
+
+  echo "deb [signed-by=$APT_KEYRING/brave-browser.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" \
+    | add_apt_source brave-browser-release.list
+{{- end }}
+
+sudo apt-get update --yes
+
+{{ $packages := list
+     "1password-cli"
+     "bat"
+     "curl"
+     "fd-find"
+     "fzf"
+     "gh"
+     "git-lfs"
+     "git"
+     "jq"
+     "ripgrep"
+     "shellcheck"
+     "units"
+     "unzip"
+     "xclip"
+     "zsh" -}}
+
+{{ if .workload.docker.enabled -}}
+{{ $dockerPackages := list
+     "docker-ce"
+     "docker-ce-cli"
+     "containerd.io"
+     "docker-buildx-plugin"
+     "docker-compose-plugin" -}}
+{{   $packages = concat $packages $dockerPackages -}}
+{{ end -}}
+
+{{ if .workload.kubernetes.enabled -}}
+{{   $packages = mustAppend $packages "kubectl" -}}
+{{ end -}}
+
+{{ if not .headless -}}
+{{   $packages = concat $packages (list "brave-browser" "1password") -}}
+{{ end -}}
+
+sudo apt-get install --yes {{ $packages | join " " }}
+
+{{- end -}}

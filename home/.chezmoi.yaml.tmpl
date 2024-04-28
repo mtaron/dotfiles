@@ -1,16 +1,35 @@
 {{- $isGnome := lookPath "gnome-shell" | not | not -}}
 
 {{- $headless := true -}}
+{{- $ephemeral := not stdinIsATTY -}}
 
 {{- if $isGnome -}}
 {{-   $headless = false -}}
 {{- else if stdinIsATTY -}}
 {{-   $headless = promptBoolOnce . "headless" "headless" false -}}
+{{-   $ephemeral = promptBoolOnce . "ephemeral" "ephemeral" false -}}
 {{- end -}}
 
 {{- $email := default "michael@taron.dev" (env "GIT_AUTHOR_EMAIL") -}}
+
+{{/* workloads */}}
+{{- $kubernetesWorloadEnabled := lookPath "kubectl" | not | not }}
+{{- $kubernetesVersions := list "1.28" "1.29" "1.30" -}}
+{{- $kubernetesVersion := "1.28" -}}
+
+{{- $dockerWorloadEnabled := lookPath "docker" | not | not }}
+
 {{- if stdinIsATTY -}}
-{{    $email = promptStringOnce . "user.email" "email" $email }}
+{{-   $email = promptStringOnce . "user.email" "email" $email -}}
+{{-   if not $kubernetesWorloadEnabled -}}
+{{-     $kubernetesWorloadEnabled = promptBool . "workload.kubernetes.enabled" "☸ kubernetes" $kubernetesWorloadEnabled -}}
+{{-     if $kubernetesWorloadEnabled -}}
+{{-       $kubernetesVersion = promptChoiceOnce . "workload.kubernetes.version" "kubernetes version" $kubernetesVersions $kubernetesVersion -}}
+{{-     end -}}
+{{-   end -}}
+{{-   if not $dockerWorloadEnabled -}}
+{{-     $dockerWorloadEnabled = promptBool . "workload.docker.enabled" "🐳 docker" $dockerWorloadEnabled -}}
+{{-   end -}}
 {{- end -}}
 
 gitHub:
@@ -19,9 +38,16 @@ gitHub:
 data:
   headless: {{ $headless }}
   isGnome: {{ $isGnome }}
+  ephemeral: {{ $ephemeral }}
 
   user:
     name: "Michael Taron"
-    email: {{ $email | quote }}
+    email: {{ quote $email }}
     github: "mtaron"
 
+  workload:
+    docker:
+      enabled: {{ $dockerWorloadEnabled }}
+    kubernetes:
+      enabled: {{ $kubernetesWorloadEnabled }}
+      version: {{ quote $kubernetesVersion }}

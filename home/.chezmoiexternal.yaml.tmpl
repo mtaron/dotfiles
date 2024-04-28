@@ -37,11 +37,13 @@
   url: https://github.com/pulumi/pulumi/releases/download/{{ $pulumi_version }}/pulumi-{{ $pulumi_version }}-linux-x64.tar.gz
   stripComponents: 1
 
+{{ if .workload.kubernetes.enabled -}}
 {{ $kubelogin_version := (gitHubLatestRelease "Azure/kubelogin").TagName -}}
 .local/bin/kubelogin:
   type: archive-file
   url: https://github.com/Azure/kubelogin/releases/download/{{ $kubelogin_version }}/kubelogin-linux-amd64.zip
   path: bin/linux_amd64/kubelogin
+{{- end }}
 
 {{ if not .headless -}}
 {{ $nerd_fonts_version := (gitHubLatestRelease "ryanoasis/nerd-fonts").TagName -}}

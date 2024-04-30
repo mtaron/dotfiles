@@ -107,6 +107,7 @@ if ! zgenom saved; then
   has rye && rye self completion --shell zsh > "$ZSH_COMPLETIONS/_rye"
   has kustomize && kustomize completion zsh > "$ZSH_COMPLETIONS/_kustomize"
   has kubelogin && kubelogin completion zsh > "$ZSH_COMPLETIONS/_kubelogin"
+  has yq && yq shell-completion zsh > "$ZSH_COMPLETIONS/_yq"
   [[ -d "$ZSH_COMPLETIONS" ]] && zgenom load "$ZSH_COMPLETIONS"
 
   zgenom save

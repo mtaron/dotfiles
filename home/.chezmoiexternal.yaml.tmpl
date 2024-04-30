@@ -19,6 +19,12 @@
   url: https://github.com/direnv/direnv/releases/download/{{ $direnv_version }}/direnv.linux-amd64
   executable: true
 
+{{ $yq_version := (gitHubLatestRelease "mikefarah/yq").TagName -}}
+.local/bin/yq:
+  type: archive-file
+  url: https://github.com/mikefarah/yq/releases/download/{{ $yq_version }}/yq_linux_amd64.tar.gz
+  path: ./yq_linux_amd64
+
 {{ $mkcert_version := (gitHubLatestRelease "FiloSottile/mkcert").TagName -}}
 .local/bin/mkcert:
   type: file

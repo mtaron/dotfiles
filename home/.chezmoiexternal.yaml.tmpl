@@ -37,13 +37,15 @@
   url: https://github.com/pnpm/pnpm/releases/download/{{ $pnpm_version }}/pnpm-linux-x64
   executable: true
 
+{{ if .work -}}
 {{ $pulumi_version := (gitHubLatestRelease "pulumi/pulumi").TagName -}}
 .local/bin:
   type: archive
   url: https://github.com/pulumi/pulumi/releases/download/{{ $pulumi_version }}/pulumi-{{ $pulumi_version }}-linux-x64.tar.gz
   stripComponents: 1
+{{- end }}
 
-{{ if .workload.kubernetes.enabled -}}
+{{ if and .workload.kubernetes.enabled .workload.azure.enabled -}}
 {{ $kubelogin_version := (gitHubLatestRelease "Azure/kubelogin").TagName -}}
 .local/bin/kubelogin:
   type: archive-file

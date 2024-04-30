@@ -22,7 +22,7 @@
 	helper = {{ lookPath "git-credential-manager" }}
 {{- end }}
 	azreposCredentialType = oauth
-{{- if .isGnome }}
+{{- if .gnome }}
 	credentialStore = secretservice
 {{- end }}
 [credential "https://github.com"]
@@ -81,8 +81,8 @@
 [fetch]
 	prune = true
 
-{{ if eq .user.email "mtaron@docugami.com" -}}
+{{ if .work -}}
 [credential "azrepos:org/classifyprocess"]
-	username = mtaron@docugami.com
+	username = {{ .user.email }}
 	azureAuthority = https://login.microsoftonline.com/36a81f24-9b50-497e-9bf9-927de14bb0ab
 {{- end }}

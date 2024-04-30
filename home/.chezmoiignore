@@ -1,7 +1,7 @@
 # .chezmoiignore matches agaist target locations, not source.
 # https://www.chezmoi.io/reference/special-files-and-directories/chezmoiignore/
 
-{{ if not .isGnome -}}
+{{ if not .gnome -}}
 .config/user-dirs.dirs
 files
 {{- end }}

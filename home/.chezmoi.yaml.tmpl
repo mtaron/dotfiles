@@ -1,9 +1,9 @@
-{{- $isGnome := lookPath "gnome-shell" | not | not -}}
+{{- $gnome := lookPath "gnome-shell" | not | not -}}
 
 {{- $headless := true -}}
 {{- $ephemeral := not stdinIsATTY -}}
 
-{{- if $isGnome -}}
+{{- if $gnome -}}
 {{-   $headless = false -}}
 {{- else if stdinIsATTY -}}
 {{-   $headless = promptBoolOnce . "headless" "headless" false -}}
@@ -19,16 +19,27 @@
 
 {{- $dockerWorloadEnabled := lookPath "docker" | not | not }}
 
+{{- $azureWorloadEnabled := lookPath "az" | not | not }}
+
+{{- $dotnetWorloadEnabled := lookPath "dotnet" | not | not }}
+
+{{/* dynamic configuration */}}
 {{- if stdinIsATTY -}}
 {{-   $email = promptStringOnce . "user.email" "email" $email -}}
 {{-   if not $kubernetesWorloadEnabled -}}
-{{-     $kubernetesWorloadEnabled = promptBool . "workload.kubernetes.enabled" "☸ kubernetes" $kubernetesWorloadEnabled -}}
-{{-     if $kubernetesWorloadEnabled -}}
-{{-       $kubernetesVersion = promptChoiceOnce . "workload.kubernetes.version" "kubernetes version" $kubernetesVersions $kubernetesVersion -}}
-{{-     end -}}
+{{-     $kubernetesWorloadEnabled = promptBool "☸ kubernetes" $kubernetesWorloadEnabled -}}
+{{-   end -}}
+{{-   if $kubernetesWorloadEnabled -}}
+{{-     $kubernetesVersion = promptChoice "☸ kubernetes version" $kubernetesVersions $kubernetesVersion -}}
 {{-   end -}}
 {{-   if not $dockerWorloadEnabled -}}
-{{-     $dockerWorloadEnabled = promptBool . "workload.docker.enabled" "🐳 docker" $dockerWorloadEnabled -}}
+{{-     $dockerWorloadEnabled = promptBool "🐳 docker" true -}}
+{{-   end -}}
+{{-   if not $azureWorloadEnabled -}}
+{{-     $azureWorloadEnabled = promptBool "☁ azure" false -}}
+{{-   end -}}
+{{-   if not $dotnetWorloadEnabled -}}
+{{-     $dotnetWorloadEnabled = promptBool "dotnet" false -}}
 {{-   end -}}
 {{- end -}}
 
@@ -37,8 +48,9 @@ gitHub:
 
 data:
   headless: {{ $headless }}
-  isGnome: {{ $isGnome }}
+  gnome: {{ $gnome }}
   ephemeral: {{ $ephemeral }}
+  work: {{ eq .user.email "mtaron@docugami.com" }}
 
   user:
     name: "Michael Taron"
@@ -51,3 +63,7 @@ data:
     kubernetes:
       enabled: {{ $kubernetesWorloadEnabled }}
       version: {{ quote $kubernetesVersion }}
+    azure:
+      enabled: {{ $azureWorloadEnabled }}
+    dotnet:
+      enabled: {{ $dotnetWorloadEnabled }}

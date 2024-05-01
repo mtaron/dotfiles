@@ -50,7 +50,7 @@ data:
   headless: {{ $headless }}
   gnome: {{ $gnome }}
   ephemeral: {{ $ephemeral }}
-  work: {{ eq .user.email "mtaron@docugami.com" }}
+  work: {{ eq $email "mtaron@docugami.com" }}
 
   user:
     name: "Michael Taron"

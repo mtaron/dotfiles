@@ -54,14 +54,9 @@
 {{- end }}
 
 {{ if not .headless -}}
-{{ $nerd_fonts_version := (gitHubLatestRelease "ryanoasis/nerd-fonts").TagName -}}
-.local/share/fonts/monaspice:
+.local/share/fonts/cascadia-code:
   type: archive
-  url: https://github.com/ryanoasis/nerd-fonts/releases/download/{{ $nerd_fonts_version }}/Monaspace.tar.xz
-{{ $monaspace_version := (gitHubLatestRelease "githubnext/monaspace").TagName -}}
-.local/share/fonts/monaspace:
-  type: archive
-  url: https://github.com/githubnext/monaspace/releases/download/{{ $monaspace_version }}/monaspace-{{ $monaspace_version }}.zip
-  stripComponents: 3
-  include: ["*/fonts/variable/*.ttf", "*/fonts/otf/*.otf"]
+  url: https://github.com/microsoft/cascadia-code/releases/download/v2404.23/CascadiaCode-2404.23.zip
+  stripComponents: 1
+  include: ["ttf/*.ttf"]
 {{- end }}

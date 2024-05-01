@@ -6,9 +6,9 @@ dynamic_padding = true
 startup_mode = "Maximized"
 
 [font]
-normal = { family = "MonaspiceNe NFM", style = "Regular" }
-bold = { family = "MonaspiceNe NFM", style = "Medium" }
-bold_italic = { family = "MonaspiceNe NFM", style = "Medium Italic" }
+normal = { family = "Cascadia Code NF", style = "Regular" }
+bold = { family = "Cascadia Code NF", style = "SemiBold" }
+bold_italic = { family = "Cascadia Code NF", style = "SemiBold Italic" }
 size = 12
 
 [selection]

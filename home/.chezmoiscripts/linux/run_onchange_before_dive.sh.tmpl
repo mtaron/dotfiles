@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+set -e
+
+echo "▶️ installing dive"
+
+{{ $dive_version := (gitHubLatestRelease "wagoodman/dive").TagName -}}
+
+echo {{ $dive_version }}
+
+tmp_dir=$(mktemp --directory)
+curl --show-error --silent --fail --location \
+    --output "$tmp_dir"/dive_linux_amd64.deb \
+    "https://github.com/wagoodman/dive/releases/download/{{ $dive_version }}/dive_{{ trimPrefix "v" $dive_version }}_linux_amd64.deb"
+
+sudo dpkg --install "$tmp_dir"/dive_linux_amd64.deb
+
+rm -rf "$tmp_dir"
+
+dive --version

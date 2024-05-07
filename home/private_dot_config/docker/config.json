@@ -1,7 +1,0 @@
-{
-    "credHelpers": {
-        "docker.pkg.github.com": "gh",
-        "ghcr.io": "gh",
-        "docugami.azurecr.io": "acr"
-    }
-}

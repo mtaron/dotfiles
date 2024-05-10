@@ -1,1 +1,3 @@
+{{- if not .headless -}}
 {{ onepasswordRead "op://Personal/SSH Key/private key?ssh-format=openssh" .user.onepasswordAccount }}
+{{- end -}}

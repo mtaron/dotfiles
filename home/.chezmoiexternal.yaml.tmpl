@@ -13,16 +13,14 @@
   clone:
     args: [ "--depth", "1" ]
 
-{{ $direnv_version := (gitHubLatestRelease "direnv/direnv").TagName -}}
 .local/bin/direnv:
   type: file
-  url: https://github.com/direnv/direnv/releases/download/{{ $direnv_version }}/direnv.linux-amd64
+  url: {{ gitHubLatestReleaseAssetURL "direnv/direnv" "direnv.linux-amd64" | quote }}
   executable: true
 
-{{ $yq_version := (gitHubLatestRelease "mikefarah/yq").TagName -}}
 .local/bin/yq:
   type: archive-file
-  url: https://github.com/mikefarah/yq/releases/download/{{ $yq_version }}/yq_linux_amd64.tar.gz
+  url: {{ gitHubLatestReleaseAssetURL "mikefarah/yq" "yq_linux_amd64.tar.gz" | quote }}
   path: ./yq_linux_amd64
 
 {{ $mkcert_version := (gitHubLatestRelease "FiloSottile/mkcert").TagName -}}
@@ -31,10 +29,9 @@
   url: https://github.com/FiloSottile/mkcert/releases/download/{{ $mkcert_version }}/mkcert-{{ $mkcert_version }}-linux-amd64
   executable: true
 
-{{ $pnpm_version := (gitHubLatestRelease "pnpm/pnpm").TagName -}}
 .local/bin/pnpm:
   type: file
-  url: https://github.com/pnpm/pnpm/releases/download/{{ $pnpm_version }}/pnpm-linux-x64
+  url: {{ gitHubLatestReleaseAssetURL "pnpm/pnpm" "pnpm-linux-x64" | quote }}
   executable: true
 
 {{ if .work -}}

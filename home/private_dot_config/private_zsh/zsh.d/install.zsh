@@ -20,6 +20,7 @@ install-vs-code()
     ln --symbolic --force "$code_dir/resources/completions/zsh/_code" "$ZDOTDIR/completions/_code"
 
     code --version
+    code --update-extensions
 }
 
 install-vs-code-insiders()
@@ -41,6 +42,7 @@ install-vs-code-insiders()
     ln --symbolic --force "$code_dir/resources/completions/zsh/_code-insiders" "$ZDOTDIR/completions/_code-insiders"
 
     code-insiders --version
+    code-insiders --update-extensions
 }
 
 # https://k3d.io/

@@ -1,7 +1,38 @@
-{{ if or .headless (eq .chezmoi.os "darwin") -}}
-# On MacOS .profile is not read by the OS, so running it here.
-source "$HOME/.profile"
+# XDG base directories
+# https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_BIN_DIR="$HOME/.local/bin"
+
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export LESSHISTFILE="$XDG_DATA_HOME/less/history"
+
+export VISUAL=code
+
+{{ if lookPath "bat" -}}
+# Color man pages with bat
+# https://github.com/sharkdp/bat#man
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANROFFOPT="-c"
 {{- end }}
+
+export PAGER='less --quit-if-one-screen --mouse'
+
+{{ if and (eq .chezmoi.os "linux") (not .headless) -}}
+export VSCODE_PORTABLE="$XDG_CONFIG_HOME/vscode"
+{{- end }}
+{{ if lookPath "ipython" -}}
+export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
+{{- end }}
+{{ if lookPath "jupyter" -}}
+export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
+{{- end }}
+
+# https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-install
+[[ -d "$HOME/.dotnet/tools" ]] && PATH="$HOME/.dotnet/tools:$PATH"
+
+export PATH="$XDG_BIN_DIR:$PATH"
 
 # zsh paths
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"

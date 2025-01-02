@@ -1,13 +1,12 @@
 {
     "azureFunctions.showProjectWarning": false,
     "azureFunctions.showPythonVenvWarning": false,
-    "cfnLint.validateUsingJsonSchema": true,
     "dotfiles.repository": "https://github.com/mtaron/dotfiles.git",
     "editor.bracketPairColorization.enabled": true,
     "editor.fontFamily": "'Cascadia Code', monospace",
     "editor.fontLigatures": true,
     "editor.guides.bracketPairs": true,
-    "editor.renderWhitespace": "boundary",
+    "editor.renderWhitespace": "all",
     "editor.smoothScrolling": true,
     "editor.tabCompletion": "on",
     "explorer.confirmDelete": false,
@@ -64,5 +63,8 @@
     "terminal.integrated.fontWeight": "350",
     "terminal.integrated.fontWeightBold": "550",
     "diffEditor.renderSideBySide": false,
-    "git.branchPrefix": "mtaron/"
+    "git.branchPrefix": "mtaron/",
+    "dotnet.enableXamlTools": false,
+    "python.analysis.typeCheckingMode": "standard",
+    "dotnetAcquisitionExtension.enableTelemetry": false
 }

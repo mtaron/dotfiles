@@ -222,6 +222,7 @@ update-tools()
     has rye && rye self update
     has kustomize && install-kustomize
     has az && az bicep upgrade
+    has pipx && pipx upgrade-all
     [[ -d "$XDG_DATA_HOME/NuGet/plugins" ]] && install-nuget-credential-provider
 }
 

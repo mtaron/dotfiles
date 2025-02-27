@@ -8,13 +8,32 @@
 
 [commit]
 	gpgsign = true
+	verbose = true
+
+[column]
+	ui = auto
+
+[branch]
+	sort = -committerdate
+
+[tag]
+	sort = version:refname
 
 [pull]
 	ff = true
 	rebase = true
 
 [push]
-	default = current
+	default = simple
+	autoSetupRemote = true
+	followTags = true
+
+[help]
+	autocorrect = prompt
+
+[rerere]
+	enabled = true
+	autoupdate = true
 
 [credential]
 	helper =
@@ -42,8 +61,9 @@
 	# Git diff will use (i)ndex, (w)ork tree, (c)ommit and (o)bject
 	# instead of a/b/c/d as prefixes for patches
 	mnemonicprefix = true
-	algorithm = patience
-	colorMoved = default
+	algorithm = histogram
+	colorMoved = dimmed-zebra
+	renames = true
 {{- if lookPath "code" }}
 	guitool = vscode
 	tool = vscode
@@ -65,6 +85,7 @@
 	autoSquash = true
 	autoStash = true
 	stat = true
+	updateRefs = true
 
 {{ if lookPath "git-lfs" -}}
 [filter "lfs"]
@@ -80,6 +101,8 @@
 
 [fetch]
 	prune = true
+	pruneTags = true
+	all = true
 
 {{ if .work -}}
 [credential "azrepos:org/classifyprocess"]

@@ -66,5 +66,10 @@
     "git.branchPrefix": "mtaron/",
     "dotnet.enableXamlTools": false,
     "python.analysis.typeCheckingMode": "standard",
-    "dotnetAcquisitionExtension.enableTelemetry": false
+    "dotnetAcquisitionExtension.enableTelemetry": false,
+    "dotnet.preferVisualStudioCodeFileSystemWatcher": true,
+    "vs-kubernetes": {
+        "vs-kubernetes.crd-code-completion": "disabled"
+    },
+    "python.analysis.usePullDiagnostics": true
 }

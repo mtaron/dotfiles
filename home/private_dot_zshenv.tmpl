@@ -94,11 +94,6 @@ export-if-unset PYENV_ROOT "$XDG_DATA_HOME/pyenv"
 eval "$(pyenv init --path)"
 {{- end }}
 
-export-if-unset RYE_HOME "$XDG_DATA_HOME/rye"
-if [[ -f "$RYE_HOME/env" ]]; then
-    source "$RYE_HOME/env"
-fi
-
 {{ if lookPath "pnpm" -}}
 if [[ ! -v "$PNPM_HOME" ]]; then
     export PNPM_HOME="$XDG_DATA_HOME/pnpm"

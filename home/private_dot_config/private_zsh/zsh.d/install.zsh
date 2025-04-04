@@ -181,13 +181,6 @@ install-go()
     go version
 }
 
-# https://rye-up.com/guide/installation/#installing-rye
-install-rye()
-{
-    export RYE_HOME="$XDG_DATA_HOME/rye"
-    curl -sSf https://rye-up.com/get | bash
-}
-
 # https://support.zoom.us/hc/en-us/articles/204206269-Installing-or-updating-Zoom-on-Linux
 install-zoom()
 {
@@ -219,7 +212,6 @@ update-tools()
     has go && install-go
     has func && install-azure-function-tools
     has protoc && install-protobuf-compiler
-    has rye && rye self update
     has kustomize && install-kustomize
     has az && az bicep upgrade
     has pipx && pipx upgrade-all

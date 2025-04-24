@@ -23,6 +23,12 @@
   url: {{ gitHubLatestReleaseAssetURL "mikefarah/yq" "yq_linux_amd64.tar.gz" | quote }}
   path: ./yq_linux_amd64
 
+.local/bin/atuin:
+  type: archive-file
+  url: {{ gitHubLatestReleaseAssetURL "atuinsh/atuin" "atuin-x86_64-unknown-linux-gnu.tar.gz" | quote }}
+  stripComponents: 1
+  path: atuin
+
 {{ $mkcert_version := (gitHubLatestRelease "FiloSottile/mkcert").TagName -}}
 .local/bin/mkcert:
   type: file

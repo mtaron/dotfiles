@@ -76,9 +76,13 @@ if ! zgenom saved; then
     zgenom ohmyzsh plugins/golang
   fi
 
-  # Fuzzy history search
-  # https://github.com/junegunn/fzf
-  zgenom ohmyzsh plugins/fzf
+  if has atuin; then
+    zgenom load atuinsh/atuin
+  else
+    # Fuzzy history search
+    # https://github.com/junegunn/fzf
+    zgenom ohmyzsh plugins/fzf
+  fi
 
   zgenom load zsh-users/zsh-syntax-highlighting
   zgenom load zsh-users/zsh-autosuggestions
@@ -107,6 +111,7 @@ if ! zgenom saved; then
   has kustomize && kustomize completion zsh > "$ZSH_COMPLETIONS/_kustomize"
   has kubelogin && kubelogin completion zsh > "$ZSH_COMPLETIONS/_kubelogin"
   has yq && yq shell-completion zsh > "$ZSH_COMPLETIONS/_yq"
+  has atuin && atuin gen-completions --shell zsh > "$ZSH_COMPLETIONS/_atuin"
   [[ -d "$ZSH_COMPLETIONS" ]] && zgenom load "$ZSH_COMPLETIONS"
 
   zgenom save

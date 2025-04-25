@@ -76,6 +76,10 @@ if ! zgenom saved; then
     zgenom ohmyzsh plugins/golang
   fi
 
+  if has rustup; then
+    zgenom ohmyzsh plugins/rust
+  fi
+
   if has atuin; then
     zgenom load atuinsh/atuin
   else

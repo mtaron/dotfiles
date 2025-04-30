@@ -41,8 +41,6 @@ ZGEN_DIR="$XDG_CACHE_HOME/zgenom"
 # Disable Oh-My-ZSH's internal updating
 DISABLE_AUTO_UPDATE=true
 
-ZSH_AUTOSUGGEST_STRATEGY=(completion)
-
 ZSH_COMPLETIONS="$ZDOTDIR/completions"
 
 # Load plugin manager
@@ -120,6 +118,8 @@ if ! zgenom saved; then
 
   zgenom save
 fi
+
+ZSH_AUTOSUGGEST_STRATEGY=(completion)
 
 {{if lookPath "dotnet" }}
 # These completions apparently doesn't work when included in the zgenom save.

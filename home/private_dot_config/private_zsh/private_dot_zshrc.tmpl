@@ -114,6 +114,7 @@ if ! zgenom saved; then
   has kubelogin && kubelogin completion zsh > "$ZSH_COMPLETIONS/_kubelogin"
   has yq && yq shell-completion zsh > "$ZSH_COMPLETIONS/_yq"
   has atuin && atuin gen-completions --shell zsh > "$ZSH_COMPLETIONS/_atuin"
+  has uv && uv generate-shell-completion zsh > "$ZSH_COMPLETIONS/_uv"
   [[ -d "$ZSH_COMPLETIONS" ]] && zgenom load "$ZSH_COMPLETIONS"
 
   zgenom save

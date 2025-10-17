@@ -14,8 +14,8 @@
 
 {{/* workloads */}}
 {{- $kubernetesWorloadEnabled := lookPath "kubectl" | not | not }}
-{{- $kubernetesVersions := list "1.28" "1.29" "1.30" -}}
-{{- $kubernetesVersion := "1.28" -}}
+{{- $kubernetesVersions := list "1.33" "1.34" -}}
+{{- $kubernetesVersion := "1.33" -}}
 
 {{- $dockerWorloadEnabled := lookPath "docker" | not | not }}
 

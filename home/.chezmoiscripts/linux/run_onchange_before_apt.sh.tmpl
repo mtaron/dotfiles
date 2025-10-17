@@ -31,6 +31,14 @@ echo "deb [arch={{ .chezmoi.arch }} signed-by=$APT_KEYRING/githubcli.gpg] https:
     | add_apt_source kubernetes.list
 {{- end }}
 
+{{ if .workload.azure.enabled -}}
+  echo "▶️▶️ Azure"
+  curl -fsSL https://packages.microsoft.com/keys/microsoft.asc \
+    | add_apt_key $APT_KEYRING/microsoft.gpg
+  echo "deb [arch={{ .chezmoi.arch }} signed-by=$APT_KEYRING/microsoft.gpg] https://packages.microsoft.com/repos/azure-cli/ {{ .chezmoi.osRelease.versionCodename }} main" \
+    | add_apt_source azure-cli.list
+{{- end }}
+
 echo "▶️▶️ 1Password"
 # https://support.1password.com/install-linux/#debian-or-ubuntu
 curl -fsSL https://downloads.1password.com/linux/keys/1password.asc \
@@ -100,6 +108,10 @@ sudo apt-get update --yes
 
 {{ if .workload.kubernetes.enabled -}}
 {{   $packages = mustAppend $packages "kubectl" -}}
+{{ end -}}
+
+{{ if .workload.azure.enabled -}}
+{{   $packages = mustAppend $packages "azure-cli" -}}
 {{ end -}}
 
 {{ if not .headless -}}

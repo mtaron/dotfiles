@@ -23,15 +23,13 @@ curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
 echo "deb [arch={{ .chezmoi.arch }} signed-by=$APT_KEYRING/githubcli.gpg] https://cli.github.com/packages stable main" \
   | add_apt_source github-cli.list
 
-{{ if .workload.kubernetes.enabled -}}
-  echo "▶️▶️ Kubernetes {{ .workload.kubernetes.version }}"
-  curl -fsSL https://pkgs.k8s.io/core:/stable:/v{{ .workload.kubernetes.version }}/deb/Release.key \
-    | add_apt_key $APT_KEYRING/kubernetes.gpg
-  echo "deb [signed-by=$APT_KEYRING/kubernetes.gpg] https://pkgs.k8s.io/core:/stable:/v{{ .workload.kubernetes.version }}/deb/ /" \
-    | add_apt_source kubernetes.list
-{{- end }}
+echo "▶️▶️ Kubernetes"
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.34/deb/Release.key \
+  | add_apt_key $APT_KEYRING/kubernetes.gpg
+echo "deb [signed-by=$APT_KEYRING/kubernetes.gpg] https://pkgs.k8s.io/core:/stable:/v1.34/deb/ /" \
+  | add_apt_source kubernetes.list
 
-{{ if .workload.azure.enabled -}}
+{{ if .work -}}
   echo "▶️▶️ Azure"
   curl -fsSL https://packages.microsoft.com/keys/microsoft.asc \
     | add_apt_key $APT_KEYRING/microsoft.gpg
@@ -54,15 +52,13 @@ sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22
 curl -sS https://downloads.1password.com/linux/keys/1password.asc \
   | add_apt_key /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
 
-{{ if .workload.docker.enabled -}}
-  echo "▶️▶️ Docker"
-  # https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
-  curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
-    | add_apt_key $APT_KEYRING/docker.gpg
+echo "▶️▶️ Docker"
+# https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
+  | add_apt_key $APT_KEYRING/docker.gpg
 
-  echo "deb [arch={{ .chezmoi.arch }} signed-by=$APT_KEYRING/docker.gpg] https://download.docker.com/linux/ubuntu {{ .chezmoi.osRelease.versionCodename }} stable" \
-    | add_apt_source docker.list
-{{- end }}
+echo "deb [arch={{ .chezmoi.arch }} signed-by=$APT_KEYRING/docker.gpg] https://download.docker.com/linux/ubuntu {{ .chezmoi.osRelease.versionCodename }} stable" \
+  | add_apt_source docker.list
 
 {{ if not .headless -}}
   echo "▶️▶️ Brave"
@@ -88,6 +84,7 @@ sudo apt-get update --yes
      "git"
      "gnupg"
      "jq"
+     "kubectl"
      "ripgrep"
      "rustup"
      "shellcheck"
@@ -96,7 +93,6 @@ sudo apt-get update --yes
      "xclip"
      "zsh" -}}
 
-{{ if .workload.docker.enabled -}}
 {{ $dockerPackages := list
      "docker-ce"
      "docker-ce-cli"
@@ -104,13 +100,8 @@ sudo apt-get update --yes
      "docker-buildx-plugin"
      "docker-compose-plugin" -}}
 {{   $packages = concat $packages $dockerPackages -}}
-{{ end -}}
 
-{{ if .workload.kubernetes.enabled -}}
-{{   $packages = mustAppend $packages "kubectl" -}}
-{{ end -}}
-
-{{ if .workload.azure.enabled -}}
+{{ if .work -}}
 {{   $packages = mustAppend $packages "azure-cli" -}}
 {{ end -}}
 

@@ -1,8 +1,5 @@
 # Scratch
 
-Set up a kuberc file
-https://kubernetes.io/blog/2025/08/28/kubernetes-v1-34-kubectl-kuberc-beta/
-
 ## Manual Setup
 
 ### Manual Grub Setup for NVidia and to skip dual boot prompt

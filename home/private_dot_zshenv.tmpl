@@ -35,19 +35,21 @@ export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
 export PATH="$XDG_BIN_DIR:$PATH"
 
 # zsh paths
-export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export HISTFILE="$ZDOTDIR/.zsh_history"
 
 # oh-my-zsh paths
-export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
+export ZSH_CACHE_DIR="$XDG_CACHE_HOME/oh-my-zsh"
 
 # custom python startup that does not write history to $HOME
-export PYTHONSTARTUP="${XDG_CONFIG_HOME:-$HOME/.config}/python/startup.py"
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup.py"
 
 {{ if lookPath "func" -}}
 # disable Azure Function Tools telemetry
 export FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=1
 {{- end }}
+
+export KUBERC="$XDG_CONFIG_HOME/kubectl/kuberc"
 
 export-if-unset()
 {

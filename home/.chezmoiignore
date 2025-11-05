@@ -1,30 +1,33 @@
 # .chezmoiignore matches agaist target locations, not source.
 # https://www.chezmoi.io/reference/special-files-and-directories/chezmoiignore/
 
-{{ if not .gnome -}}
-.config/user-dirs.dirs
-files
-{{- end }}
+# Ubuntu specific ignores
+{{ if not (eq .osid "linux-ubuntu") }}
+.chezmoiscripts/ubuntu/**
+.config/zsh/zsh.d/install.zsh
 
-{{ if not (lookPath "batcat") -}}
+{{   if not (lookPath "batcat") -}}
 # bat needs to be symlinked on ubuntu to avoid package name conflict
 # https://github.com/sharkdp/bat#on-ubuntu-using-apt
 .local/bin/bat
-{{- end }}
+{{-   end }}
 
-{{ if not (lookPath "fdfind") -}}
+{{   if not (lookPath "fdfind") -}}
 # fd needs to be symlinked on ubuntu to avoid package name conflict
 .local/bin/fd
-{{- end }}
+{{-   end }}
 
-{{ if or (ne .chezmoi.os "linux") .headless -}}
+{{   if .headless -}}
 .local/share/applications/vscode.desktop
+.local/share/fonts
 .config/vscode/**
 .local/share/applications/code-url-handler.desktop
 .local/share/applications/defaults.list
 .config/autostart/
+{{-   end }}
 {{- end }}
 
+# Application specific ignores
 {{ if not (lookPath "gh") -}}
 .local/bin/docker-credential-gh
 .config/docker/config.json
@@ -32,13 +35,4 @@ files
 
 {{ if not (lookPath "terraform") -}}
 .config/terraform/
-{{- end }}
-
-{{ if ne .chezmoi.os "linux" -}}
-.chezmoiscripts/linux/**
-.local/share/fonts
-{{- end }}
-
-{{ if not (lookPath "pnpm") -}}
-.config/zsh/completions/_pnpm
 {{- end }}

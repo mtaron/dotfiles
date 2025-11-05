@@ -5,6 +5,7 @@
   clone:
     args: [ "--depth", "1" ]
 
+{{ if eq .osid "linux-ubuntu" -}}
 # node version manager
 .config/nvm:
   type: git-repo
@@ -62,4 +63,5 @@
   url: https://github.com/microsoft/cascadia-code/releases/download/v2404.23/CascadiaCode-2404.23.zip
   stripComponents: 1
   include: ["ttf/*.ttf"]
+{{- end }}
 {{- end }}

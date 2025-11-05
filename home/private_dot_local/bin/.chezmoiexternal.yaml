@@ -1,13 +1,15 @@
-{{ if and (eq .chezmoi.os "linux") (not .headless) -}}
+{{ if eq .osid "linux-ubuntu" -}}
+{{   if not .headless -}}
 # script to remove old linux kernels so /boot doesn't fill up
 kernel-clean:
   type: file
   url: "https://raw.githubusercontent.com/plepe/kernel-clean/master/kernel-clean"
   executable: true
   refreshPeriod: "744h"
-{{ end -}}
+{{   end -}}
 get-helm-3:
   type: file
   url: "https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
   executable: true
   refreshPeriod: "744h"
+{{ end -}}

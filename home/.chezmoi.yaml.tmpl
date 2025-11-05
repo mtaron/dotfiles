@@ -10,6 +10,11 @@
 {{-   $ephemeral = promptBoolOnce . "ephemeral" "ephemeral" false -}}
 {{- end -}}
 
+{{- $osid := .chezmoi.os -}}
+{{- if hasKey .chezmoi.osRelease "id" -}}
+{{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{- end -}}
+
 {{- $email := default "michael@taron.dev" (env "GIT_AUTHOR_EMAIL") -}}
 
 {{/* workloads */}}
@@ -50,6 +55,7 @@ data:
   headless: {{ $headless }}
   gnome: {{ $gnome }}
   ephemeral: {{ $ephemeral }}
+  osid: {{ quote $osid }}
   work: {{ eq $email "mtaron@docugami.com" }}
 
   user:

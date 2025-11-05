@@ -40,9 +40,13 @@
 {{- if lookPath "git-credential-manager" }}
 	helper = {{ lookPath "git-credential-manager" }}
 {{- end }}
-	azreposCredentialType = oauth
 {{- if .gnome }}
 	credentialStore = secretservice
+{{- end }}
+{{ if .work -}}
+	azreposCredentialType = oauth
+[credential "https://dev.azure.com"]
+	useHttpPath = true
 {{- end }}
 [credential "https://github.com"]
 	username = {{ .user.github }}
@@ -51,8 +55,6 @@
 	helper =
 	helper = {{ quote $gh }} auth git-credential
 {{- end }}
-[credential "https://dev.azure.com"]
-	useHttpPath = true
 
 [init]
 	defaultBranch = main

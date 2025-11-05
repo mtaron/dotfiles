@@ -1,5 +1,7 @@
+{{ if eq .osid "linux-ubuntu" -}}
 # update OS dependencies
 alias up='sudo apt update && sudo apt -V --yes upgrade'
+{{- end }}
 
 # run sudo with the current PATH environment variable
 alias psudo='sudo env "PATH=$PATH"'

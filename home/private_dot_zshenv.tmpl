@@ -19,7 +19,7 @@ export MANROFFOPT="-c"
 
 export PAGER='less --quit-if-one-screen --mouse'
 
-{{ if and (eq .chezmoi.os "linux") (not .headless) -}}
+{{ if and (eq .osid "linux-ubuntu") (not .headless) -}}
 export VSCODE_PORTABLE="$XDG_CONFIG_HOME/vscode"
 {{- end }}
 {{ if lookPath "ipython" -}}

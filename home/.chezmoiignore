@@ -27,6 +27,11 @@
 {{-   end }}
 {{- end }}
 
+# NixOS specific ignores
+{{ if not (eq .osid "linux-nixos") }}
+.config/nixos
+{{- end }}
+
 # Application specific ignores
 {{ if not (lookPath "gh") -}}
 .local/bin/docker-credential-gh

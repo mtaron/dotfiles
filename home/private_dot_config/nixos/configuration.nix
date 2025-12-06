@@ -32,6 +32,9 @@
     disable32Bit = true;
   };
 
+  # Try to address glitches after sleep/resume.
+  hardware.nvidia.powerManagement.enable = true;
+
   # The zone of "Are we Wayland yet?" with the answer "mostly yes!".
   hardware.nvidia.modesetting.enable = true;
 
@@ -273,6 +276,11 @@
     # Fast, disk space efficient package manager.
     # https://pnpm.io/
     pnpm
+
+    # `crane` is a tool for managing container images
+    # https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane.md
+    # https://github.com/google/go-containerregistry/blob/main/cmd/crane/recipes.md
+    go-containerregistry
   ];
 
   # https://wiki.nixos.org/wiki/Podman

@@ -1,13 +1,3 @@
-# Use Ctrl+Z as interrupt instead of Ctrl+C
-# This must be done before Powerlevel10k instant prompt
-if [[ -o interactive ]]; then
-  stty intr ^Z
-else
-  # .zshrc should never be loaded in a non-interactive shell,
-  # but it's interesting that is mostly works with auto compinit disabled.
-  ZGEN_AUTOLOAD_COMPINIT=0
-fi
-
 # https://github.com/romkatv/powerlevel10k#how-do-i-initialize-direnv-when-using-instant-prompt
 {{ $hasDirenv := lookPath "direnv" | not | not }}
 {{ if $hasDirenv -}}

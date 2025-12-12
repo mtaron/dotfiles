@@ -8,20 +8,7 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs =
-    inputs@{
-      self,
-      nixpkgs,
-      atuin,
-      ...
-    }:
-    {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-          { nixpkgs.overlays = [ atuin.overlays.default ]; }
-        ];
-      };
-    };
+  outputs = inputs: {
+    nixosConfigurations.nixos = import ./nixos.nix inputs;
+  };
 }

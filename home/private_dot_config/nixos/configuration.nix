@@ -39,10 +39,6 @@
   # Turn on the NVIDIA NixOS module which keys on this value.
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  boot.initrd.luks.devices."luks-52908bb0-8ecc-4db1-a09a-2ff9e6f57816".device =
-    "/dev/disk/by-uuid/52908bb0-8ecc-4db1-a09a-2ff9e6f57816";
-  networking.hostName = "nixos"; # Define your hostname.
-
   # Enable networking
   networking.networkmanager.enable = true;
 

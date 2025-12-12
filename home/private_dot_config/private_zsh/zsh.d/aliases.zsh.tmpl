@@ -4,8 +4,7 @@ alias apt-up='sudo apt update && sudo apt -V --yes upgrade'
 {{- end }}
 
 {{ if eq .osid "linux-nixos" -}}
-alias nixos-apply='chezmoi apply && sudo nixos-rebuild switch --flake $XDG_CONFIG_HOME/nixos'
-alias nixos-up='chezmoi update && sudo nixos-rebuild switch --update-input --flake $XDG_CONFIG_HOME/nixos'
+alias nixos-up='sudo nixos-rebuild switch --flake $XDG_DATA_HOME/chezmoi/home/private_dot_config/nixos'
 {{- end }}
 
 # run sudo with the current PATH environment variable

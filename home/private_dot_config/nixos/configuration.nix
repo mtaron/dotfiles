@@ -5,39 +5,15 @@
 { config, pkgs, ... }:
 
 {
-  hardware.enableRedistributableFirmware = true;
-  hardware.cpu.amd.updateMicrocode = true;
-
   # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.blacklistedKernelModules = [ "nouveau" ];
 
   # Enable TPM support
   # https://nixos.wiki/wiki/TPM
   security.tpm2.enable = true;
   security.tpm2.pkcs11.enable = true;
   security.tpm2.tctiEnvironment.enable = true;
-
-  # Use the latest NVIDIA open drivers.
-  # See https://www.nvidia.com/en-us/drivers/unix/linux-amd64-display-archive/
-  # and https://github.com/NVIDIA/open-gpu-kernel-modules/
-  hardware.nvidia.open = true;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest.override {
-    disable32Bit = true;
-  };
-
-  # Try to address glitches after sleep/resume.
-  hardware.nvidia.powerManagement.enable = true;
-
-  # The zone of "Are we Wayland yet?" with the answer "mostly yes!".
-  hardware.nvidia.modesetting.enable = true;
-
-  # Turn off the NVIDIA settings GUI. It's not for Wayland yet.
-  hardware.nvidia.nvidiaSettings = false;
-
-  # Turn on the NVIDIA NixOS module which keys on this value.
-  services.xserver.videoDrivers = [ "nvidia" ];
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -203,22 +179,6 @@
     # `gh` is the command line GitHub client.
     # https://cli.github.com/
     gh
-
-    # Small utility to dump info about DRM devices.
-    # https://gitlab.freedesktop.org/emersion/drm_info
-    drm_info
-
-    # NVIDIA's Wayland EGL External Platform library
-    # https://github.com/NVIDIA/egl-wayland
-    egl-wayland
-
-    # Tool for reading and parsing EDID data from monitors
-    # http://www.polypux.org/projects/read-edid/
-    read-edid
-
-    # Provides the `vkcube`, `vkcubepp`, `vkcube-wayland`, and `vulkaninfo` tools.
-    # https://github.com/KhronosGroup/Vulkan-Tools
-    vulkan-tools
 
     tpm2-tools
 

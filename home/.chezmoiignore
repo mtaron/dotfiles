@@ -18,18 +18,8 @@
 {{-   end }}
 
 {{   if .headless -}}
-.local/share/applications/vscode.desktop
-.local/share/fonts
-.config/vscode/**
-.local/share/applications/code-url-handler.desktop
-.local/share/applications/defaults.list
 .config/autostart/
-{{-   end }}
-{{- end }}
-
-# NixOS specific ignores
-{{ if not (eq .osid "linux-nixos") }}
-.config/nixos
+{{-  end }}
 {{- end }}
 
 # Application specific ignores

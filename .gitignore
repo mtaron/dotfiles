@@ -1,2 +1,0 @@
-# Don't track NixOS build results; they're fundamentally ephemeral.
-nixos/result*

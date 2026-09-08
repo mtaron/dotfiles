@@ -3,10 +3,6 @@
 alias apt-up='sudo apt update && sudo apt -V --yes upgrade'
 {{- end }}
 
-{{ if eq .osid "linux-nixos" -}}
-alias nixos-up='sudo nixos-rebuild switch --flake $XDG_DATA_HOME/chezmoi/nixos'
-{{- end }}
-
 # run sudo with the current PATH environment variable
 alias psudo='sudo env "PATH=$PATH"'
 

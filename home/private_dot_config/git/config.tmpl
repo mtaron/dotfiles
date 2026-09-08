@@ -43,11 +43,6 @@
 {{- if .gnome }}
 	credentialStore = secretservice
 {{- end }}
-{{ if .work -}}
-	azreposCredentialType = oauth
-[credential "https://dev.azure.com"]
-	useHttpPath = true
-{{- end }}
 [credential "https://github.com"]
 	username = {{ .user.github }}
 {{- $gh := lookPath "gh" -}}
@@ -105,9 +100,3 @@
 	prune = true
 	pruneTags = true
 	all = true
-
-{{ if .work -}}
-[credential "azrepos:org/classifyprocess"]
-	username = {{ .user.email }}
-	azureAuthority = https://login.microsoftonline.com/36a81f24-9b50-497e-9bf9-927de14bb0ab
-{{- end }}

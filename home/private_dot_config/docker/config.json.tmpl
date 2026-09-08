@@ -1,14 +1,6 @@
 {
-	{{ if .work -}}
-	"auths": {
-		"docugami.azurecr.io": {}
-	},
-	{{- end }}
 	"credHelpers": {
 		"docker.pkg.github.com": "gh",
-		{{ if .work -}}
-		"docugami.azurecr.io": "acr",
-		{{- end }}
 		"ghcr.io": "gh"
 	}
 }

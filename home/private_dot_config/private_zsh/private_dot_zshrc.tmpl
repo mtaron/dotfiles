@@ -42,18 +42,14 @@ if ! zgenom saved; then
   # Adds 'als' alias that lists aliases grouped by plugin
   zgenom ohmyzsh plugins/aliases
   zgenom ohmyzsh plugins/copypath
-  zgenom ohmyzsh plugins/nvm
   zgenom ohmyzsh plugins/httpie
   has redis-cli && zgenom ohmyzsh plugins/redis-cli
-  has yarn && zgenom ohmyzsh plugins/yarn
 
   # Use 'acl' command to change profiles
   # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/aws
   has aws && zgenom ohmyzsh plugins/aws
 
   has kubectl && zgenom ohmyzsh plugins/kubectx
-
-  has pyenv && zgenom ohmyzsh plugins/pyenv
 
   if has terraform; then
     mkdir --parents "$XDG_CACHE_HOME/terraform/plugins"
@@ -93,11 +89,9 @@ if ! zgenom saved; then
   # Completions
   has chezmoi && chezmoi completion zsh > "$ZSH_COMPLETIONS/_chezmoi"
   has gh && gh completion --shell zsh > "$ZSH_COMPLETIONS/_gh"
-  has poetry && poetry completions zsh > "$ZSH_COMPLETIONS/_poetry"
   has kubectl && kubectl completion zsh > "$ZSH_COMPLETIONS/_kubectl"
   has helm && helm completion zsh > "$ZSH_COMPLETIONS/_helm"
   has kind && kind completion zsh > "$ZSH_COMPLETIONS/_kind"
-  has pulumi && pulumi gen-completion zsh > "$ZSH_COMPLETIONS/_pulumi"
   has op && op completion zsh > "$ZSH_COMPLETIONS/_op"
   has pnpm && pnpm completion zsh > "$ZSH_COMPLETIONS/_pnpm"
   has flyctl && flyctl completion zsh > "$ZSH_COMPLETIONS/_flyctl"
@@ -123,13 +117,6 @@ source "$ZSH_COMPLETIONS"/_dotnet_suggest
 if [[ -f /etc/bash_completion.d/azure-cli ]]; then
   autoload -U +X bashcompinit && bashcompinit
   source /etc/bash_completion.d/azure-cli
-fi
-{{ end }}
-
-{{ if lookPath "pipx" }}
-argcomplete="$(command -v register-python-argcomplete || command -v register-python-argcomplete3)"
-if has pipx && [[ -f $argcomplete ]]; then
-  eval "$($argcomplete pipx)"
 fi
 {{ end }}
 

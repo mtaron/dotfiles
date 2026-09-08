@@ -17,11 +17,6 @@ add_apt_source()
 
 echo "▶️ adding apt repositories"
 
-echo "▶️▶️ GitHub"
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
-  | add_apt_key $APT_KEYRING/githubcli.gpg
-echo "deb [arch={{ .chezmoi.arch }} signed-by=$APT_KEYRING/githubcli.gpg] https://cli.github.com/packages stable main" \
-  | add_apt_source github-cli.list
 
 echo "▶️▶️ Kubernetes"
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.34/deb/Release.key \
@@ -29,28 +24,6 @@ curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.34/deb/Release.key \
 echo "deb [signed-by=$APT_KEYRING/kubernetes.gpg] https://pkgs.k8s.io/core:/stable:/v1.34/deb/ /" \
   | add_apt_source kubernetes.list
 
-{{ if .work -}}
-  echo "▶️▶️ Azure"
-  curl -fsSL https://packages.microsoft.com/keys/microsoft.asc \
-    | add_apt_key $APT_KEYRING/microsoft.gpg
-  echo "deb [arch={{ .chezmoi.arch }} signed-by=$APT_KEYRING/microsoft.gpg] https://packages.microsoft.com/repos/azure-cli/ {{ .chezmoi.osRelease.versionCodename }} main" \
-    | add_apt_source azure-cli.list
-{{- end }}
-
-echo "▶️▶️ 1Password"
-# https://support.1password.com/install-linux/#debian-or-ubuntu
-curl -fsSL https://downloads.1password.com/linux/keys/1password.asc \
-  | add_apt_key $APT_KEYRING/1password.gpg
-echo "deb [arch={{ .chezmoi.arch }} signed-by=$APT_KEYRING/1password.gpg] https://downloads.1password.com/linux/debian/{{ .chezmoi.arch }} stable main" \
-  | add_apt_source 1password.list
-
-sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/
-curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol \
-  | sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol > /dev/null
-
-sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22
-curl -sS https://downloads.1password.com/linux/keys/1password.asc \
-  | add_apt_key /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
 
 echo "▶️▶️ Docker"
 # https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
@@ -70,7 +43,7 @@ echo "deb [arch={{ .chezmoi.arch }} signed-by=$APT_KEYRING/docker.gpg] https://d
     | add_apt_source brave-browser-release.list
 {{- end }}
 
-sudo apt-get update --yes
+sudo apt-get update
 
 {{ $packages := list
      "1password-cli"
@@ -100,10 +73,6 @@ sudo apt-get update --yes
      "docker-buildx-plugin"
      "docker-compose-plugin" -}}
 {{   $packages = concat $packages $dockerPackages -}}
-
-{{ if .work -}}
-{{   $packages = mustAppend $packages "azure-cli" -}}
-{{ end -}}
 
 {{ if not .headless -}}
 {{   $packages = concat $packages (list "brave-browser" "1password") -}}

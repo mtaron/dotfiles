@@ -19,9 +19,6 @@ export MANROFFOPT="-c"
 
 export PAGER='less --quit-if-one-screen --mouse'
 
-{{ if and (eq .osid "linux-ubuntu") (not .headless) -}}
-export VSCODE_PORTABLE="$XDG_CONFIG_HOME/vscode"
-{{- end }}
 {{ if lookPath "ipython" -}}
 export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
 {{- end }}
@@ -43,11 +40,6 @@ export ZSH_CACHE_DIR="$XDG_CACHE_HOME/oh-my-zsh"
 
 # custom python startup that does not write history to $HOME
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup.py"
-
-{{ if lookPath "func" -}}
-# disable Azure Function Tools telemetry
-export FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=1
-{{- end }}
 
 export KUBERC="$XDG_CONFIG_HOME/kubectl/kuberc"
 
@@ -80,8 +72,6 @@ export-if-unset NUGET_PLUGIN_PATHS "$XDG_DATA_HOME"/NuGet/plugins/CredentialProv
 export PATH="$DOTNET_CLI_HOME/.dotnet/tools:$PATH"
 {{- end }}
 
-export-if-unset NVM_DIR "$XDG_CONFIG_HOME/nvm"
-
 {{ if lookPath "azcopy" -}}
 export AZCOPY_JOB_PLAN_LOCATION="$XDG_CACHE_HOME"/azcopy
 export AZCOPY_LOG_LOCATION=/tmp/azcopy
@@ -95,11 +85,6 @@ export-if-unset DOCKER_CONFIG "$XDG_CONFIG_HOME/docker"
 export-if-unset RUSTUP_HOME "$XDG_DATA_HOME/rustup"
 export-if-unset CARGO_HOME "$XDG_DATA_HOME/cargo"
 export PATH="$CARGO_HOME/bin:$PATH"
-{{- end }}
-
-{{ if lookPath "pyenv" -}}
-export-if-unset PYENV_ROOT "$XDG_DATA_HOME/pyenv"
-eval "$(pyenv init --path)"
 {{- end }}
 
 {{ if lookPath "pnpm" -}}

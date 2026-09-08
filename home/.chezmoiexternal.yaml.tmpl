@@ -6,14 +6,6 @@
     args: [ "--depth", "1" ]
 
 {{ if eq .osid "linux-ubuntu" -}}
-# node version manager
-.config/nvm:
-  type: git-repo
-  url: https://github.com/nvm-sh/nvm.git
-  refreshPeriod: "168h"
-  clone:
-    args: [ "--depth", "1" ]
-
 .local/bin/direnv:
   type: file
   url: {{ gitHubLatestReleaseAssetURL "direnv/direnv" "direnv.linux-amd64" | quote }}
@@ -35,25 +27,6 @@
   type: file
   url: https://github.com/FiloSottile/mkcert/releases/download/{{ $mkcert_version }}/mkcert-{{ $mkcert_version }}-linux-amd64
   executable: true
-
-.local/bin/pnpm:
-  type: file
-  url: {{ gitHubLatestReleaseAssetURL "pnpm/pnpm" "pnpm-linux-x64" | quote }}
-  executable: true
-
-{{ if .work -}}
-{{ $pulumi_version := (gitHubLatestRelease "pulumi/pulumi").TagName -}}
-.local/bin:
-  type: archive
-  url: https://github.com/pulumi/pulumi/releases/download/{{ $pulumi_version }}/pulumi-{{ $pulumi_version }}-linux-x64.tar.gz
-  stripComponents: 1
-
-{{ $kubelogin_version := (gitHubLatestRelease "Azure/kubelogin").TagName -}}
-.local/bin/kubelogin:
-  type: archive-file
-  url: https://github.com/Azure/kubelogin/releases/download/{{ $kubelogin_version }}/kubelogin-linux-amd64.zip
-  path: bin/linux_amd64/kubelogin
-{{- end }}
 
 {{ if not .headless -}}
 .local/share/fonts/cascadia-code:

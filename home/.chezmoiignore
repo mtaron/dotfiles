@@ -17,9 +17,6 @@
 .local/bin/fd
 {{-   end }}
 
-{{   if .headless -}}
-.config/autostart/
-{{-  end }}
 {{- end }}
 
 # Application specific ignores

@@ -28,11 +28,4 @@
   url: https://github.com/FiloSottile/mkcert/releases/download/{{ $mkcert_version }}/mkcert-{{ $mkcert_version }}-linux-amd64
   executable: true
 
-{{ if not .headless -}}
-.local/share/fonts/cascadia-code:
-  type: archive
-  url: https://github.com/microsoft/cascadia-code/releases/download/v2404.23/CascadiaCode-2404.23.zip
-  stripComponents: 1
-  include: ["ttf/*.ttf"]
-{{- end }}
 {{- end }}

@@ -15,7 +15,7 @@
 # to system clipboard). This is just a shortcut to skip dynamic detection using
 # `tty-copy --test` for known terminals.
 if (( ! ${+osc52_supported_terms} )); then
-	osc52_supported_terms=('alacritty' 'foot' 'xterm-kitty')
+	osc52_supported_terms=('ghostty' 'alacritty' 'foot' 'xterm-kitty')
 fi
 
 function () {

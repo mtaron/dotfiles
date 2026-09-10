@@ -9,8 +9,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
 
       - name: Install zsh
         run: |
@@ -43,6 +45,7 @@ jobs:
           [[ ! -f "$HOME/.config/user-dirs.dirs" ]] || exit 1
         env:
           GIT_AUTHOR_EMAIL: test@taron.dev
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: test environment
         run: |

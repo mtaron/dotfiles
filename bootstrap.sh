@@ -49,7 +49,6 @@ add_apt_source() {
 add_apt_source_vscode() {
   local key_path="$APT_KEYRING/microsoft.gpg"
   add_apt_key https://packages.microsoft.com/keys/microsoft.asc "$key_path"
-
   add_apt_source vscode.sources <<EOF
 Types: deb
 URIs: https://packages.microsoft.com/repos/code

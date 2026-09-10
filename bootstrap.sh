@@ -9,40 +9,37 @@ readonly APT_SOURCES_DIR=/etc/apt/sources.list.d
 
 # Installs system packages that are used by the rest of this script and other dotfiles
 install_prerequisites() {
-    sudo apt-get update
-    sudo apt-get install --yes \
-        bat \
-        curl \
-        fonts-cascadia-code \
-        ghostty \
-        git \
-        git-lfs \
-        gnupg \
-        jq \
-        ripgrep \
-        shellcheck \
-        xclip \
-        zsh
+  sudo apt-get update
+  sudo apt-get install --yes --no-install-recommends \
+    bat \
+    curl \
+    fonts-cascadia-code \
+    ghostty \
+    git \
+    git-lfs \
+    gnupg \
+    jq \
+    ripgrep \
+    shellcheck \
+    xclip \
+    zsh
 }
-
-install_prerequisites
-
-# Add apt sources
-
-architecture=$(dpkg --print-architecture)
 
 # Adds an apt key if it doesn't already exist.
 # Argument 1: URL to the key
 # Argument 2: Path to the keyring file
 add_apt_key() {
-  [[ ! -f "$2" ]] && curl -fsSL "$1" | sudo gpg --dearmor --output "$2" || true
+  local url=$1 keyring=$2
+  [[ -f "$keyring" ]] && return 0
+  curl -fsSL "$url" | sudo gpg --dearmor --output "$keyring"
 }
 
 # Adds an apt source if it doesn't already exist.
 # Argument 1: Name of the source file (e.g. "vscode.sources")
 add_apt_source() {
   local sources_path="$APT_SOURCES_DIR/$1"
-  [[ ! -f "$sources_path" ]] && sudo tee "$sources_path" >/dev/null || true
+  [[ -f "$sources_path" ]] && return 0
+  sudo tee "$sources_path" >/dev/null
 }
 
 # https://code.visualstudio.com/docs/setup/linux
@@ -76,8 +73,8 @@ EOF
   local policy_path=/etc/debsig/policies/AC2D62742012EA22/1password.pol
   if [[ ! -f "$policy_path" ]]; then
     sudo mkdir -p "$(dirname "$policy_path")"
-    curl -fsSL https://downloads.1password.com/linux/debian/debsig/1password.pol \
-      | sudo tee "$policy_path" >/dev/null
+    curl -fsSL https://downloads.1password.com/linux/debian/debsig/1password.pol |
+      sudo tee "$policy_path" >/dev/null
   fi
 
   local debsig_key_path=/usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
@@ -150,27 +147,52 @@ Signed-By: $key_path
 EOF
 }
 
-add_apt_source_vscode
-add_apt_source_1password
-add_apt_source_github
-add_apt_source_brave
-add_apt_source_claude_desktop
-add_apt_source_claude_code
+add_apt_sources() {
+  architecture=$(dpkg --print-architecture)
+  readonly architecture
 
-# Install the packages that are available from the apt sources we just added
-sudo apt-get update
-sudo apt-get install --yes \
-  1password \
-  1password-cli \
-  brave-browser \
-  claude-code \
-  claude-desktop \
-  code \
-  gh
+  add_apt_source_vscode
+  add_apt_source_1password
+  add_apt_source_github
+  add_apt_source_brave
+  add_apt_source_claude_desktop
+  add_apt_source_claude_code
+}
 
-# systemd configuration
+# Installs the packages that are available from the apt sources added above.
+install_packages() {
+  sudo apt-get update
+  sudo apt-get install --yes --no-install-recommends \
+    1password \
+    1password-cli \
+    brave-browser \
+    claude-code \
+    claude-desktop \
+    code \
+    gh
+}
 
-# https://ghostty.org/docs/linux/systemd#starting-ghostty-at-login
-systemctl enable --user app-com.mitchellh.ghostty.service
+configure_systemd() {
+  # https://ghostty.org/docs/linux/systemd#starting-ghostty-at-login
+  systemctl enable --user app-com.mitchellh.ghostty.service
+}
 
-chsh --shell "$(command -v zsh)"
+configure_shell() {
+  local zsh_path
+  zsh_path=$(command -v zsh)
+  if [[ "$SHELL" != "$zsh_path" ]]; then
+    chsh --shell "$zsh_path"
+  fi
+}
+
+main() {
+  install_prerequisites
+
+  add_apt_sources
+  install_packages
+
+  configure_systemd
+  configure_shell
+}
+
+main "$@"

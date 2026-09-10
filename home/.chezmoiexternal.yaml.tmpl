@@ -28,4 +28,10 @@
   url: https://github.com/FiloSottile/mkcert/releases/download/{{ $mkcert_version }}/mkcert-{{ $mkcert_version }}-linux-amd64
   executable: true
 
+{{ $shfmt_version := (gitHubLatestRelease "mvdan/sh").TagName -}}
+.local/bin/shfmt:
+  type: file
+  url: https://github.com/mvdan/sh/releases/download/{{ $shfmt_version }}/shfmt_{{ $shfmt_version }}_linux_amd64
+  executable: true
+
 {{- end }}

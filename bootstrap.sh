@@ -64,7 +64,6 @@ EOF
 add_apt_source_1password() {
   local key_path="$APT_KEYRING/1password.gpg"
   add_apt_key https://downloads.1password.com/linux/keys/1password.asc "$key_path"
-
   add_apt_source 1password.sources <<EOF
 Types: deb
 URIs: https://downloads.1password.com/linux/debian/$architecture
@@ -97,7 +96,6 @@ EOF
 add_apt_source_github() {
   local key_path="$APT_KEYRING/githubcli.gpg"
   add_apt_key https://cli.github.com/packages/githubcli-archive-keyring.gpg "$key_path"
-
   add_apt_source github-cli.sources <<EOF
 Types: deb
 URIs: https://cli.github.com/packages
@@ -115,10 +113,37 @@ EOF
 add_apt_source_brave() {
   local key_path="$APT_KEYRING/brave-browser.gpg"
   add_apt_key https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg "$key_path"
-
   add_apt_source brave-browser.sources <<EOF
 Types: deb
 URIs: https://brave-browser-apt-release.s3.brave.com/
+Suites: stable
+Components: main
+Architectures: $architecture
+Signed-By: $key_path
+EOF
+}
+
+# https://code.claude.com/docs/en/desktop-linux#install
+add_apt_source_claude_desktop() {
+  local key_path="$APT_KEYRING/claude-desktop.gpg"
+  add_apt_key https://downloads.claude.ai/claude-desktop/key.asc "$key_path"
+  add_apt_source claude-desktop.sources <<EOF
+Types: deb
+URIs: https://downloads.claude.ai/claude-desktop/apt/stable
+Suites: stable
+Components: main
+Architectures: $architecture
+Signed-By: $key_path
+EOF
+}
+
+# https://code.claude.com/docs/en/setup#install-with-linux-package-managers
+add_apt_source_claude_code() {
+  local key_path="$APT_KEYRING/claude-code.gpg"
+  add_apt_key https://downloads.claude.ai/keys/claude-code.asc "$key_path"
+  add_apt_source claude-code.sources <<EOF
+Types: deb
+URIs: https://downloads.claude.ai/claude-code/apt/stable
 Suites: stable
 Components: main
 Architectures: $architecture
@@ -130,6 +155,8 @@ add_apt_source_vscode
 add_apt_source_1password
 add_apt_source_github
 add_apt_source_brave
+add_apt_source_claude_desktop
+add_apt_source_claude_code
 
 # Install the packages that are available from the apt sources we just added
 sudo apt-get update
@@ -137,6 +164,8 @@ sudo apt-get install --yes \
   1password \
   1password-cli \
   brave-browser \
+  claude-code \
+  claude-desktop \
   code \
   gh
 

@@ -73,10 +73,6 @@ add_apt_source_1password() {
     sudo mkdir -p "$(dirname "$debsig_key_path")"
     sudo cp "$key_path" "$debsig_key_path"
   fi
-
-  # Manual steps after install:
-  # - sign into 1Password, Settings > Developer > "Integrate with 1Password CLI"
-  # - validate by running "op vault list"
 }
 
 # https://github.com/cli/cli/blob/trunk/docs/install_linux.md#debian
@@ -84,9 +80,6 @@ add_apt_source_github() {
   add_apt_source github-cli.sources \
     https://cli.github.com/packages \
     "$(add_apt_key https://cli.github.com/packages/githubcli-archive-keyring.gpg)"
-
-  # Manual steps after install:
-  # - gh auth login
 }
 
 # https://brave.com/linux/#debian-ubuntu-mint
@@ -163,6 +156,23 @@ configure_shell() {
   fi
 }
 
+print_manual_steps() {
+  cat <<'EOF'
+
+👋 A few things to finish by hand:
+
+🔐 1Password
+  • Sign in using the app and enable Settings > Developer > "Integrate with 1Password CLI"
+  • Validate with `op vault list`
+
+🐙 GitHub CLI
+  • `gh auth login`
+
+🏠 chezmoi
+  • Run `./install.sh` to install chezmoi and apply dotfiles
+EOF
+}
+
 main() {
   install_prerequisites
 
@@ -171,6 +181,8 @@ main() {
 
   configure_systemd
   configure_shell
+
+  print_manual_steps
 }
 
 main "$@"

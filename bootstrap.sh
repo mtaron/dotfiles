@@ -4,8 +4,6 @@
 
 set -euo pipefail
 
-readonly APT_KEYRING=/etc/apt/keyrings
-
 # Installs system packages that are used by the rest of this script and other dotfiles
 install_prerequisites() {
   sudo apt-get update
@@ -24,11 +22,13 @@ install_prerequisites() {
     zsh
 }
 
-# add_apt_key URL KEY_PATH
+# add_apt_key URL [NAME]
 add_apt_key() {
-  local url=$1 key_path=$2
-  [[ -f "$key_path" ]] && return 0
-  curl -fsSL "$url" | sudo gpg --dearmor --output "$key_path"
+  local url=$1
+  local name=${2:-$(basename "$url")}
+  sudo curl --silent --skip-existing --show-error --fail --location \
+    --output-dir /etc/apt/keyrings --output "$name" \
+    --write-out "%{filename_effective}" "$url"
 }
 
 # add_apt_source NAME URL KEY_PATH [SUITE] [COMPONENTS]
@@ -49,16 +49,16 @@ EOF
 
 # https://code.visualstudio.com/docs/setup/linux
 add_apt_source_vscode() {
-  local key_path="$APT_KEYRING/microsoft.gpg"
-  add_apt_key https://packages.microsoft.com/keys/microsoft.asc "$key_path"
-  add_apt_source vscode.sources https://packages.microsoft.com/repos/code "$key_path"
+  add_apt_source vscode.sources \
+    https://packages.microsoft.com/repos/code \
+    "$(add_apt_key https://packages.microsoft.com/keys/microsoft.asc)"
 }
 
 # https://support.1password.com/install-linux/#debian-or-ubuntu
 add_apt_source_1password() {
-  local key_path="$APT_KEYRING/1password.gpg"
-  add_apt_key https://downloads.1password.com/linux/keys/1password.asc "$key_path"
-  add_apt_source 1password.sources "https://downloads.1password.com/linux/debian/$architecture" "$key_path"
+  add_apt_source 1password.sources \
+    "https://downloads.1password.com/linux/debian/$architecture" \
+    "$(add_apt_key https://downloads.1password.com/linux/keys/1password.asc)"
 
   # Add the debsig-verify policy
   local policy_path=/etc/debsig/policies/AC2D62742012EA22/1password.pol
@@ -81,9 +81,9 @@ add_apt_source_1password() {
 
 # https://github.com/cli/cli/blob/trunk/docs/install_linux.md#debian
 add_apt_source_github() {
-  local key_path="$APT_KEYRING/githubcli.gpg"
-  add_apt_key https://cli.github.com/packages/githubcli-archive-keyring.gpg "$key_path"
-  add_apt_source github-cli.sources https://cli.github.com/packages "$key_path"
+  add_apt_source github-cli.sources \
+    https://cli.github.com/packages \
+    "$(add_apt_key https://cli.github.com/packages/githubcli-archive-keyring.gpg)"
 
   # Manual steps after install:
   # - gh auth login
@@ -91,23 +91,32 @@ add_apt_source_github() {
 
 # https://brave.com/linux/#debian-ubuntu-mint
 add_apt_source_brave() {
-  local key_path="$APT_KEYRING/brave-browser.gpg"
-  add_apt_key https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg "$key_path"
-  add_apt_source brave-browser.sources https://brave-browser-apt-release.s3.brave.com/ "$key_path"
+  add_apt_source brave-browser.sources \
+    https://brave-browser-apt-release.s3.brave.com/ \
+    "$(add_apt_key https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg)"
 }
 
 # https://code.claude.com/docs/en/desktop-linux#install
 add_apt_source_claude_desktop() {
-  local key_path="$APT_KEYRING/claude-desktop.gpg"
-  add_apt_key https://downloads.claude.ai/claude-desktop/key.asc "$key_path"
-  add_apt_source claude-desktop.sources https://downloads.claude.ai/claude-desktop/apt/stable "$key_path"
+  add_apt_source claude-desktop.sources \
+    https://downloads.claude.ai/claude-desktop/apt/stable \
+    "$(add_apt_key https://downloads.claude.ai/claude-desktop/key.asc claude-desktop.asc)"
 }
 
 # https://code.claude.com/docs/en/setup#install-with-linux-package-managers
 add_apt_source_claude_code() {
-  local key_path="$APT_KEYRING/claude-code.gpg"
-  add_apt_key https://downloads.claude.ai/keys/claude-code.asc "$key_path"
-  add_apt_source claude-code.sources https://downloads.claude.ai/claude-code/apt/stable "$key_path"
+  add_apt_source claude-code.sources \
+    https://downloads.claude.ai/claude-code/apt/stable \
+    "$(add_apt_key https://downloads.claude.ai/keys/claude-code.asc)"
+}
+
+# https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
+add_apt_source_docker() {
+  add_apt_source docker.sources \
+    https://download.docker.com/linux/ubuntu \
+    "$(add_apt_key https://download.docker.com/linux/ubuntu/gpg docker.asc)" \
+    "$(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")" \
+    "stable"
 }
 
 add_apt_sources() {
@@ -120,9 +129,10 @@ add_apt_sources() {
   add_apt_source_brave
   add_apt_source_claude_desktop
   add_apt_source_claude_code
+  add_apt_source_docker
 }
 
-# Installs the packages that are available from the apt sources added above.
+# Installs the packages that are available from the apt sources added above
 install_packages() {
   sudo apt-get update
   sudo apt-get install --yes --no-install-recommends \
@@ -132,6 +142,11 @@ install_packages() {
     claude-code \
     claude-desktop \
     code \
+    containerd.io \
+    docker-buildx-plugin \
+    docker-ce \
+    docker-ce-cli \
+    docker-compose-plugin \
     gh
 }
 

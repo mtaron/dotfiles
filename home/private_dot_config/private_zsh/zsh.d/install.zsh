@@ -35,23 +35,9 @@ install-go()
     go version
 }
 
-# https://support.zoom.us/hc/en-us/articles/204206269-Installing-or-updating-Zoom-on-Linux
-install-zoom()
-{
-    local tmp_dir=$(mktemp --directory)
-    curl --show-error --silent --fail --location https://zoom.us/client/latest/zoom_amd64.deb --output "$tmp_dir/zoom_amd64.deb"
-    sudo apt install "$tmp_dir/zoom_amd64.deb"
-    rm -rf "$tmp_dir"
-}
 
 update-tools()
 {
     zgenom selfupdate
     has chezmoi && chezmoi upgrade
-}
-
-update-tools-sudo()
-{
-    has snap && sudo snap refresh
-    has zoom && install-zoom
 }

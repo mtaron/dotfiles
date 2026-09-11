@@ -112,6 +112,14 @@ add_apt_source_docker() {
     "stable"
 }
 
+# https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-using-native-package-management
+add_apt_source_kubernetes() {
+  curl --silent --skip-existing --show-error --fail --location https://pkgs.k8s.io/core:/stable:/v1.37/deb/Release.key |
+    sudo gpg --dearmor --output /etc/apt/keyrings/kubernetes-apt-keyring.gpg >/dev/null
+  echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.37/deb/ /' |
+    sudo tee /etc/apt/sources.list.d/kubernetes.list
+}
+
 add_apt_sources() {
   architecture=$(dpkg --print-architecture)
   readonly architecture
@@ -123,6 +131,7 @@ add_apt_sources() {
   add_apt_source_claude_desktop
   add_apt_source_claude_code
   add_apt_source_docker
+  add_apt_source_kubernetes
 }
 
 # Installs the packages that are available from the apt sources added above
@@ -140,7 +149,8 @@ install_packages() {
     docker-ce \
     docker-ce-cli \
     docker-compose-plugin \
-    gh
+    gh \
+    kubectl
 }
 
 configure_systemd() {
@@ -164,6 +174,10 @@ print_manual_steps() {
 🔐 1Password
   • Sign in using the app and enable Settings > Developer > "Integrate with 1Password CLI"
   • Validate with `op vault list`
+
+🐋 Docker
+  • Add user to the docker group with `sudo usermod --append --groups docker $USER`
+  • Restart
 
 🐙 GitHub CLI
   • `gh auth login`

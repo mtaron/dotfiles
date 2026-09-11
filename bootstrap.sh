@@ -11,13 +11,13 @@ install_prerequisites() {
     bat \
     curl \
     fonts-cascadia-code \
-    ghostty \
     git \
     git-lfs \
     gnupg \
     jq \
     ripgrep \
     shellcheck \
+    util-linux-extra \
     xclip \
     zsh
 }
@@ -94,6 +94,8 @@ add_apt_source_claude_desktop() {
   add_apt_source claude-desktop.sources \
     https://downloads.claude.ai/claude-desktop/apt/stable \
     "$(add_apt_key https://downloads.claude.ai/claude-desktop/key.asc claude-desktop.asc)"
+
+    sudo tee /etc/default/claude-desktop <<< "CLAUDE_DESKTOP_ADD_REPO=false" >/dev/null
 }
 
 # https://code.claude.com/docs/en/setup#install-with-linux-package-managers
@@ -112,17 +114,14 @@ add_apt_source_docker() {
     "stable"
 }
 
-# https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-using-native-package-management
-add_apt_source_kubernetes() {
-  curl --silent --skip-existing --show-error --fail --location https://pkgs.k8s.io/core:/stable:/v1.37/deb/Release.key |
-    sudo gpg --dearmor --output /etc/apt/keyrings/kubernetes-apt-keyring.gpg >/dev/null
-  echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.37/deb/ /' |
-    sudo tee /etc/apt/sources.list.d/kubernetes.list
-}
-
 add_apt_sources() {
   architecture=$(dpkg --print-architecture)
   readonly architecture
+
+  # for alacritty https://launchpad.net/~aslatter/+archive/ubuntu/ppa
+  if ! sudo add-apt-repository --list | grep -q "https://ppa.launchpadcontent.net/aslatter/ppa/ubuntu/"; then
+    sudo add-apt-repository --no-update --yes ppa:aslatter/ppa
+  fi
 
   add_apt_source_vscode
   add_apt_source_1password
@@ -131,7 +130,6 @@ add_apt_sources() {
   add_apt_source_claude_desktop
   add_apt_source_claude_code
   add_apt_source_docker
-  add_apt_source_kubernetes
 }
 
 # Installs the packages that are available from the apt sources added above
@@ -140,6 +138,7 @@ install_packages() {
   sudo apt-get install --yes --no-install-recommends \
     1password \
     1password-cli \
+    alacritty \
     brave-browser \
     claude-code \
     claude-desktop \
@@ -149,13 +148,13 @@ install_packages() {
     docker-ce \
     docker-ce-cli \
     docker-compose-plugin \
-    gh \
-    kubectl
+    gh
 }
 
-configure_systemd() {
-  # https://ghostty.org/docs/linux/systemd#starting-ghostty-at-login
-  systemctl enable --user app-com.mitchellh.ghostty.service
+post_install() {
+  # https://docs.docker.com/engine/install/linux-postinstall/
+  sudo usermod --append --groups docker "$USER"
+  newgrp docker
 }
 
 configure_shell() {
@@ -175,10 +174,6 @@ print_manual_steps() {
   • Sign in using the app and enable Settings > Developer > "Integrate with 1Password CLI"
   • Validate with `op vault list`
 
-🐋 Docker
-  • Add user to the docker group with `sudo usermod --append --groups docker $USER`
-  • Restart
-
 🐙 GitHub CLI
   • `gh auth login`
 
@@ -193,7 +188,7 @@ main() {
   add_apt_sources
   install_packages
 
-  configure_systemd
+  post_install
   configure_shell
 
   print_manual_steps

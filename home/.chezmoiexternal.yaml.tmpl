@@ -34,4 +34,9 @@
   url: https://github.com/mvdan/sh/releases/download/{{ $shfmt_version }}/shfmt_{{ $shfmt_version }}_linux_amd64
   executable: true
 
+{{ $kubectlVersion := output "curl" "-fsSL" "https://dl.k8s.io/release/stable.txt" | trim -}}
+.local/bin/kubectl:
+  type: file
+  url: {{ printf "https://dl.k8s.io/release/%s/bin/%s/%s/kubectl" $kubectlVersion .chezmoi.os .chezmoi.arch | quote }}
+  executable: true
 {{- end }}

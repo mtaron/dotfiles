@@ -4,8 +4,6 @@ set -e
 
 {{ $dive_version := (gitHubLatestRelease "wagoodman/dive").TagName -}}
 
-echo "Installing dive {{ $dive_version }}"
-
 tmp_dir=$(mktemp --directory)
 curl --show-error --silent --fail --location \
     --output "$tmp_dir"/dive_linux_amd64.deb \
@@ -15,4 +13,4 @@ sudo dpkg --install "$tmp_dir"/dive_linux_amd64.deb
 
 rm -rf "$tmp_dir"
 
-dive --version
+echo "Installed dive $(dive --version)"

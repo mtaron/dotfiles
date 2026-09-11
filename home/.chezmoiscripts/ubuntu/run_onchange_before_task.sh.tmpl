@@ -2,14 +2,14 @@
 
 set -e
 
-echo "▶️ installing task"
-
 {{ $task_version := (gitHubLatestRelease "go-task/task").TagName -}}
+
+echo "Installing task {{ $task_version }}"
 
 tmp_dir=$(mktemp --directory)
 curl --show-error --silent --fail --location \
     --output "$tmp_dir"/task_linux_amd64.deb \
-    "https://github.com/go-task/task/releases/download/{{ $task_version }}/task_linux_amd64.deb"
+    "https://github.com/go-task/task/releases/download/{{ $task_version }}/task_{{ trimPrefix "v" $task_version }}_linux_amd64.deb"
 
 sudo dpkg --install "$tmp_dir"/task_linux_amd64.deb
 

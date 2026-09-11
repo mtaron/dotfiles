@@ -2,11 +2,9 @@
 
 set -e
 
-echo "▶️ installing dive"
-
 {{ $dive_version := (gitHubLatestRelease "wagoodman/dive").TagName -}}
 
-echo {{ $dive_version }}
+echo "Installing dive {{ $dive_version }}"
 
 tmp_dir=$(mktemp --directory)
 curl --show-error --silent --fail --location \

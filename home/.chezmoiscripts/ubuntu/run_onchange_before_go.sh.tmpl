@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+{{ $goMajorVersion := "1.27" -}}
+{{- $goVersionFilter := printf `.[] | select(.stable == true) | .version | select(startswith("go%s"))` $goMajorVersion -}}
+{{- $goVersion := output "curl" "-fsSL" "https://go.dev/dl/?mode=json" | fromJson | jq $goVersionFilter | first -}}
+
+rm -rf "$XDG_DATA_HOME/go"
+
+curl --show-error --silent --fail --location "https://go.dev/dl/{{ $goVersion }}.linux-amd64.tar.gz" \
+    --header "Accept: application/octet-stream" |
+    tar --extract --ungzip --directory "$XDG_DATA_HOME"
+
+ln --symbolic --force "$XDG_DATA_HOME/go/bin/go" "$XDG_BIN_DIR/go"
+ln --symbolic --force "$XDG_DATA_HOME/go/bin/gofmt" "$XDG_BIN_DIR/gofmt"
+
+echo "Installed Go $(go version)"

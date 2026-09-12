@@ -1,6 +1,6 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
 {{ $dive_version := (gitHubLatestRelease "wagoodman/dive").TagName -}}
 

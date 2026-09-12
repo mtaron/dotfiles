@@ -16,26 +16,6 @@ install-kustomize()
     kustomize version
 }
 
-install-go()
-{
-    rm -rf "$XDG_DATA_HOME/go"
-
-    local go_version=1.27
-
-    local latest=$(curl --show-error --silent --fail "https://go.dev/dl/?mode=json" \
-        | jq --arg version "go$go_version" -r '.[] | select(.stable == true) | .version | select(startswith($version))')
-
-    curl --show-error --silent --fail --location "https://go.dev/dl/$latest.linux-amd64.tar.gz" \
-            --header "Accept: application/octet-stream" \
-            | tar --extract --ungzip --directory "$XDG_DATA_HOME"
-
-    ln --symbolic --force "$XDG_DATA_HOME/go/bin/go" "$XDG_BIN_DIR/go"
-    ln --symbolic --force "$XDG_DATA_HOME/go/bin/gofmt" "$XDG_BIN_DIR/gofmt"
-
-    go version
-}
-
-
 update-tools()
 {
     zgenom selfupdate

@@ -1,6 +1,6 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
 {{ $zoom_download := getRedirectedURL "https://zoom.us/client/latest/zoom_amd64.deb" -}}
 
@@ -8,4 +8,3 @@ tmp_dir=$(mktemp --directory)
 curl --show-error --silent --fail --location "{{ $zoom_download }}" --output "$tmp_dir/zoom_amd64.deb"
 sudo apt install "$tmp_dir/zoom_amd64.deb"
 rm -rf "$tmp_dir"
-

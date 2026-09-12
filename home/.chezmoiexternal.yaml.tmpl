@@ -34,6 +34,7 @@
   url: https://github.com/mvdan/sh/releases/download/{{ $shfmt_version }}/shfmt_{{ $shfmt_version }}_linux_amd64
   executable: true
 
+# https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux
 {{ $kubectlVersion := output "curl" "-fsSL" "https://dl.k8s.io/release/stable.txt" | trim -}}
 .local/bin/kubectl:
   type: file

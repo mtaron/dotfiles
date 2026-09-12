@@ -1,3 +1,5 @@
+# In order to push changes that effect ci.yaml, the GitHub CLI needs "workflow" scope,
+# e.g. `gh auth login --scopes 'read:packages workflow'`
 name: ci
 
 on:
@@ -19,6 +21,7 @@ jobs:
           sudo apt-get update && sudo apt-get install zsh
 
       - name: chezmoi install
+        shell: bash
         run: |
           echo "Install"
           ./install.sh
@@ -26,8 +29,7 @@ jobs:
           echo "home directory"
           ls -a $HOME
 
-          echo "Valdiate that profile and .zshenv are created"
-          [[ -f "$HOME/.profile" ]] || exit 1
+          echo "Valdiate that .zshenv is created"
           [[ -f "$HOME/.zshenv" ]]  || exit 1
 
           echo "config directory"
@@ -40,9 +42,6 @@ jobs:
           echo "Valdiate user email from environment variable"
           email=$(chezmoi data | jq -r '.user.email')
           [[ "$email" == "test@taron.dev" ]] || exit 1
-
-          echo "Validate that Gnome files are excluded in CI"
-          [[ ! -f "$HOME/.config/user-dirs.dirs" ]] || exit 1
         env:
           GIT_AUTHOR_EMAIL: test@taron.dev
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

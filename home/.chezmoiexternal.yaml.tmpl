@@ -41,3 +41,12 @@
   url: {{ printf "https://dl.k8s.io/release/%s/bin/%s/%s/kubectl" $kubectlVersion .chezmoi.os .chezmoi.arch | quote }}
   executable: true
 {{- end }}
+
+{{ if not .headless -}}
+# script to remove old linux kernels so /boot doesn't fill up
+kernel-clean:
+  type: file
+  url: "https://raw.githubusercontent.com/plepe/kernel-clean/master/kernel-clean"
+  executable: true
+  refreshPeriod: "744h"
+{{   end -}}

@@ -8,7 +8,6 @@ set -euo pipefail
 install_prerequisites() {
   sudo apt-get update
   sudo apt-get install --yes --no-install-recommends \
-    bat \
     curl \
     fonts-cascadia-code \
     git \

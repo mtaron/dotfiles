@@ -11,6 +11,7 @@ source "${CHEZMOI_WORKING_TREE}/scripts/utils.sh"
 install_dir=${XDG_DATA_HOME:-$HOME/.local/share}
 bin_dir=${XDG_BIN_DIR:-$HOME/.local/bin}
 rm -rf "$install_dir/go"
+mkdir --parents "$install_dir"
 
 curl --show-error --silent --fail --location "https://go.dev/dl/{{ $goVersion }}.linux-{{ .chezmoi.arch }}.tar.gz" \
     --header "Accept: application/octet-stream" |

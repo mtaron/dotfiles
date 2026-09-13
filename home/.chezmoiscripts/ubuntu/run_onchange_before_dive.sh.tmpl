@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+source "${CHEZMOI_WORKING_TREE}/scripts/utils.sh"
+
 {{ $dive_version := (gitHubLatestRelease "wagoodman/dive").TagName -}}
 
 tmp_dir=$(mktemp --directory)
@@ -10,7 +12,5 @@ curl --show-error --silent --fail --location \
     "https://github.com/wagoodman/dive/releases/download/{{ $dive_version }}/dive_{{ trimPrefix "v" $dive_version }}_linux_{{ .chezmoi.arch }}.deb"
 
 sudo dpkg --install "$tmp_dir"/dive.deb
-
 rm -rf "$tmp_dir"
-
-echo "Installed dive $(dive --version)"
+green "Installed dive $(dive --version)"

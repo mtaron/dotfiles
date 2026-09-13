@@ -1,3 +1,4 @@
+{{- if not .headless -}}
 #!/usr/bin/env bash
 
 set -euo pipefail
@@ -11,3 +12,4 @@ curl --show-error --silent --fail --location "{{ $zoom_download }}" --output "$t
 sudo apt install "$tmp_dir/zoom_amd64.deb"
 rm -rf "$tmp_dir"
 green "Installed Zoom"
+{{- end -}}

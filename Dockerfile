@@ -11,6 +11,6 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
     zsh \
     && rm -rf /var/lib/apt/lists/*
 
-RUN --mount=type=bind,target=/build /build/install.sh
+RUN --mount=type=bind,target=/dotfiles /dotfiles/install.sh
 
 ENTRYPOINT [ "zsh" ]

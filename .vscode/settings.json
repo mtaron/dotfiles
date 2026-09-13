@@ -3,6 +3,7 @@
         "**/*_zshenv": true,
         "**/*_zshrc*": true,
         "**/symlink_*": true,
+        "**/*.tmpl": true,
     },
     "shellcheck.customArgs": [
         "--external-sources"

@@ -8,7 +8,7 @@ set -euo pipefail
 
 rm -rf "$XDG_DATA_HOME/go"
 
-curl --show-error --silent --fail --location "https://go.dev/dl/{{ $goVersion }}.linux-amd64.tar.gz" \
+curl --show-error --silent --fail --location "https://go.dev/dl/{{ $goVersion }}.linux-{{ .chezmoi.arch }}.tar.gz" \
     --header "Accept: application/octet-stream" |
     tar --extract --ungzip --directory "$XDG_DATA_HOME"
 

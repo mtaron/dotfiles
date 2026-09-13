@@ -13,8 +13,6 @@ install_prerequisites() {
     git \
     git-lfs \
     gnupg \
-    jq \
-    ripgrep \
     shellcheck \
     util-linux-extra \
     xclip \

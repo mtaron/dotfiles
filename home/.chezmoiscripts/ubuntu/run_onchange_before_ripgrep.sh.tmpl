@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+{{ $ripgrep_version := (gitHubLatestRelease "BurntSushi/ripgrep").TagName -}}
+
+tmp_dir=$(mktemp --directory)
+curl --show-error --silent --fail --location \
+    --output "$tmp_dir"/ripgrep.deb \
+    "https://github.com/BurntSushi/ripgrep/releases/download/{{ $ripgrep_version }}/ripgrep_{{ trimPrefix "v" $ripgrep_version }}-1_amd64.deb"
+
+sudo dpkg --install "$tmp_dir"/ripgrep.deb
+
+rm -rf "$tmp_dir"
+
+echo "Installed ripgrep $(rg --version)"

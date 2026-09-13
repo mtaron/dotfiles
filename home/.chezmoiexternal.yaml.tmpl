@@ -11,6 +11,11 @@
   url: {{ gitHubLatestReleaseAssetURL "direnv/direnv" "direnv.linux-amd64" | quote }}
   executable: true
 
+.local/bin/jq:
+  type: file
+  url: {{ gitHubLatestReleaseAssetURL "jqlang/jq" "jq-linux-amd64" | quote }}
+  executable: true
+
 .local/bin/yq:
   type: archive-file
   url: {{ gitHubLatestReleaseAssetURL "mikefarah/yq" "yq_linux_amd64.tar.gz" | quote }}

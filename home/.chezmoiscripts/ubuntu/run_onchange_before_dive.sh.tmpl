@@ -6,10 +6,10 @@ set -euo pipefail
 
 tmp_dir=$(mktemp --directory)
 curl --show-error --silent --fail --location \
-    --output "$tmp_dir"/dive_linux_amd64.deb \
-    "https://github.com/wagoodman/dive/releases/download/{{ $dive_version }}/dive_{{ trimPrefix "v" $dive_version }}_linux_amd64.deb"
+    --output "$tmp_dir"/dive.deb \
+    "https://github.com/wagoodman/dive/releases/download/{{ $dive_version }}/dive_{{ trimPrefix "v" $dive_version }}_linux_{{ .chezmoi.arch }}.deb"
 
-sudo dpkg --install "$tmp_dir"/dive_linux_amd64.deb
+sudo dpkg --install "$tmp_dir"/dive.deb
 
 rm -rf "$tmp_dir"
 

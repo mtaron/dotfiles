@@ -6,10 +6,10 @@ set -euo pipefail
 
 tmp_dir=$(mktemp --directory)
 curl --show-error --silent --fail --location \
-    --output "$tmp_dir"/task_linux_amd64.deb \
-    "https://github.com/go-task/task/releases/download/{{ $task_version }}/task_{{ trimPrefix "v" $task_version }}_linux_amd64.deb"
+    --output "$tmp_dir"/task.deb \
+    "https://github.com/go-task/task/releases/download/{{ $task_version }}/task_{{ trimPrefix "v" $task_version }}_linux_{{ .chezmoi.arch }}.deb"
 
-sudo dpkg --install "$tmp_dir"/task_linux_amd64.deb
+sudo dpkg --install "$tmp_dir"/task.deb
 
 rm -rf "$tmp_dir"
 

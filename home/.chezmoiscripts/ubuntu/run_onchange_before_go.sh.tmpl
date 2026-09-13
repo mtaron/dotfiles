@@ -20,4 +20,4 @@ curl --show-error --silent --fail --location "https://go.dev/dl/{{ $goVersion }}
 ln --symbolic --force "$install_dir/go/bin/go" "$bin_dir/go"
 ln --symbolic --force "$install_dir/go/bin/gofmt" "$bin_dir/gofmt"
 
-green "Installed Go $(go version)"
+green "Installed Go $($bin_dir/go version)"

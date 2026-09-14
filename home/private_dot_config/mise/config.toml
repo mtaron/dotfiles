@@ -21,16 +21,27 @@ go = "latest"
 node = "lts"
 python = { version = "latest", postinstall = "mise sync python --uv" }
 
-# dev tools
+# package managers
+pnpm = "latest"
 uv = "latest"
-shellcheck = "latest"
+
+# dev tools
+atuin = "latest"
 bat = "latest"
 dive = "latest"
-starship = "latest"
-ripgrep = "latest"
-atuin = "latest"
+fd = "latest"
+fzf = "latest"
 jq = "latest"
-yq = "latest"
 mkcert = "latest"
+ripgrep = "latest"
+shellcheck = "latest"
 shfmt = "latest"
+starship = "latest"
+yq = "latest"
+zoxide = "latest"
+
+# kubernetes
+helm = "latest"
+helmfile = "latest"
+kind = "latest"
 kubectl = "latest"

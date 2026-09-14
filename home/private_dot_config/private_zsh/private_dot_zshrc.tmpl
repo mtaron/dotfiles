@@ -1,4 +1,4 @@
-eval "$(~/.local/bin/mise activate zsh)"
+eval "$(mise activate zsh)"
 
 has() {
   command -v "$1" 1>/dev/null 2>&1
@@ -64,6 +64,13 @@ if ! zgenom saved; then
 fi
 
 ZSH_AUTOSUGGEST_STRATEGY=(completion)
+
+update_mise_lock() {
+  chezmoi apply
+  mise lock --global --bump
+  chezmoi add "$XDG_CONFIG_HOME/mise/mise.lock"
+  chezmoi apply
+}
 
 # Dedupe paths using a ZSH builtin
 # https://til.hashrocket.com/posts/7evpdebn7g-remove-duplicates-in-zsh-path

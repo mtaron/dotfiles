@@ -13,7 +13,6 @@ install_prerequisites() {
     git \
     git-lfs \
     gnupg \
-    shellcheck \
     util-linux-extra \
     xclip \
     zsh

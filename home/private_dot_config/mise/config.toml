@@ -23,3 +23,7 @@ node = "lts"
 python = { version = "latest", postinstall = "mise sync python --uv" }
 
 uv = "latest"
+
+shellcheck = "latest"
+bat = "latest"
+dive = "latest"

@@ -18,7 +18,6 @@ alias cf='aws cloudformation'
 
 {{ if lookPath "code" -}}
 alias c='code .'
-alias dotfiles-edit='code $XDG_DATA_HOME/chezmoi'
 {{- end }}
 
 {{ if lookPath "kubectl" -}}

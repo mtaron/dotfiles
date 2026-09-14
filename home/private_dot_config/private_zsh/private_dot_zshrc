@@ -1,0 +1,95 @@
+has() {
+  command -v "$1" 1>/dev/null 2>&1
+}
+
+# environment variables
+GPG_TTY=$TTY
+
+ZSH_PLUGINS="$ZSH_DATA_DIR/plugins"
+ZSH_COMPLETIONS="$ZDOTDIR/completions"
+fpath=($ZSH_COMPLETIONS $fpath)
+
+ZSH_AUTOSUGGEST_STRATEGY=(completion history)
+
+# history options
+
+# Number of commands that are loaded into memory from the history file (default is 30).
+HISTSIZE=10000
+# Number of commands that are stored in the zsh history file (default is 0).
+SAVEHIST=100000
+
+setopt inc_append_history      # incrementally add history to $HISTFILE instead of waiting for shell exit
+setopt extended_history        # record timestamp of command in HISTFILE
+setopt hist_expire_dups_first  # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_fcntl_lock         # use system's fcntl for locking to increase performance
+setopt hist_ignore_dups        # ignore duplicated commands history list
+setopt hist_ignore_space       # ignore commands that start with space
+setopt hist_verify             # show command with history expansion to user before running it
+setopt share_history           # share command history data
+
+# aliases
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+alias l='ls -Ah --color=auto'
+alias ll='ls -Ahl --color=auto'
+alias la='ls -lAh --color=auto'
+alias ls='ls -G --color=auto'
+alias lsa='ls -lah --color=auto'
+
+alias c='code .'
+
+alias k='kubectl'
+alias kl='kubectl logs --follow'
+
+alias rgf='rg --files | rg'
+
+# remove untracked files and directories
+alias git-clean='git clean --force -X -d'
+
+# run sudo with the current PATH environment variable
+alias psudo='sudo env "PATH=$PATH"'
+
+# colorize help output with bat
+alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+
+# Changing Directories
+setopt auto_cd                 # allow to change to a directory by entering it as a command
+setopt auto_pushd              # make cd push the old directory onto the directory stack
+setopt pushd_ignore_dups       # don't push the same dir twice
+setopt pushd_minus             # exchange meanings of '+' and '-' operators
+
+# Input/Output
+setopt interactive_comments    # allow comments even in interactive shells
+
+# Zle
+setopt nobeep
+
+# A list of non-alphanum chars considered part of a word by the line editor.
+WORDCHARS='_-'
+
+source "$ZDOTDIR/completion.zsh"
+
+eval "$(mise activate zsh)"
+eval "$(atuin init zsh)"
+
+# zsh plugins
+source "$ZSH_PLUGINS/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$ZDOTDIR/autosuggestions-workaround.zsh"
+source "$ZSH_PLUGINS/zsh-autopair/autopair.zsh"
+
+source "$ZDOTDIR/keybindings.zsh"
+source "$ZDOTDIR/clipboard.zsh"
+source "$ZDOTDIR/functions.zsh"
+
+source "$ZSH_PLUGINS/zsh-shift-select/zsh-shift-select.plugin.zsh"
+
+# Needs to be the last one sourced
+source "$ZSH_PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+# Dedupe paths using a ZSH builtin
+# https://til.hashrocket.com/posts/7evpdebn7g-remove-duplicates-in-zsh-path
+typeset -aU path fpath
+
+eval "$(starship init zsh)"

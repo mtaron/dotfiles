@@ -16,14 +16,21 @@ credential_command = 'gh auth token --hostname "${MISE_CREDENTIAL_HOST}"'
 use_git_credentials = true
 
 [tools]
-starship = "latest"
-
+# languages
 go = "latest"
 node = "lts"
 python = { version = "latest", postinstall = "mise sync python --uv" }
 
+# dev tools
 uv = "latest"
-
 shellcheck = "latest"
 bat = "latest"
 dive = "latest"
+starship = "latest"
+ripgrep = "latest"
+atuin = "latest"
+jq = "latest"
+yq = "latest"
+mkcert = "latest"
+shfmt = "latest"
+kubectl = "latest"

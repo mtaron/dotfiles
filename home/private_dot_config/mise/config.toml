@@ -1,0 +1,25 @@
+# https://mise.jdx.dev/configuration/settings.html
+
+[settings]
+not_found_auto_install = false
+
+use_versions_host_track = false
+
+lockfile = true
+lockfile_platforms = ["linux-x64"]
+
+python.uv_venv_auto = "source"
+idiomatic_version_file_enable_tools = ["go", "node", "python"]
+
+[settings.github]
+credential_command = 'gh auth token --hostname "${MISE_CREDENTIAL_HOST}"'
+use_git_credentials = true
+
+[tools]
+starship = "latest"
+
+go = "latest"
+node = "lts"
+python = { version = "latest", postinstall = "mise sync python --uv" }
+
+uv = "latest"

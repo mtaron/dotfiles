@@ -1,19 +1,4 @@
-# https://github.com/romkatv/powerlevel10k#how-do-i-initialize-direnv-when-using-instant-prompt
-{{ $hasDirenv := lookPath "direnv" | not | not }}
-{{ if $hasDirenv -}}
-emulate zsh -c "$(direnv export zsh)"
-{{- end }}
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of .zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-{{ if $hasDirenv -}}
-emulate zsh -c "$(direnv hook zsh)"
-{{- end }}
+eval "$(~/.local/bin/mise activate zsh)"
 
 has() {
   command -v "$1" 1>/dev/null 2>&1
@@ -39,31 +24,6 @@ source "$XDG_DATA_HOME/zgenom/zgenom.zsh"
 if ! zgenom saved; then
   zgenom ohmyzsh
 
-  # Adds 'als' alias that lists aliases grouped by plugin
-  zgenom ohmyzsh plugins/aliases
-  zgenom ohmyzsh plugins/copypath
-  zgenom ohmyzsh plugins/httpie
-  has redis-cli && zgenom ohmyzsh plugins/redis-cli
-
-  # Use 'acl' command to change profiles
-  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/aws
-  has aws && zgenom ohmyzsh plugins/aws
-
-  has kubectl && zgenom ohmyzsh plugins/kubectx
-
-  if has terraform; then
-    mkdir --parents "$XDG_CACHE_HOME/terraform/plugins"
-    zgenom ohmyzsh plugins/terraform
-  fi
-
-  if has go; then
-    zgenom ohmyzsh plugins/golang
-  fi
-
-  if has rustup; then
-    zgenom ohmyzsh plugins/rust
-  fi
-
   if has atuin; then
     zgenom load atuinsh/atuin
   else
@@ -82,11 +42,10 @@ if ! zgenom saved; then
 
   zgenom load hlissner/zsh-autopair
 
-  zgenom load romkatv/powerlevel10k powerlevel10k
-
   zgenom load "$ZDOTDIR/zsh.d"
 
   # Completions
+  mise completion zsh > "$ZSH_COMPLETIONS/_mise"
   has chezmoi && chezmoi completion zsh > "$ZSH_COMPLETIONS/_chezmoi"
   has gh && gh completion --shell zsh > "$ZSH_COMPLETIONS/_gh"
   has kubectl && kubectl completion zsh > "$ZSH_COMPLETIONS/_kubectl"
@@ -106,22 +65,8 @@ fi
 
 ZSH_AUTOSUGGEST_STRATEGY=(completion)
 
-{{if lookPath "dotnet" }}
-# These completions apparently doesn't work when included in the zgenom save.
-alias dn='dotnet'
-source "$ZSH_COMPLETIONS"/_dotnet_suggest
-{{ end }}
-
-{{ if lookPath "az" }}
-# Azure CLI
-if [[ -f /etc/bash_completion.d/azure-cli ]]; then
-  autoload -U +X bashcompinit && bashcompinit
-  source /etc/bash_completion.d/azure-cli
-fi
-{{ end }}
-
 # Dedupe paths using a ZSH builtin
 # https://til.hashrocket.com/posts/7evpdebn7g-remove-duplicates-in-zsh-path
 typeset -aU path fpath
 
-[[ ! -f "$ZDOTDIR/.p10k.zsh" ]] || source "$ZDOTDIR/.p10k.zsh"
+eval "$(starship init zsh)"

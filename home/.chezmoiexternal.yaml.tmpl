@@ -45,9 +45,15 @@
   type: file
   url: {{ printf "https://dl.k8s.io/release/%s/bin/%s/%s/kubectl" $kubectlVersion .chezmoi.os .chezmoi.arch | quote }}
   executable: true
-{{- end }}
 
-{{ if not .headless -}}
+{{- $miseVersion := (gitHubLatestRelease "jdx/mise").TagName -}}
+{{- $archMise := ternary "x64" .chezmoi.arch (eq .chezmoi.arch "amd64") }}
+.local/bin/mise:
+  type: file
+  url: https://github.com/jdx/mise/releases/download/{{ $miseVersion }}/mise-{{ $miseVersion }}-linux-{{ $archMise }}
+  executable: true
+
+{{   if not .headless -}}
 # script to remove old linux kernels so /boot doesn't fill up
 kernel-clean:
   type: file
@@ -55,3 +61,4 @@ kernel-clean:
   executable: true
   refreshPeriod: "744h"
 {{   end -}}
+{{- end }}

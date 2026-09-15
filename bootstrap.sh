@@ -13,8 +13,9 @@ install_prerequisites() {
     git \
     git-lfs \
     gnupg \
+    terminfo \
     util-linux-extra \
-    xclip \
+    wl-clipboard \
     zsh
 }
 

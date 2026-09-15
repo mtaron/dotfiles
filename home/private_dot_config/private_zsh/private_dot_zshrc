@@ -1,5 +1,3 @@
-eval "$(mise activate zsh)"
-
 has() {
   command -v "$1" 1>/dev/null 2>&1
 }
@@ -10,16 +8,16 @@ setopt inc_append_history
 
 export GPG_TTY=$TTY
 
-# Location for storing plugins
-ZGEN_DIR="$XDG_CACHE_HOME/zgenom"
-
 # Disable Oh-My-ZSH's internal updating
-DISABLE_AUTO_UPDATE=true
+zstyle ':omz:update' mode disabled
 
 ZSH_COMPLETIONS="$ZDOTDIR/completions"
 fpath=("$ZSH_COMPLETIONS" $fpath)
 
 ZSH_AUTOSUGGEST_STRATEGY=(completion history)
+
+# run zgenom reset automatically when this file changes
+ZGEN_RESET_ON_CHANGE=("$ZDOTDIR/.zshrc")
 
 # Load plugin manager
 source "$XDG_DATA_HOME/zgenom/zgenom.zsh"
@@ -27,17 +25,20 @@ source "$XDG_DATA_HOME/zgenom/zgenom.zsh"
 if ! zgenom saved; then
   zgenom ohmyzsh
 
-  zgenom load atuinsh/atuin
+  zgenom ohmyzsh plugins/zsh-syntax-highlighting
+  zgenom ohmyzsh plugins/zsh-autosuggestions
 
-  zgenom load zsh-users/zsh-syntax-highlighting
-  zgenom load zsh-users/zsh-autosuggestions
-
-  # Ctrl + Shift + Arrow to select by word
-  #zgenom load jirutka/zsh-shift-select
+  zgenom load Michael-Matta1/zsh-edit-select
 
   zgenom load hlissner/zsh-autopair
+  zgenom load jandamm/zgenom-ext-eval
 
-  zgenom load "$ZDOTDIR/zsh.d"
+  zgenom eval --name mise <<(mise activate zsh)
+  zgenom eval --name starship <<(starship init zsh)
+  zgenom eval --name zoxide <<(zoxide init zsh)
+  zgenom eval --name atuin <<(atuin init zsh)
+
+  zgenom load "$ZDOTDIR/zshrc.d"
 
   # Completions
   mise completion zsh > "$ZSH_COMPLETIONS/_mise"
@@ -50,20 +51,12 @@ if ! zgenom saved; then
   has pnpm && pnpm completion zsh > "$ZSH_COMPLETIONS/_pnpm"
   has atuin && atuin gen-completions --shell zsh > "$ZSH_COMPLETIONS/_atuin"
   has uv && uv generate-shell-completion zsh > "$ZSH_COMPLETIONS/_uv"
-  [[ -d "$ZSH_COMPLETIONS" ]] && zgenom load "$ZSH_COMPLETIONS"
+
+  zgenom load "$ZSH_COMPLETIONS"
 
   zgenom save
 fi
 
-update_mise_lock() {
-  chezmoi apply
-  mise lock --global --bump
-  chezmoi add "$XDG_CONFIG_HOME/mise/mise.lock"
-  chezmoi apply
-}
-
 # Dedupe paths using a ZSH builtin
 # https://til.hashrocket.com/posts/7evpdebn7g-remove-duplicates-in-zsh-path
 typeset -aU path fpath
-
-eval "$(starship init zsh)"

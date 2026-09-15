@@ -28,10 +28,10 @@ bindings = [
     { key = "Home", mods="Control", action="ScrollToTop"},
     { key = "N", mods="Control", action="SpawnNewInstance"},
     { key = "Q", mods="Control", action="Quit"},
-    { key = "W", mods="Control", action="Quit"},
     { key = "F11", action="ToggleFullscreen"},
     { key = "F", mods="Control", action="SearchBackward"},
     { key = "Return", mods="Shift", chars="\u001B\r"},
+    { key = "C", mods="Control|Shift", chars="\u001b[67;6u"},
 ]
 
 # https://github.com/alacritty/alacritty-theme/blob/master/themes/github_dark_default.toml

@@ -6,8 +6,7 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
     git \
     git-lfs \
     sudo \
-    terminfo \
-    wl-clipboard \
+    xclip \
     zsh \
     && rm -rf /var/lib/apt/lists/*
 

@@ -33,9 +33,10 @@ export PATH="$XDG_BIN_DIR:$PATH"
 
 # zsh paths
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-export ZSH_DATA_DIR="$XDG_DATA_HOME/zsh"
-export ZSH_CACHE_DIR="$XDG_CACHE_HOME/zsh"
-export HISTFILE="$ZSH_DATA_DIR/history"
+export HISTFILE="$ZDOTDIR/.zsh_history"
+
+# oh-my-zsh paths
+export ZSH_CACHE_DIR="$XDG_CACHE_HOME/oh-my-zsh"
 
 # custom python startup that does not write history to $HOME
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup.py"
@@ -102,7 +103,5 @@ export-if-unset NPM_CONFIG_USERCONFIG "$XDG_CONFIG_HOME/npm/config"
 export-if-unset NPM_CONFIG_CACHE "$XDG_CACHE_HOME/npm"
 export-if-unset NODE_REPL_HISTORY "$XDG_CACHE_HOME/node/repl_history"
 {{- end }}
-
-skip_global_compinit=1
 
 eval "$(mise activate zsh --shims)"

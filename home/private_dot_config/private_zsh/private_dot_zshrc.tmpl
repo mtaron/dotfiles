@@ -1,0 +1,79 @@
+eval "$(mise activate zsh)"
+
+has() {
+  command -v "$1" 1>/dev/null 2>&1
+}
+
+# Incrementally add history to $HISTFILE instead of waiting for shell exit.
+# This allows for running 'exec zsh' without losing history.
+setopt inc_append_history
+
+export GPG_TTY=$TTY
+
+# Location for storing plugins
+ZGEN_DIR="$XDG_CACHE_HOME/zgenom"
+
+# Disable Oh-My-ZSH's internal updating
+DISABLE_AUTO_UPDATE=true
+
+ZSH_COMPLETIONS="$ZDOTDIR/completions"
+
+# Load plugin manager
+source "$XDG_DATA_HOME/zgenom/zgenom.zsh"
+
+if ! zgenom saved; then
+  zgenom ohmyzsh
+
+  if has atuin; then
+    zgenom load atuinsh/atuin
+  else
+    # Fuzzy history search
+    # https://github.com/junegunn/fzf
+    zgenom ohmyzsh plugins/fzf
+  fi
+
+  zgenom load zsh-users/zsh-syntax-highlighting
+  zgenom load zsh-users/zsh-autosuggestions
+
+  zgenom load chrissicool/zsh-256color
+
+  # Ctrl + Shift + Arrow to select by word
+  zgenom load jirutka/zsh-shift-select
+
+  zgenom load hlissner/zsh-autopair
+
+  zgenom load "$ZDOTDIR/zsh.d"
+
+  # Completions
+  mise completion zsh > "$ZSH_COMPLETIONS/_mise"
+  has chezmoi && chezmoi completion zsh > "$ZSH_COMPLETIONS/_chezmoi"
+  has gh && gh completion --shell zsh > "$ZSH_COMPLETIONS/_gh"
+  has kubectl && kubectl completion zsh > "$ZSH_COMPLETIONS/_kubectl"
+  has helm && helm completion zsh > "$ZSH_COMPLETIONS/_helm"
+  has kind && kind completion zsh > "$ZSH_COMPLETIONS/_kind"
+  has op && op completion zsh > "$ZSH_COMPLETIONS/_op"
+  has pnpm && pnpm completion zsh > "$ZSH_COMPLETIONS/_pnpm"
+  has flyctl && flyctl completion zsh > "$ZSH_COMPLETIONS/_flyctl"
+  has kustomize && kustomize completion zsh > "$ZSH_COMPLETIONS/_kustomize"
+  has kubelogin && kubelogin completion zsh > "$ZSH_COMPLETIONS/_kubelogin"
+  has atuin && atuin gen-completions --shell zsh > "$ZSH_COMPLETIONS/_atuin"
+  has uv && uv generate-shell-completion zsh > "$ZSH_COMPLETIONS/_uv"
+  [[ -d "$ZSH_COMPLETIONS" ]] && zgenom load "$ZSH_COMPLETIONS"
+
+  zgenom save
+fi
+
+ZSH_AUTOSUGGEST_STRATEGY=(completion)
+
+update_mise_lock() {
+  chezmoi apply
+  mise lock --global --bump
+  chezmoi add "$XDG_CONFIG_HOME/mise/mise.lock"
+  chezmoi apply
+}
+
+# Dedupe paths using a ZSH builtin
+# https://til.hashrocket.com/posts/7evpdebn7g-remove-duplicates-in-zsh-path
+typeset -aU path fpath
+
+eval "$(starship init zsh)"

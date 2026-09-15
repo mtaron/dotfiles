@@ -1,0 +1,41 @@
+{{ if eq .osid "linux-ubuntu" -}}
+# update OS dependencies
+alias apt-up='sudo apt update && sudo apt -V --yes upgrade'
+{{- end }}
+
+# run sudo with the current PATH environment variable
+alias psudo='sudo env "PATH=$PATH"'
+
+# activate a python virtual environment
+alias activate='source .venv/bin/activate'
+
+# remove untracked files and directories
+alias clean='git clean --force -X -d'
+
+{{ if lookPath "aws" -}}
+alias cf='aws cloudformation'
+{{- end }}
+
+{{ if lookPath "code" -}}
+alias c='code .'
+{{- end }}
+
+{{ if lookPath "kubectl" -}}
+alias k='kubectl'
+alias kl='kubectl logs --follow'
+{{- end }}
+
+{{ if lookPath "rg" -}}
+alias rgf='rg --files | rg'
+{{- end }}
+
+{{ if and (lookPath "chezmoi") (lookPath "gh") -}}
+# launch chezmoi with a GitHub token, increasing the rate limit on GitHub APIs
+# https://www.chezmoi.io/reference/templates/github-functions/
+alias chezmoi-gh='GITHUB_TOKEN=$(gh auth token -h github.com 2>/dev/null) chezmoi'
+{{- end }}
+
+docker-size()
+{
+    docker manifest inspect $1 | jq -r '.config.size + ([.layers[].size] | add)' | numfmt --to=iec
+}

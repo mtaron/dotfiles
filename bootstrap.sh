@@ -13,6 +13,7 @@ install_prerequisites() {
     git \
     git-lfs \
     gnupg \
+    terminfo \
     util-linux-extra \
     wl-clipboard \
     zsh
@@ -114,9 +115,9 @@ add_apt_sources() {
   architecture=$(dpkg --print-architecture)
   readonly architecture
 
-  # https://github.com/mkasberg/ghostty-ubuntu
-  if ! add-apt-repository --list | grep -q "https://ppa.launchpadcontent.net/mkasberg/ghostty-ubuntu/ubuntu/"; then
-    sudo add-apt-repository --no-update --yes ppa:mkasberg/ghostty-ubuntu
+  # for alacritty https://launchpad.net/~aslatter/+archive/ubuntu/ppa
+  if ! sudo add-apt-repository --list | grep -q "https://ppa.launchpadcontent.net/aslatter/ppa/ubuntu/"; then
+    sudo add-apt-repository --no-update --yes ppa:aslatter/ppa
   fi
 
   add_apt_source_vscode
@@ -144,8 +145,7 @@ install_packages() {
     docker-ce \
     docker-ce-cli \
     docker-compose-plugin \
-    gh \
-    ghostty
+    gh
 }
 
 post_install() {

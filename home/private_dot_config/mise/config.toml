@@ -22,11 +22,11 @@ node = "lts"
 python = { version = "latest", postinstall = "~/.local/bin/mise sync python --uv" }
 
 # package managers
-pnpm = "latest"
-uv = "latest"
+pnpm = { version = "latest", postinstall = "pnpm completion zsh > ~/.config/zsh/completions/_pnpm" }
+uv = { version = "latest", postinstall = "uv generate-shell-completion zsh > ~/.config/zsh/completions/_uv" }
 
 # dev tools
-atuin = "latest"
+atuin = { version = "latest", postinstall = "atuin gen-completions --shell zsh > ~/.config/zsh/completions/_atuin" }
 bat = "latest"
 dive = "latest"
 fd = "latest"
@@ -41,7 +41,7 @@ yq = "latest"
 zoxide = "latest"
 
 # kubernetes
-helm = "latest"
+helm = { version = "latest", postinstall = "helm completion zsh > ~/.config/zsh/completions/_helm" }
 helmfile = "latest"
-kind = "latest"
-kubectl = "latest"
+kind = { version = "latest", postinstall = "kind completion zsh > ~/.config/zsh/completions/_kind" }
+kubectl = { version = "latest", postinstall = "kubectl completion zsh > ~/.config/zsh/completions/_kubectl" }

@@ -48,8 +48,8 @@ jobs:
 
       - name: test environment
         run: |
-          echo "test aliases and environment variables are set"
-          l $ZDOTDIR
+          echo "test environment variables are set"
+          ls $ZDOTDIR
 
           echo "test mise installed and tools are available"
           mise ls

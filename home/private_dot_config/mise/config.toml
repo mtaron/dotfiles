@@ -27,21 +27,21 @@ uv = { version = "latest", postinstall = "uv generate-shell-completion zsh > ~/.
 
 # dev tools
 atuin = { version = "latest", postinstall = "atuin gen-completions --shell zsh > ~/.config/zsh/completions/_atuin" }
-bat = "latest"
-dive = "latest"
+bat = { version = "latest", postinstall = "bat --completion zsh > ~/.config/zsh/completions/_bat" }
+dive = { version = "latest", postinstall = "dive completion zsh > ~/.config/zsh/completions/_dive" }
 fd = "latest"
 fzf = "latest"
 jq = "latest"
 mkcert = "latest"
-ripgrep = "latest"
+ripgrep = { version = "latest", postinstall = "rg --generate=complete-zsh > ~/.config/zsh/completions/_rg" }
 shellcheck = "latest"
 shfmt = "latest"
-starship = "latest"
-yq = "latest"
+starship = { version = "latest", postinstall = "starship completions zsh > ~/.config/zsh/completions/_starship" }
+yq = { version = "latest", postinstall = "yq completion zsh > ~/.config/zsh/completions/_yq" }
 zoxide = "latest"
 
 # kubernetes
 helm = { version = "latest", postinstall = "helm completion zsh > ~/.config/zsh/completions/_helm" }
-helmfile = "latest"
+helmfile = { version = "latest", postinstall = "helmfile completion zsh > ~/.config/zsh/completions/_helmfile" }
 kind = { version = "latest", postinstall = "kind completion zsh > ~/.config/zsh/completions/_kind" }
 kubectl = { version = "latest", postinstall = "kubectl completion zsh > ~/.config/zsh/completions/_kubectl" }

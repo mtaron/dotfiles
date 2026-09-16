@@ -1,8 +1,6 @@
 #!/bin/sh -eu
 
-command -v mise >/dev/null || exit 0
-
 echo "Installing/updating mise-managed tools..."
-mise install --locked
+~/.local/bin/mise install --locked
 
 # run_onchange hash: {{ include "private_dot_config/mise/mise.lock" | sha256sum }}

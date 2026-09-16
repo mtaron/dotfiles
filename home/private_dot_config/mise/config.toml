@@ -19,7 +19,7 @@ use_git_credentials = true
 # languages
 go = "latest"
 node = "lts"
-python = { version = "latest", postinstall = "mise sync python --uv" }
+python = { version = "latest", postinstall = "~/.local/bin/mise sync python --uv" }
 
 # package managers
 pnpm = "latest"

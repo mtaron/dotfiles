@@ -44,6 +44,7 @@ jobs:
           [[ "$email" == "test@taron.dev" ]] || exit 1
         env:
           GIT_AUTHOR_EMAIL: test@taron.dev
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: test environment
         run: |
@@ -58,4 +59,8 @@ jobs:
 
           echo "Ensure an environment variable from .zshenv is set"
           [[ -v ZSH_CACHE_DIR ]] || exit 1
+
+          echo "mise"
+          mise ls
+          go --version
         shell: zsh --errexit {0}

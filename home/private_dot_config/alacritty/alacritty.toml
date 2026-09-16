@@ -31,7 +31,6 @@ bindings = [
     { key = "F11", action="ToggleFullscreen"},
     { key = "F", mods="Control", action="SearchBackward"},
     { key = "Return", mods="Shift", chars="\u001B\r"},
-    { key = "C", mods="Control|Shift", chars="\u001b[67;6u"},
 ]
 
 # https://github.com/alacritty/alacritty-theme/blob/master/themes/github_dark_default.toml

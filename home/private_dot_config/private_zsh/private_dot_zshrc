@@ -28,8 +28,7 @@ if ! zgenom saved; then
   zgenom ohmyzsh plugins/zsh-syntax-highlighting
   zgenom ohmyzsh plugins/zsh-autosuggestions
 
-  zgenom load Michael-Matta1/zsh-edit-select
-
+  zgenom load jirutka/zsh-shift-select
   zgenom load hlissner/zsh-autopair
   zgenom load jandamm/zgenom-ext-eval
 
@@ -51,8 +50,6 @@ if ! zgenom saved; then
   has pnpm && pnpm completion zsh > "$ZSH_COMPLETIONS/_pnpm"
   has atuin && atuin gen-completions --shell zsh > "$ZSH_COMPLETIONS/_atuin"
   has uv && uv generate-shell-completion zsh > "$ZSH_COMPLETIONS/_uv"
-
-  zgenom load "$ZSH_COMPLETIONS"
 
   zgenom save
 fi

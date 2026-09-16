@@ -5,18 +5,6 @@
 {{ if not (eq .osid "linux-ubuntu") }}
 .chezmoiscripts/ubuntu/**
 .config/zsh/zsh.d/install.zsh
-
-{{   if not (lookPath "batcat") -}}
-# bat needs to be symlinked on ubuntu to avoid package name conflict
-# https://github.com/sharkdp/bat#on-ubuntu-using-apt
-.local/bin/bat
-{{-   end }}
-
-{{   if not (lookPath "fdfind") -}}
-# fd needs to be symlinked on ubuntu to avoid package name conflict
-.local/bin/fd
-{{-   end }}
-
 {{- end }}
 
 # Application specific ignores

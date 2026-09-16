@@ -21,3 +21,18 @@ bindkey '^K' backward-kill-line
 
 # esc: break
 bindkey '\e' send-break
+
+# ctrl+s: copy the entire current line to the system clipboard
+clipboard-copy() {
+  print -r -n -- "$BUFFER" | clipcopy
+}
+zle -N clipboard-copy
+bindkey '^S' clipboard-copy
+
+# ctrl+s (while shift-select has a selection active): copy the selection to the system clipboard
+clipboard-copy-region() {
+  zle copy-region-as-kill
+  print -r -n -- "$CUTBUFFER" | clipcopy
+}
+zle -N clipboard-copy-region
+bindkey -M shift-select '^S' clipboard-copy-region

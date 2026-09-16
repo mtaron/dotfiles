@@ -48,7 +48,10 @@ jobs:
 
       - name: test environment
         run: |
-          echo "mise"
+          echo "test aliases and environment variables are set"
+          l $ZDOTDIR
+
+          echo "test mise installed and tools are available"
           mise ls
-          go --version
+          go version
         shell: zsh --errexit {0}

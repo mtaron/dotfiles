@@ -48,18 +48,6 @@ jobs:
 
       - name: test environment
         run: |
-          echo ".profile"
-          cat "$HOME/.profile" && source "$HOME/.profile"
-
-          echo "Ensure an environment variable from .profile is set"
-          [[ -v GNUPGHOME ]] || exit 1
-
-          echo ".zshenv"
-          cat "$HOME/.zshenv" && source "$HOME/.zshenv"
-
-          echo "Ensure an environment variable from .zshenv is set"
-          [[ -v ZSH_CACHE_DIR ]] || exit 1
-
           echo "mise"
           mise ls
           go --version

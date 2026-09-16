@@ -19,18 +19,23 @@ ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 # run zgenom reset automatically when this file changes
 ZGEN_RESET_ON_CHANGE=("$ZDOTDIR/.zshrc")
 
+# oh-my-zsh location (managed by chezmoi, see .chezmoiexternal.yaml.tmpl)
+export ZSH="$XDG_DATA_HOME/oh-my-zsh"
+
 # Load plugin manager
 source "$XDG_DATA_HOME/zgenom/zgenom.zsh"
 
 if ! zgenom saved; then
-  zgenom ohmyzsh
+  # oh-my-zsh is installed by chezmoi as a pinned external, so it is loaded by
+  # path rather than cloned by zgenom.
+  zgenom load "$ZSH/oh-my-zsh.sh"
 
-  zgenom ohmyzsh plugins/zsh-syntax-highlighting
-  zgenom ohmyzsh plugins/zsh-autosuggestions
+  zgenom load "$ZSH/plugins/zsh-syntax-highlighting"
+  zgenom load "$ZSH/plugins/zsh-autosuggestions"
 
-  zgenom load jirutka/zsh-shift-select
-  zgenom load hlissner/zsh-autopair
-  zgenom load jandamm/zgenom-ext-eval
+  zgenom load jirutka/zsh-shift-select zsh-shift-select.plugin.zsh da460999b7d31aef0f0a82a3e749d70edf6f2ef9 --pin
+  zgenom load hlissner/zsh-autopair zsh-autopair.plugin.zsh 449a7c3d095bc8f3d78cf37b9549f8bb4c383f3d --pin
+  zgenom load jandamm/zgenom-ext-eval init.zsh 5a439dbd02b9bbeb84df9a4d5f657d6aa02270ac --pin
 
   zgenom eval --name mise <<(mise activate zsh)
   zgenom eval --name starship <<(starship init zsh)

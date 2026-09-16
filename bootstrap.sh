@@ -19,114 +19,42 @@ install_prerequisites() {
     zsh
 }
 
-# add_apt_key URL [NAME]
-add_apt_key() {
-  local url=$1
-  local name=${2:-$(basename "$url")}
-  sudo curl --silent --skip-existing --show-error --fail --location \
-    --output-dir /etc/apt/keyrings --output "$name" \
-    --write-out "%{filename_effective}" "$url"
-}
+script_dir="$(cd -P -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+apt_dir="$script_dir/apt"
 
-# add_apt_source NAME URL KEY_PATH [SUITE] [COMPONENTS]
-add_apt_source() {
-  local name=$1 url=$2 key_path=$3
-  local suite=${4:-stable} components=${5:-main}
-  local sources_path="/etc/apt/sources.list.d/$name"
-  [[ -f "$sources_path" ]] && return 0
-  sudo tee "$sources_path" >/dev/null <<EOF
-Types: deb
-URIs: $url
-Suites: $suite
-Components: $components
-Architectures: $architecture
-Signed-By: $key_path
-EOF
-}
-
-# https://code.visualstudio.com/docs/setup/linux
-add_apt_source_vscode() {
-  add_apt_source vscode.sources \
-    https://packages.microsoft.com/repos/code \
-    "$(add_apt_key https://packages.microsoft.com/keys/microsoft.asc)"
+install_apt_sources() {
+  sudo install --mode 0644 "$apt_dir"/keys/* /etc/apt/keyrings/
+  sudo install --mode 0644 "$apt_dir"/sources/* /etc/apt/sources.list.d/
 }
 
 # https://support.1password.com/install-linux/#debian-or-ubuntu
-add_apt_source_1password() {
-  add_apt_source 1password.sources \
-    "https://downloads.1password.com/linux/debian/$architecture" \
-    "$(add_apt_key https://downloads.1password.com/linux/keys/1password.asc)"
+# 1Password additionally verifies its .deb signature via debsig-verify.
+install_1password_debsig() {
+  local id=AC2D62742012EA22
+  sudo install --directory --mode 0755 "/etc/debsig/policies/$id"
+  sudo install --mode 0644 "$apt_dir/debsig/1password.pol" \
+    "/etc/debsig/policies/$id/1password.pol"
 
-  # Add the debsig-verify policy
-  local policy_path=/etc/debsig/policies/AC2D62742012EA22/1password.pol
-  if [[ ! -f "$policy_path" ]]; then
-    sudo mkdir -p "$(dirname "$policy_path")"
-    curl -fsSL https://downloads.1password.com/linux/debian/debsig/1password.pol |
-      sudo tee "$policy_path" >/dev/null
-  fi
-
-  local debsig_key_path=/usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
-  if [[ ! -f "$debsig_key_path" ]]; then
-    sudo mkdir -p "$(dirname "$debsig_key_path")"
-    sudo cp "$key_path" "$debsig_key_path"
-  fi
-}
-
-# https://github.com/cli/cli/blob/trunk/docs/install_linux.md#debian
-add_apt_source_github() {
-  add_apt_source github-cli.sources \
-    https://cli.github.com/packages \
-    "$(add_apt_key https://cli.github.com/packages/githubcli-archive-keyring.gpg)"
-}
-
-# https://brave.com/linux/#debian-ubuntu-mint
-add_apt_source_brave() {
-  add_apt_source brave-browser.sources \
-    https://brave-browser-apt-release.s3.brave.com/ \
-    "$(add_apt_key https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg)"
+  sudo install --directory --mode 0755 "/usr/share/debsig/keyrings/$id"
+  sudo install --mode 0644 "$apt_dir/keys/1password.asc" \
+    "/usr/share/debsig/keyrings/$id/debsig.gpg"
 }
 
 # https://code.claude.com/docs/en/desktop-linux#install
-add_apt_source_claude_desktop() {
-  add_apt_source claude-desktop.sources \
-    https://downloads.claude.ai/claude-desktop/apt/stable \
-    "$(add_apt_key https://downloads.claude.ai/claude-desktop/key.asc claude-desktop.asc)"
-
-    sudo tee /etc/default/claude-desktop <<< "CLAUDE_DESKTOP_ADD_REPO=false" >/dev/null
-}
-
-# https://code.claude.com/docs/en/setup#install-with-linux-package-managers
-add_apt_source_claude_code() {
-  add_apt_source claude-code.sources \
-    https://downloads.claude.ai/claude-code/apt/stable \
-    "$(add_apt_key https://downloads.claude.ai/keys/claude-code.asc)"
-}
-
-# https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
-add_apt_source_docker() {
-  add_apt_source docker.sources \
-    https://download.docker.com/linux/ubuntu \
-    "$(add_apt_key https://download.docker.com/linux/ubuntu/gpg docker.asc)" \
-    "$(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")" \
-    "stable"
+# Stop the package from re-adding its own apt source on upgrade.
+configure_claude_desktop() {
+  sudo tee /etc/default/claude-desktop <<< "CLAUDE_DESKTOP_ADD_REPO=false" >/dev/null
 }
 
 add_apt_sources() {
-  architecture=$(dpkg --print-architecture)
-  readonly architecture
-
   # for alacritty https://launchpad.net/~aslatter/+archive/ubuntu/ppa
   if ! sudo add-apt-repository --list | grep -q "https://ppa.launchpadcontent.net/aslatter/ppa/ubuntu/"; then
     sudo add-apt-repository --no-update --yes ppa:aslatter/ppa
   fi
 
-  add_apt_source_vscode
-  add_apt_source_1password
-  add_apt_source_github
-  add_apt_source_brave
-  add_apt_source_claude_desktop
-  add_apt_source_claude_code
-  add_apt_source_docker
+  install_apt_sources
+  install_1password_debsig
+  configure_claude_desktop
 }
 
 # Installs the packages that are available from the apt sources added above

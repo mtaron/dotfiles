@@ -1,24 +1,32 @@
-# dotfile manager: zgenom
+# Everything here is pinned to an immutable reference and verified by checksum.
+
+{{- $zgenomVersion := "d99d5dc4b27695612de2b7054bb583dd19a7235d" }}
 .local/share/zgenom:
-  type: git-repo
-  url: https://github.com/jandamm/zgenom.git
-  clone:
-    args: [ "--depth", "1" ]
+  type: archive
+  url: https://github.com/jandamm/zgenom/archive/{{ $zgenomVersion }}.tar.gz
+  stripComponents: 1
+  checksum:
+    sha256: "e9ab0caa21bde4fa79c64962ff53d3fd1ae38283649b6b84c7a46200a1e6b2aa"
+
+{{- $ohMyZshVersion := "0ee67f042872d1dfab74270c31867771ca35aef4" }}
+.local/share/oh-my-zsh:
+  type: archive
+  url: https://github.com/ohmyzsh/ohmyzsh/archive/{{ $ohMyZshVersion }}.tar.gz
+  stripComponents: 1
+  checksum:
+    sha256: "73a7017cd5cde1d76b4044df9f100c6aeae0feb9820e8529f8c90063d2af3cb9"
+  exclude:
+    - "*/themes"
+    - "*/templates"
+    - "*/.github"
+    - "*/.devcontainer"
 
 {{ if eq .osid "linux-ubuntu" -}}
-{{- $miseVersion := (gitHubLatestRelease "jdx/mise").TagName -}}
-{{- $archMise := ternary "x64" .chezmoi.arch (eq .chezmoi.arch "amd64") }}
+{{- $miseVersion := "v2026.9.10" }}
 .local/bin/mise:
   type: file
-  url: https://github.com/jdx/mise/releases/download/{{ $miseVersion }}/mise-{{ $miseVersion }}-linux-{{ $archMise }}
+  url: https://github.com/jdx/mise/releases/download/{{ $miseVersion }}/mise-{{ $miseVersion }}-linux-x64
   executable: true
-
-{{   if not .headless -}}
-# script to remove old linux kernels so /boot doesn't fill up
-kernel-clean:
-  type: file
-  url: "https://raw.githubusercontent.com/plepe/kernel-clean/master/kernel-clean"
-  executable: true
-  refreshPeriod: "744h"
-{{   end -}}
+  checksum:
+    sha256: "f917e52216924ef0a8b4eca3f7004dfcff3b94665716ac5685fd53006a491eee"
 {{- end }}

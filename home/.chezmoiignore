@@ -5,6 +5,11 @@
 {{ if not (eq .osid "linux-ubuntu") }}
 .chezmoiscripts/ubuntu/**
 .config/zsh/zsh.d/install.zsh
+
+{{ if .headless -}}
+.local/bin/kernel-clean
+{{- end }}
+
 {{- end }}
 
 # Application specific ignores

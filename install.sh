@@ -6,6 +6,8 @@
 # -u: exit on unset variables
 set -eu
 
+CHEZMOI_VERSION="v2.72.2"
+
 if ! chezmoi="$(command -v chezmoi)"; then
   bin_dir="${HOME}/.local/bin"
   chezmoi="${bin_dir}/chezmoi"
@@ -18,7 +20,7 @@ if ! chezmoi="$(command -v chezmoi)"; then
     echo "To install chezmoi, you must have curl or wget installed." >&2
     exit 1
   fi
-  sh -c "${chezmoi_install_script}" -- -b "${bin_dir}"
+  sh -c "${chezmoi_install_script}" -- -b "${bin_dir}" -t "${CHEZMOI_VERSION}"
   unset chezmoi_install_script bin_dir
 fi
 

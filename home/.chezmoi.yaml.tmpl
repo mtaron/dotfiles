@@ -17,9 +17,6 @@
 
 {{- $email := default "michael@taron.dev" (env "GIT_AUTHOR_EMAIL") -}}
 
-gitHub:
-  refreshPeriod: "15m"
-
 data:
   headless: {{ $headless }}
   gnome: {{ $gnome }}

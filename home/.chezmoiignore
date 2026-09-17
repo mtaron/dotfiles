@@ -4,17 +4,17 @@
 # Ubuntu specific ignores
 {{ if not (eq .osid "linux-ubuntu") }}
 .chezmoiscripts/ubuntu/**
-{{- end }}
+{{- end -}}
 
 {{ if or (not (eq .osid "linux-ubuntu")) .headless -}}
 .local/bin/kernel-clean
-{{- end }}
+{{- end -}}
 
 # Application specific ignores
 {{ if not (lookPath "gh") -}}
 .local/bin/docker-credential-gh
 .config/docker/config.json
-{{- end }}
+{{- end -}}
 
 {{ if not (lookPath "terraform") -}}
 .config/terraform/

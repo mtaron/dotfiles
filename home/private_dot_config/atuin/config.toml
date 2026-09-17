@@ -6,4 +6,4 @@ show_help = false
 show_tabs = false
 
 [keymap.emacs]
-"ctrl-backspace" = "delete"
+"ctrl-shift-backspace" = "delete"

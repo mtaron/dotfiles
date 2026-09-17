@@ -8,6 +8,7 @@ set -euo pipefail
 install_prerequisites() {
   sudo apt-get update
   sudo apt-get install --yes --no-install-recommends \
+    cuda-toolkit \
     curl \
     fonts-cascadia-code \
     git \

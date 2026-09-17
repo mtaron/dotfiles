@@ -129,6 +129,26 @@ specifiers = ["lts"]
 checksum = "sha256:6e1db87ef58b8819e5d5402eff1536491b18edd8eb7bee5ef7897876e88dc5ff"
 url = "https://nodejs.org/dist/v24.21.0/node-v24.21.0-linux-x64.tar.gz"
 
+[[tools.ollama]]
+version = "0.34.1"
+backend = "aqua:ollama/ollama"
+specifiers = ["latest"]
+
+[tools.ollama."platforms.linux-x64"]
+checksum = "sha256:f361dc3992ec07e4ad429f4bb2d10d4663ba2c295f9a9a688c7d52f4ba650034"
+url = "https://github.com/ollama/ollama/releases/download/v0.34.1/ollama-linux-amd64.tar.zst"
+url_api = "https://api.github.com/repos/ollama/ollama/releases/assets/566349671"
+
+[[tools.opencode]]
+version = "1.18.31"
+backend = "aqua:anomalyco/opencode"
+specifiers = ["latest"]
+
+[tools.opencode."platforms.linux-x64"]
+checksum = "sha256:e9312be75ed803b7415fc2aeabda1f4fe938912a39673762dc0c38c0e11ebde4"
+url = "https://github.com/anomalyco/opencode/releases/download/v1.18.31/opencode-linux-x64.tar.gz"
+url_api = "https://api.github.com/repos/anomalyco/opencode/releases/assets/563876605"
+
 [[tools.pnpm]]
 version = "12.4.2"
 backend = "aqua:pnpm/pnpm"

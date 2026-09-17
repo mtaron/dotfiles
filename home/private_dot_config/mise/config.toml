@@ -33,6 +33,8 @@ fd = "latest"
 fzf = "latest"
 jq = "latest"
 mkcert = "latest"
+ollama = "latest"
+opencode = { version = "latest", postinstall = "opencode completion zsh > ~/.config/zsh/completions/_opencode" }
 ripgrep = { version = "latest", postinstall = "rg --generate=complete-zsh > ~/.config/zsh/completions/_rg" }
 shellcheck = "latest"
 shfmt = "latest"

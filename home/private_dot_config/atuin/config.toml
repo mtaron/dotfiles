@@ -7,3 +7,6 @@ show_tabs = false
 
 [keymap.emacs]
 "ctrl-shift-backspace" = "delete"
+
+[logs]
+enabled = false

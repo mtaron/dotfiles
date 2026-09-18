@@ -39,6 +39,7 @@ ripgrep = { version = "latest", postinstall = "rg --generate=complete-zsh > ~/.c
 shellcheck = "latest"
 shfmt = "latest"
 starship = { version = "latest", postinstall = "starship completions zsh > ~/.config/zsh/completions/_starship" }
+task = { version = "latest", postinstall = "task --completion zsh > ~/.config/zsh/completions/_task" }
 yq = { version = "latest", postinstall = "yq completion zsh > ~/.config/zsh/completions/_yq" }
 zoxide = "latest"
 

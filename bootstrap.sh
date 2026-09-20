@@ -74,13 +74,17 @@ install_packages() {
     docker-ce \
     docker-ce-cli \
     docker-compose-plugin \
-    gh
+    gh \
+    nvidia-container-toolkit
 }
 
 post_install() {
   # https://docs.docker.com/engine/install/linux-postinstall/
   sudo usermod --append --groups docker "$USER"
   newgrp docker
+
+  sudo nvidia-ctk runtime configure --runtime=docker
+  sudo systemctl restart docker
 }
 
 configure_shell() {

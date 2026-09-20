@@ -1,0 +1,5 @@
+Types: deb
+URIs: https://nvidia.github.io/libnvidia-container/stable/deb/amd64
+Suites: /
+Architectures: amd64
+Signed-By: /etc/apt/keyrings/nvidia-container-toolkit.asc

@@ -22,13 +22,13 @@
     - "*/.devcontainer"
 
 {{ if eq .osid "linux-ubuntu" -}}
-{{- $miseVersion := "v2026.9.10" }}
+{{- $miseVersion := "v2026.9.12" }}
 .local/bin/mise:
   type: file
   url: https://github.com/jdx/mise/releases/download/{{ $miseVersion }}/mise-{{ $miseVersion }}-linux-x64
   executable: true
   checksum:
-    sha256: "f917e52216924ef0a8b4eca3f7004dfcff3b94665716ac5685fd53006a491eee"
+    sha256: "e79ae57945034903aee8aa2ea66b4c7ca9cd4f4edd5a8a78a589cbae6d0f428a"
 .config/zsh/completions/_mise:
   type: file
   url: https://github.com/jdx/mise/releases/download/{{ $miseVersion }}/mise.zsh

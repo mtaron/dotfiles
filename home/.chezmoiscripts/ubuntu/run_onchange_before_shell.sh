@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+zsh_path=$(command -v zsh)
+if [[ "$SHELL" != "$zsh_path" ]]; then
+  chsh --shell "$zsh_path"
+fi

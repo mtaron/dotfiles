@@ -80,19 +80,14 @@ install_packages() {
 
 post_install() {
   # https://docs.docker.com/engine/install/linux-postinstall/
-  sudo usermod --append --groups docker "$USER"
-  newgrp docker
+  if ! id -nG "$USER" | grep --word-regexp --quiet docker; then
+    sudo usermod --append --groups docker "$USER"
+    newgrp docker
+  fi
 
+  # https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#configuring-docker
   sudo nvidia-ctk runtime configure --runtime=docker
   sudo systemctl restart docker
-}
-
-configure_shell() {
-  local zsh_path
-  zsh_path=$(command -v zsh)
-  if [[ "$SHELL" != "$zsh_path" ]]; then
-    chsh --shell "$zsh_path"
-  fi
 }
 
 print_manual_steps() {
@@ -119,7 +114,6 @@ main() {
   install_packages
 
   post_install
-  configure_shell
 
   print_manual_steps
 }

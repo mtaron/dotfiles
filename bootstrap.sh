@@ -85,8 +85,9 @@ post_install() {
     newgrp docker
   fi
 
-  # https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#configuring-docker
-  sudo nvidia-ctk runtime configure --runtime=docker
+  # https://github.com/NVIDIA/nvkind#setup
+  sudo nvidia-ctk runtime configure --runtime=docker --set-as-default --cdi.enabled
+  sudo nvidia-ctk config --set accept-nvidia-visible-devices-as-volume-mounts=true --in-place
   sudo systemctl restart docker
 }
 

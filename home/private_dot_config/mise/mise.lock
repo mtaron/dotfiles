@@ -102,15 +102,15 @@ url = "https://github.com/jqlang/jq/releases/download/jq-1.8.2/jq-linux-amd64"
 url_api = "https://api.github.com/repos/jqlang/jq/releases/assets/453012752"
 provenance = "github-attestations"
 
-[[tools.k0sctl]]
+[[tools.kind]]
 version = "0.33.0"
-backend = "aqua:k0sproject/k0sctl"
+backend = "aqua:kubernetes-sigs/kind"
 specifiers = ["latest"]
 
-[tools.k0sctl."platforms.linux-x64"]
-checksum = "sha256:031f5cc3fb794028f82954b9e47b4061c484efc880bfa70371111b5d100d41d3"
-url = "https://github.com/k0sproject/k0sctl/releases/download/v0.33.0/k0sctl-linux-amd64"
-url_api = "https://api.github.com/repos/k0sproject/k0sctl/releases/assets/557337718"
+[tools.kind."platforms.linux-x64"]
+checksum = "sha256:aee6151561422756b764a4ae28e7f44cda5af5a9eead3cc9985112b1de8d8e0d"
+url = "https://github.com/kubernetes-sigs/kind/releases/download/v0.33.0/kind-linux-amd64"
+url_api = "https://api.github.com/repos/kubernetes-sigs/kind/releases/assets/531396433"
 
 [[tools.kubectl]]
 version = "1.37.0"

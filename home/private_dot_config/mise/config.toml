@@ -47,5 +47,5 @@ zoxide = "latest"
 helm = { version = "latest", postinstall = "helm completion zsh > ~/.config/zsh/completions/_helm" }
 helm-diff = { version = "latest", depends = ["helm"], postinstall = "helm plugin install $MISE_TOOL_INSTALL_PATH/diff" }  # required for helmfile
 helmfile = { version = "latest", postinstall = "helmfile completion zsh > ~/.config/zsh/completions/_helmfile" }
-k0sctl = { version = "latest", postinstall = "k0sctl completion zsh > ~/.config/zsh/completions/_k0sctl" }
+kind = { version = "latest", postinstall = "kind completion zsh > ~/.config/zsh/completions/_kind" }
 kubectl = { version = "latest", postinstall = "kubectl completion zsh > ~/.config/zsh/completions/_kubectl" }

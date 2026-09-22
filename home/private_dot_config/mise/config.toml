@@ -11,6 +11,9 @@ lockfile_platforms = ["linux-x64"]
 python.uv_venv_auto = "source"
 idiomatic_version_file_enable_tools = ["go", "node", "python"]
 
+[settings.npm]
+package_manager = "pnpm"
+
 [settings.github]
 credential_command = 'gh auth token --hostname "${MISE_CREDENTIAL_HOST}"'
 use_git_credentials = true

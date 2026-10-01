@@ -4,7 +4,6 @@ setopt inc_append_history
 
 export GPG_TTY=$TTY
 
-# Disable Oh-My-ZSH's internal updating
 zstyle ':omz:update' mode disabled
 
 ZSH_COMPLETIONS="$ZDOTDIR/completions"
@@ -28,6 +27,7 @@ if ! zgenom saved; then
 
   zgenom load "$ZSH/plugins/zsh-syntax-highlighting"
   zgenom load "$ZSH/plugins/zsh-autosuggestions"
+  zgenom load "$ZSH/plugins/redis-cli"
 
   zgenom load jirutka/zsh-shift-select zsh-shift-select.plugin.zsh da460999b7d31aef0f0a82a3e749d70edf6f2ef9 --pin
   zgenom load hlissner/zsh-autopair zsh-autopair.plugin.zsh 449a7c3d095bc8f3d78cf37b9549f8bb4c383f3d --pin

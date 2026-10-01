@@ -8,6 +8,7 @@ set -euo pipefail
 install_prerequisites() {
   sudo apt-get update
   sudo apt-get install --yes --no-install-recommends \
+    redis-tools \
     cuda-toolkit \
     curl \
     fonts-cascadia-code \
@@ -49,7 +50,7 @@ configure_claude_desktop() {
 
 add_apt_sources() {
   # for alacritty https://launchpad.net/~aslatter/+archive/ubuntu/ppa
-  if ! sudo add-apt-repository --list | grep -q "https://ppa.launchpadcontent.net/aslatter/ppa/ubuntu/"; then
+  if ! add-apt-repository --list | grep -q "https://ppa.launchpadcontent.net/aslatter/ppa/ubuntu/"; then
     sudo add-apt-repository --no-update --yes ppa:aslatter/ppa
   fi
 

@@ -36,7 +36,6 @@ fd = "latest"
 fzf = "latest"
 jq = "latest"
 mkcert = "latest"
-ollama = "latest"
 opencode = { version = "latest", postinstall = "opencode completion zsh > ~/.config/zsh/completions/_opencode" }
 ripgrep = { version = "latest", postinstall = "rg --generate=complete-zsh > ~/.config/zsh/completions/_rg" }
 shellcheck = "latest"
@@ -45,10 +44,11 @@ starship = { version = "latest", postinstall = "starship completions zsh > ~/.co
 task = { version = "latest", postinstall = "task --completion zsh > ~/.config/zsh/completions/_task" }
 yq = { version = "latest", postinstall = "yq completion zsh > ~/.config/zsh/completions/_yq" }
 zoxide = "latest"
+"github:temporalio/cli" = { version = "latest", postinstall = "temporal completion zsh > ~/.config/zsh/completions/_temporal" }
 
 # kubernetes
 helm = { version = "latest", postinstall = "helm completion zsh > ~/.config/zsh/completions/_helm" }
-helm-diff = { version = "latest", depends = ["helm"], postinstall = "helm plugin install $MISE_TOOL_INSTALL_PATH/diff" }  # required for helmfile
+helm-diff = { version = "latest", depends = ["helm"], postinstall = "helm plugin uninstall diff >/dev/null 2>&1 || true; helm plugin install $MISE_TOOL_INSTALL_PATH/diff" }  # required for helmfile
 helmfile = { version = "latest", postinstall = "helmfile completion zsh > ~/.config/zsh/completions/_helmfile" }
 kind = { version = "latest", postinstall = "kind completion zsh > ~/.config/zsh/completions/_kind" }
 kubectl = { version = "latest", postinstall = "kubectl completion zsh > ~/.config/zsh/completions/_kubectl" }

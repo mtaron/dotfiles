@@ -9,4 +9,6 @@ Changes to `*.tmpl` template files can be validated using `chezmoi execute-templ
 
 To test end to end, run `docker build --tag dotfiles --progress plain .` and `docker run -it --rm dotfiles`. A command like `l $ZDOTDIR` run inside the container validates that aliases and environment variables are set.
 
-Most tools are managed using [mise](https://mise.jdx.dev/dev-tools/). Use the `update-mise-lock` function to update the checked in lock file.
+Most tools are managed using [mise](https://mise.jdx.dev/dev-tools/).
+Use `source scripts/update.zsh && update-mise-lock` function to update the checked in lock file.
+Use `source scripts/update.zsh && fetch-pinned-externals` to update the tools in `home/.chezmoiexternal.yaml.tmpl`.

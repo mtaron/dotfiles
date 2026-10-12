@@ -8,13 +8,16 @@ set -euo pipefail
 install_prerequisites() {
   sudo apt-get update
   sudo apt-get install --yes --no-install-recommends \
-    redis-tools \
     cuda-toolkit \
     curl \
     fonts-cascadia-code \
     git \
     git-lfs \
     gnupg \
+    libavif16 \
+    libevent-2.1-7t64 \
+    libmanette-0.2-0 \
+    redis-tools \
     terminfo \
     util-linux-extra \
     wl-clipboard \

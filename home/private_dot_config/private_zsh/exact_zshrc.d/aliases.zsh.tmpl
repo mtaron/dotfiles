@@ -7,7 +7,7 @@ alias apt-up='sudo apt update && sudo apt -V --yes upgrade'
 alias psudo='sudo env "PATH=$PATH"'
 
 # remove untracked files and directories
-alias git-clean='git clean --force -X -d'
+alias git-clean='git clean --force --interactive -X -d'
 
 {{ if lookPath "code" -}}
 alias c='code .'

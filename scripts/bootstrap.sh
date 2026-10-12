@@ -17,6 +17,7 @@ install_prerequisites() {
     libavif16 \
     libevent-2.1-7t64 \
     libmanette-0.2-0 \
+    libnss3-tools \
     redis-tools \
     terminfo \
     util-linux-extra \

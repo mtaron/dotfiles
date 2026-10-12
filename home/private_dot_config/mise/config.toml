@@ -52,3 +52,4 @@ helm-diff = { version = "latest", depends = ["helm"], postinstall = "helm plugin
 helmfile = { version = "latest", postinstall = "helmfile completion zsh > ~/.config/zsh/completions/_helmfile" }
 kind = { version = "latest", postinstall = "kind completion zsh > ~/.config/zsh/completions/_kind" }
 kubectl = { version = "latest", postinstall = "kubectl completion zsh > ~/.config/zsh/completions/_kubectl" }
+tilt = { version = "latest", postinstall = "tilt completion zsh > ~/.config/zsh/completions/_tilt" }

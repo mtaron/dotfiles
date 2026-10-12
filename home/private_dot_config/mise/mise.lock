@@ -44,14 +44,14 @@ url = "https://github.com/sharkdp/fd/releases/download/v10.5.0/fd-v10.5.0-x86_64
 url_api = "https://api.github.com/repos/sharkdp/fd/releases/assets/530481615"
 
 [[tools.fzf]]
-version = "0.74.4"
+version = "0.74.5"
 backend = "aqua:junegunn/fzf"
 specifiers = ["latest"]
 
 [tools.fzf."platforms.linux-x64"]
-checksum = "sha256:05e6813a337cc722c3ed07e54a764b75cc5d671e2e60459db0ba696ee5fa7504"
-url = "https://github.com/junegunn/fzf/releases/download/v0.74.4/fzf-0.74.4-linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/junegunn/fzf/releases/assets/558287768"
+checksum = "sha256:d47d7f882972c7d674dbbba998ffa4116e68379616ffac7695d0671e9a722c5f"
+url = "https://github.com/junegunn/fzf/releases/download/v0.74.5/fzf-0.74.5-linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/junegunn/fzf/releases/assets/629581740"
 
 [[tools."github:temporalio/cli"]]
 version = "1.9.1"
@@ -64,13 +64,13 @@ url = "https://github.com/temporalio/cli/releases/download/v1.9.1/temporal_cli_1
 url_api = "https://api.github.com/repos/temporalio/cli/releases/assets/564294919"
 
 [[tools.go]]
-version = "1.27.1"
+version = "1.27.2"
 backend = "core:go"
 specifiers = ["latest"]
 
 [tools.go."platforms.linux-x64"]
-checksum = "sha256:63d339f0da5ab53635a56f2490a7984dfe12dfcff22ad749f63edaf590168445"
-url = "https://dl.google.com/go/go1.27.1.linux-amd64.tar.gz"
+checksum = "sha256:ecbadb99091a3f46e31f5f934b068b1864eafa7995211b39eaddf76996045fe5"
+url = "https://dl.google.com/go/go1.27.2.linux-amd64.tar.gz"
 
 [[tools.helm]]
 version = "4.3.0"
@@ -93,13 +93,13 @@ url_api = "https://api.github.com/repos/databus23/helm-diff/releases/assets/5897
 
 [[tools.helmfile]]
 version = "1.8.1"
-backend = "aqua:helmfile/helmfile"
+backend = "packslip:github.com/helmfile/helmfile"
 specifiers = ["latest"]
 
 [tools.helmfile."platforms.linux-x64"]
 checksum = "sha256:ccabbe75dddbc25008d055fe92a44f95a184342211e7244d32b870409239c7a3"
 url = "https://github.com/helmfile/helmfile/releases/download/v1.8.1/helmfile_1.8.1_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/helmfile/helmfile/releases/assets/599703520"
+signer = "sigstore-oidc:https://github.com/helmfile/helmfile/.github/workflows/releaser.yaml"
 
 [[tools.jq]]
 version = "1.8.2"
@@ -150,34 +150,34 @@ checksum = "sha256:6e1db87ef58b8819e5d5402eff1536491b18edd8eb7bee5ef7897876e88dc
 url = "https://nodejs.org/dist/v24.21.0/node-v24.21.0-linux-x64.tar.gz"
 
 [[tools.opencode]]
-version = "1.18.34"
+version = "1.19.0"
 backend = "aqua:anomalyco/opencode"
 specifiers = ["latest"]
 
 [tools.opencode."platforms.linux-x64"]
-checksum = "sha256:0f22479647226d1d2dd99595d20082ee7bda3870b62dc6a90b41efc1a71d7e9a"
-url = "https://github.com/anomalyco/opencode/releases/download/v1.18.34/opencode-linux-x64.tar.gz"
-url_api = "https://api.github.com/repos/anomalyco/opencode/releases/assets/601903965"
+checksum = "sha256:7bb9e61ad6feacf2e89c10a6a2c1840e3de4220bb50ba1fc7110f31806076aec"
+url = "https://github.com/anomalyco/opencode/releases/download/v1.19.0/opencode-linux-x64.tar.gz"
+url_api = "https://api.github.com/repos/anomalyco/opencode/releases/assets/629455299"
 
 [[tools.pnpm]]
-version = "12.9.0"
+version = "12.11.2"
 backend = "aqua:pnpm/pnpm"
 specifiers = ["latest"]
 
 [tools.pnpm."platforms.linux-x64"]
-checksum = "sha256:df37180e8b3d964e08e8a6bf3bff1374dcf37108fbce1ef7ddc9b70f7cad141f"
-url = "https://github.com/pnpm/pnpm/releases/download/v12.9.0/pnpm-linux-x64.tar.gz"
-url_api = "https://api.github.com/repos/pnpm/pnpm/releases/assets/606603786"
+checksum = "sha256:358f30541b42371360c0d48a8daddc0c0850a90c36fcbea598032a9850e2c9ab"
+url = "https://github.com/pnpm/pnpm/releases/download/v12.11.2/pnpm-linux-x64.tar.gz"
+url_api = "https://api.github.com/repos/pnpm/pnpm/releases/assets/625613177"
 provenance = "github-attestations"
 
 [[tools.python]]
-version = "3.14.8"
+version = "3.15.0"
 backend = "core:python"
 specifiers = ["latest"]
 
 [tools.python."platforms.linux-x64"]
-checksum = "sha256:d9ec7a6935ade8b671a57ebaf111083d7314eab8dae5071d167054dadd2b97d6"
-url = "https://github.com/astral-sh/python-build-standalone/releases/download/20261003/cpython-3.14.8+20261003-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz"
+checksum = "sha256:46edc8f6fccade47dc38001ef2d4094d9cedd21a1863d9b44b2a02c1ee76b94d"
+url = "https://github.com/astral-sh/python-build-standalone/releases/download/20261009/cpython-3.15.0+20261009-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz"
 provenance = "github-attestations"
 
 [[tools.ripgrep]]
@@ -230,15 +230,25 @@ checksum = "sha256:680859dbb4d881a9c72d4d9a8f510825450849af8567deacd7302c0112441
 url = "https://github.com/go-task/task/releases/download/v3.54.0/task_linux_amd64.tar.gz"
 url_api = "https://api.github.com/repos/go-task/task/releases/assets/604090073"
 
+[[tools.tilt]]
+version = "0.37.8"
+backend = "aqua:tilt-dev/tilt"
+specifiers = ["latest"]
+
+[tools.tilt."platforms.linux-x64"]
+checksum = "sha256:e39513f958705d30524d55f68b1d46fbef2b46a0da568efd00e6383dee6be44f"
+url = "https://github.com/tilt-dev/tilt/releases/download/v0.37.8/tilt.0.37.8.linux.x86_64.tar.gz"
+url_api = "https://api.github.com/repos/tilt-dev/tilt/releases/assets/602230514"
+
 [[tools.uv]]
-version = "0.12.23"
+version = "0.13.0"
 backend = "aqua:astral-sh/uv"
 specifiers = ["latest"]
 
 [tools.uv."platforms.linux-x64"]
-checksum = "sha256:9167d72b3319674b6303c4cbe071854bba13ebdf3d76b1a7cbdc175471fb66d6"
-url = "https://github.com/astral-sh/uv/releases/download/0.12.23/uv-x86_64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/608232628"
+checksum = "sha256:1468ebd5a5541121837c5a2817b9972ba6090fa6caa3d142620850a47fb75154"
+url = "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/626003332"
 provenance = "github-attestations"
 
 [[tools.yq]]

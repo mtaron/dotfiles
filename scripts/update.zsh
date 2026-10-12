@@ -1,12 +1,5 @@
 #!/usr/bin/env zsh
 
-update-mise-lock() {
-  chezmoi apply
-  mise lock --global --bump
-  chezmoi add "$XDG_CONFIG_HOME/mise/mise.lock"
-  chezmoi apply
-}
-
 fetch-github-checksum() {
   local repo=${1:?Usage: fetch-github-checksum <owner/repo> [branch]}
   local branch=${2:-main}
@@ -32,3 +25,12 @@ fetch-pinned-externals() {
   fetch-mise-release &
   wait
 }
+
+main() {
+  local repo_root=${${(%):-%x}:A:h:h}
+  fetch-pinned-externals | claude --print --model haiku \
+    "Update the pinned versions and sha256 checksums in $repo_root/home/.chezmoiexternal.yaml.tmpl using the JSON lines on stdin. Match each entry by repo: 'hash' and 'checksum' replace the commit and sha256 for the github.com/<repo>/archive tarball, and 'version', 'mise_checksum' and 'completions_checksum' replace the mise version, the mise binary sha256 and the mise.zsh sha256. Change only those values and make no other edits." \
+    --allowedTools Read Edit
+}
+
+[[ $ZSH_EVAL_CONTEXT == toplevel ]] && main "$@"

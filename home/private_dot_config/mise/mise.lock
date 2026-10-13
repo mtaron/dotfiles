@@ -101,6 +101,16 @@ checksum = "sha256:ccabbe75dddbc25008d055fe92a44f95a184342211e7244d32b870409239c
 url = "https://github.com/helmfile/helmfile/releases/download/v1.8.1/helmfile_1.8.1_linux_amd64.tar.gz"
 signer = "sigstore-oidc:https://github.com/helmfile/helmfile/.github/workflows/releaser.yaml"
 
+[[tools.hostctl]]
+version = "1.1.4"
+backend = "aqua:guumaster/hostctl"
+specifiers = ["latest"]
+
+[tools.hostctl."platforms.linux-x64"]
+checksum = "sha256:f4ec3c9f9d54633511251834ce98d409464fb1c0d970f9c865a880e1160db30f"
+url = "https://github.com/guumaster/hostctl/releases/download/v1.1.4/hostctl_1.1.4_linux_64-bit.tar.gz"
+url_api = "https://api.github.com/repos/guumaster/hostctl/releases/assets/106318956"
+
 [[tools.jq]]
 version = "1.8.2"
 backend = "aqua:jqlang/jq"

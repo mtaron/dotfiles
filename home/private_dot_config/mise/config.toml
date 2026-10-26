@@ -37,7 +37,6 @@ fzf = "latest"
 hostctl = { version = "latest", postinstall = "hostctl completion zsh > ~/.config/zsh/completions/_hostctl" }
 jq = "latest"
 mkcert = "latest"
-opencode = { version = "latest", postinstall = "opencode completion zsh > ~/.config/zsh/completions/_opencode" }
 ripgrep = { version = "latest", postinstall = "rg --generate=complete-zsh > ~/.config/zsh/completions/_rg" }
 shellcheck = "latest"
 shfmt = "latest"

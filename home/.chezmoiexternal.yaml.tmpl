@@ -8,13 +8,13 @@
   checksum:
     sha256: "e9ab0caa21bde4fa79c64962ff53d3fd1ae38283649b6b84c7a46200a1e6b2aa"
 
-{{- $ohMyZshVersion := "d2b7f557cceaddb16ba89bbf8200d8a8df35c4d8" }}
+{{- $ohMyZshVersion := "b509b1c6ed0c1ba37de12cbd37f30b2b2f61193a" }}
 .local/share/oh-my-zsh:
   type: archive
   url: https://github.com/ohmyzsh/ohmyzsh/archive/{{ $ohMyZshVersion }}.tar.gz
   stripComponents: 1
   checksum:
-    sha256: "e3a4be58004bc45c7e5583d18532cb7035838900568092cf0d2fb0b2da9c3901"
+    sha256: "2c61648f01654f1782832c230007a48ce7c0475b4e190294af13cb2b568b1758"
   exclude:
     - "*/themes"
     - "*/templates"
@@ -22,16 +22,16 @@
     - "*/.devcontainer"
 
 {{ if eq .osid "linux-ubuntu" -}}
-{{- $miseVersion := "v2026.10.19" }}
+{{- $miseVersion := "v2026.10.25" }}
 .local/bin/mise:
   type: file
   url: https://github.com/jdx/mise/releases/download/{{ $miseVersion }}/mise-{{ $miseVersion }}-linux-x64
   executable: true
   checksum:
-    sha256: "3162760f40b6b5f706c60641e4ef5ee7322bc6c54f72fc26a7111b337aa18d9d"
+    sha256: "5d362ecc578dc7c146679b841dda949d6472cbf86ff5635db7afdca1b6b3fd87"
 .config/zsh/completions/_mise:
   type: file
   url: https://github.com/jdx/mise/releases/download/{{ $miseVersion }}/mise.zsh
   checksum:
-    sha256: "ad713c3e5198f658a725ecd53f61d587488319586944d844c591148435477b0f"
+    sha256: "4701bffd3e4db0188d03ab9bbcdf429d13b95f18218dbc08f23c388218d35640"
 {{- end }}

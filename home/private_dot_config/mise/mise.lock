@@ -3,14 +3,14 @@
 lockfile_version = 3
 
 [[tools.atuin]]
-version = "18.24.4"
+version = "18.24.5"
 backend = "aqua:atuinsh/atuin"
 specifiers = ["latest"]
 
 [tools.atuin."platforms.linux-x64"]
-checksum = "sha256:d5ed5958ef04a4c20cb876feaa7fbad965f6ccd7b997e7ed54e862adec9ce0fc"
-url = "https://github.com/atuinsh/atuin/releases/download/v18.24.4/atuin-x86_64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/690584795"
+checksum = "sha256:e16a95f10e9592543d2d578e44c2f1dccf89b57915c2e2c6935b435b3f43cee4"
+url = "https://github.com/atuinsh/atuin/releases/download/v18.24.5/atuin-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/707959200"
 provenance = "github-attestations"
 
 [[tools.bat]]
@@ -34,14 +34,15 @@ url = "https://github.com/wagoodman/dive/releases/download/v0.13.1/dive_0.13.1_l
 url_api = "https://api.github.com/repos/wagoodman/dive/releases/assets/241842462"
 
 [[tools.fd]]
-version = "10.5.0"
+version = "10.5.1"
 backend = "aqua:sharkdp/fd"
 specifiers = ["latest"]
 
 [tools.fd."platforms.linux-x64"]
-checksum = "sha256:a1259cd129636efbc3fef123525c1b49e88fe5088c012630983c310e52fdfa95"
-url = "https://github.com/sharkdp/fd/releases/download/v10.5.0/fd-v10.5.0-x86_64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/sharkdp/fd/releases/assets/530481615"
+checksum = "sha256:d0e2b438c8c4946955f05e4cf51452deada8f7ed509e1ccd60235a468622716f"
+checksum_source = "mise-versions"
+url = "https://github.com/sharkdp/fd/releases/download/v10.5.1/fd-v10.5.1-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/sharkdp/fd/releases/assets/708933694"
 
 [[tools.fzf]]
 version = "0.74.5"
@@ -54,14 +55,15 @@ url = "https://github.com/junegunn/fzf/releases/download/v0.74.5/fzf-0.74.5-linu
 url_api = "https://api.github.com/repos/junegunn/fzf/releases/assets/629581740"
 
 [[tools."github:temporalio/cli"]]
-version = "1.9.1"
+version = "1.10.0"
 backend = "github:temporalio/cli"
 specifiers = ["latest"]
 
 [tools."github:temporalio/cli"."platforms.linux-x64"]
-checksum = "sha256:09a0326a51db84d02735e53542b9ebd8c4758daf47482a9ab0abce15844e60d5"
-url = "https://github.com/temporalio/cli/releases/download/v1.9.1/temporal_cli_1.9.1_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/temporalio/cli/releases/assets/564294919"
+checksum = "sha256:521f461f3d108902763bb71e85cd0fd382dc9357b59604ae03da6ae734d16890"
+checksum_source = "mise-versions"
+url = "https://github.com/temporalio/cli/releases/download/v1.10.0/temporal_cli_1.10.0_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/temporalio/cli/releases/assets/703909584"
 
 [[tools.go]]
 version = "1.27.3"
@@ -243,14 +245,14 @@ url = "https://github.com/tilt-dev/tilt/releases/download/v0.37.8/tilt.0.37.8.li
 url_api = "https://api.github.com/repos/tilt-dev/tilt/releases/assets/602230514"
 
 [[tools.uv]]
-version = "0.13.6"
+version = "0.13.7"
 backend = "aqua:astral-sh/uv"
 specifiers = ["latest"]
 
 [tools.uv."platforms.linux-x64"]
-checksum = "sha256:f29c3e94ffabd7e6f3ba521dba169a9b7ec12100bf3257087f0f24f6123f3645"
-url = "https://github.com/astral-sh/uv/releases/download/0.13.6/uv-x86_64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/679980644"
+checksum = "sha256:c5221ff41b7892bfc223543883600125f6a47fe845093e0f5bdff4f359196d83"
+url = "https://github.com/astral-sh/uv/releases/download/0.13.7/uv-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/704009823"
 provenance = "github-attestations"
 
 [[tools.yq]]

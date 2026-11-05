@@ -1,37 +1,40 @@
-# Everything here is pinned to an immutable reference and verified by checksum.
+# Versions and checksums live in .chezmoidata/externals.yaml so they can be updated easily by the update.zsh script.
 
-{{- $zgenomVersion := "d99d5dc4b27695612de2b7054bb583dd19a7235d" }}
+{{- with .externals.zgenom }}
 .local/share/zgenom:
   type: archive
-  url: https://github.com/jandamm/zgenom/archive/{{ $zgenomVersion }}.tar.gz
+  url: https://github.com/jandamm/zgenom/archive/{{ .version }}.tar.gz
   stripComponents: 1
   checksum:
-    sha256: "e9ab0caa21bde4fa79c64962ff53d3fd1ae38283649b6b84c7a46200a1e6b2aa"
+    sha256: {{ .sha256 | quote }}
+{{- end }}
 
-{{- $ohMyZshVersion := "b509b1c6ed0c1ba37de12cbd37f30b2b2f61193a" }}
+{{- with .externals.ohmyzsh }}
 .local/share/oh-my-zsh:
   type: archive
-  url: https://github.com/ohmyzsh/ohmyzsh/archive/{{ $ohMyZshVersion }}.tar.gz
+  url: https://github.com/ohmyzsh/ohmyzsh/archive/{{ .version }}.tar.gz
   stripComponents: 1
   checksum:
-    sha256: "2c61648f01654f1782832c230007a48ce7c0475b4e190294af13cb2b568b1758"
+    sha256: {{ .sha256 | quote }}
   exclude:
     - "*/themes"
     - "*/templates"
     - "*/.github"
     - "*/.devcontainer"
+{{- end }}
 
 {{ if eq .osid "linux-ubuntu" -}}
-{{- $miseVersion := "v2026.10.25" }}
+{{- with .externals.mise }}
 .local/bin/mise:
   type: file
-  url: https://github.com/jdx/mise/releases/download/{{ $miseVersion }}/mise-{{ $miseVersion }}-linux-x64
+  url: https://github.com/jdx/mise/releases/download/{{ .version }}/mise-{{ .version }}-linux-x64
   executable: true
   checksum:
-    sha256: "5d362ecc578dc7c146679b841dda949d6472cbf86ff5635db7afdca1b6b3fd87"
+    sha256: {{ .sha256 | quote }}
 .config/zsh/completions/_mise:
   type: file
-  url: https://github.com/jdx/mise/releases/download/{{ $miseVersion }}/mise.zsh
+  url: https://github.com/jdx/mise/releases/download/{{ .version }}/mise.zsh
   checksum:
-    sha256: "4701bffd3e4db0188d03ab9bbcdf429d13b95f18218dbc08f23c388218d35640"
+    sha256: {{ .completions_sha256 | quote }}
+{{- end }}
 {{- end }}

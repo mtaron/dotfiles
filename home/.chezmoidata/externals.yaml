@@ -1,0 +1,12 @@
+# Pinned versions and checksums for .chezmoiexternal.yaml.tmpl, updated by scripts/update.zsh.
+externals:
+  zgenom:
+    version: "d99d5dc4b27695612de2b7054bb583dd19a7235d"
+    sha256: "e9ab0caa21bde4fa79c64962ff53d3fd1ae38283649b6b84c7a46200a1e6b2aa"
+  ohmyzsh:
+    version: "b509b1c6ed0c1ba37de12cbd37f30b2b2f61193a"
+    sha256: "2c61648f01654f1782832c230007a48ce7c0475b4e190294af13cb2b568b1758"
+  mise:
+    version: "v2026.11.2"
+    sha256: "62cad463c1413f05398ca339168a8f655120b6f0b0b8adce3bc6758bafaf0602"
+    completions_sha256: "4701bffd3e4db0188d03ab9bbcdf429d13b95f18218dbc08f23c388218d35640"

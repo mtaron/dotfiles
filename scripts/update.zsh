@@ -1,36 +1,27 @@
 #!/usr/bin/env zsh
+setopt ERR_EXIT PIPE_FAIL
 
-fetch-github-checksum() {
-  local repo=${1:?Usage: fetch-github-checksum <owner/repo> [branch]}
-  local branch=${2:-main}
-  local hash=$(gh api repos/$repo/commits/$branch --jq .sha)
-  local checksum=$(curl -sL "https://github.com/$repo/archive/$hash.tar.gz" | sha256sum | cut -d' ' -f1)
-  jq -n --arg repo "$repo" --arg hash "$hash" --arg checksum "$checksum" \
-    '{repo: $repo, hash: $hash, checksum: $checksum}'
+externals=${0:A:h:h}/home/.chezmoidata/externals.yaml
+
+# update-github-archive NAME REPO BRANCH
+update-github-archive() {
+  local name=$1 repo=$2 branch=$3
+  version=$(gh api repos/$repo/commits/$branch --jq .sha)
+  sha256=$(curl -fsSL https://github.com/$repo/archive/$version.tar.gz | sha256sum | cut -d' ' -f1)
+  version=$version sha256=$sha256 yq -i \
+    ".externals.$name.version = strenv(version) | .externals.$name.sha256 = strenv(sha256)" $externals
 }
 
-fetch-mise-release() {
-  local data=$(gh release view --repo jdx/mise --json assets,tagName)
-  local version=$(jq -r .tagName <<< "$data")
-  local mise_checksum=$(jq -r '.assets[] | select(.name == "mise-'$version'-linux-x64") | .digest' <<< "$data" | cut -d: -f2)
-  local completions_checksum=$(jq -r '.assets[] | select(.name == "mise.zsh") | .digest' <<< "$data" | cut -d: -f2)
-  jq -n --arg version "$version" --arg mise "$mise_checksum" --arg completions "$completions_checksum" \
-    '{repo: "jdx/mise", version: $version, mise_checksum: $mise, completions_checksum: $completions}'
+update-mise() {
+  release=$(gh release view --repo jdx/mise --json tagName,assets) yq -i '
+    env(release) as $r
+    | .externals.mise.version = $r.tagName
+    | .externals.mise.sha256 = ($r.assets[] | select(.name == "mise-" + $r.tagName + "-linux-x64") | .digest | sub("sha256:", ""))
+    | .externals.mise.completions_sha256 = ($r.assets[] | select(.name == "mise.zsh") | .digest | sub("sha256:", ""))
+  ' $externals
 }
 
-fetch-pinned-externals() {
-  setopt LOCAL_OPTIONS NO_MONITOR
-  fetch-github-checksum ohmyzsh/ohmyzsh master &
-  fetch-github-checksum jandamm/zgenom &
-  fetch-mise-release &
-  wait
-}
-
-main() {
-  local repo_root=${${(%):-%x}:A:h:h}
-  fetch-pinned-externals | claude --print --model haiku \
-    "Update the pinned versions and sha256 checksums in $repo_root/home/.chezmoiexternal.yaml.tmpl using the JSON lines on stdin. Match each entry by repo: 'hash' and 'checksum' replace the commit and sha256 for the github.com/<repo>/archive tarball, and 'version', 'mise_checksum' and 'completions_checksum' replace the mise version, the mise binary sha256 and the mise.zsh sha256. Change only those values and make no other edits." \
-    --allowedTools Read Edit
-}
-
-[[ $ZSH_EVAL_CONTEXT == toplevel ]] && main "$@"
+chezmoi upgrade
+update-github-archive zgenom jandamm/zgenom main
+update-github-archive ohmyzsh ohmyzsh/ohmyzsh master
+update-mise

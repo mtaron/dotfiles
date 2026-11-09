@@ -51,7 +51,7 @@ export-if-unset()
 
 if [[ ! -v "$PNPM_HOME" ]]; then
     export PNPM_HOME="$XDG_DATA_HOME/pnpm"
-    export PATH="$PNPM_HOME:$PATH"
+    export PATH="$PNPM_HOME/bin:$PATH"
 fi
 
 {{ if lookPath "terraform" -}}

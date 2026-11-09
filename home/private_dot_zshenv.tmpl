@@ -49,6 +49,11 @@ export-if-unset()
     [[ -v $1 ]] || export $1="$2"
 }
 
+if [[ ! -v "$PNPM_HOME" ]]; then
+    export PNPM_HOME="$XDG_DATA_HOME/pnpm"
+    export PATH="$PNPM_HOME:$PATH"
+fi
+
 {{ if lookPath "terraform" -}}
 export-if-unset TF_CLI_CONFIG_FILE "$XDG_CONFIG_HOME/terraform/terraformrc"
 {{ end -}}

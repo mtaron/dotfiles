@@ -25,7 +25,7 @@ node = "lts"
 python = { version = "latest", postinstall = "~/.local/bin/mise sync python --uv" }
 
 # package managers
-pnpm = { version = "latest", postinstall = "pnpm completion zsh > ~/.config/zsh/completions/_pnpm" }
+pnpm = { version = "latest", postinstall = "pnpm setup --no-modify-path --force; pnpm completion zsh > ~/.config/zsh/completions/_pnpm" }
 uv = { version = "latest", postinstall = "uv generate-shell-completion zsh > ~/.config/zsh/completions/_uv" }
 
 # dev tools

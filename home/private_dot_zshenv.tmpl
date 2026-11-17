@@ -58,13 +58,6 @@ fi
 export-if-unset TF_CLI_CONFIG_FILE "$XDG_CONFIG_HOME/terraform/terraformrc"
 {{ end -}}
 
-{{ if lookPath "aws" -}}
-# https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html#envvars-list
-export-if-unset AWS_CONFIG_FILE "$XDG_CONFIG_HOME/aws/config"
-export-if-unset AWS_SHARED_CREDENTIALS_FILE "$XDG_CONFIG_HOME/aws/credentials"
-export-if-unset AWS_DATA_PATH "$XDG_CONFIG_HOME/aws/models"
-{{ end -}}
-
 {{ if lookPath "az" -}}
 export AZURE_CORE_COLLECT_TELEMETRY=false
 export-if-unset AZURE_CONFIG_DIR "$XDG_CONFIG_HOME"/azure

@@ -45,6 +45,7 @@ task = { version = "latest", postinstall = "task --completion zsh > ~/.config/zs
 yq = { version = "latest", postinstall = "yq completion zsh > ~/.config/zsh/completions/_yq" }
 zoxide = "latest"
 "github:temporalio/cli" = { version = "latest", postinstall = "temporal completion zsh > ~/.config/zsh/completions/_temporal" }
+lstk = { version = "latest", postinstall = "lstk completion zsh > ~/.config/zsh/completions/_lstk" }
 
 # kubernetes
 helm = { version = "latest", postinstall = "helm completion zsh > ~/.config/zsh/completions/_helm" }

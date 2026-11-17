@@ -1,1 +1,5 @@
+# managed by mise
+globalShims:
+  node: false
+  deno: false
 storeDir: ${XDG_CACHE_HOME}/pnpm

@@ -13,6 +13,15 @@ url = "https://github.com/atuinsh/atuin/releases/download/v18.24.8/atuin-x86_64-
 url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/741927279"
 provenance = "github-attestations"
 
+[[tools.aws]]
+version = "2.40.3"
+backend = "aqua:aws/aws-cli"
+specifiers = ["latest"]
+
+[tools.aws."platforms.linux-x64"]
+checksum = "sha256:4770c06c4ecfc8ba94b60d89e6c7018ab7ea2cf5341b1ef05f6f93c5d6e8b705"
+url = "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.40.3.zip"
+
 [[tools.bat]]
 version = "0.26.1"
 backend = "aqua:sharkdp/bat"

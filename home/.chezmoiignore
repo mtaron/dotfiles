@@ -16,6 +16,11 @@
 .config/docker/config.json
 {{- end -}}
 
-{{ if not (lookPath "terraform") -}}
-.config/terraform/
+{{ if not (lookPath "tofu") -}}
+.config/opentofu/
+.cache/opentofu/
+{{- end }}
+
+{{ if not (lookPath "terragrunt") -}}
+.config/zsh/zshrc.d/terragrunt.zsh
 {{- end }}

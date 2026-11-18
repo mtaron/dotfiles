@@ -56,3 +56,7 @@ helmfile = "latest"
 kind = "latest"
 kubectl = "latest"
 tilt = "latest"
+
+# infrastructure as code
+opentofu = "latest"
+terragrunt = "latest"

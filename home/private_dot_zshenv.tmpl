@@ -54,10 +54,6 @@ if [[ ! -v "$PNPM_HOME" ]]; then
     export PATH="$PNPM_HOME/bin:$PATH"
 fi
 
-{{ if lookPath "terraform" -}}
-export-if-unset TF_CLI_CONFIG_FILE "$XDG_CONFIG_HOME/terraform/terraformrc"
-{{ end -}}
-
 {{ if lookPath "az" -}}
 export AZURE_CORE_COLLECT_TELEMETRY=false
 export-if-unset AZURE_CONFIG_DIR "$XDG_CONFIG_HOME"/azure

@@ -30,9 +30,10 @@ if ! zgenom saved; then
   zgenom load "$ZSH/plugins/redis-cli"
   zgenom load "$ZSH/plugins/aws"
 
-  zgenom load jirutka/zsh-shift-select zsh-shift-select.plugin.zsh da460999b7d31aef0f0a82a3e749d70edf6f2ef9 --pin
-  zgenom load hlissner/zsh-autopair zsh-autopair.plugin.zsh 449a7c3d095bc8f3d78cf37b9549f8bb4c383f3d --pin
-  zgenom load jandamm/zgenom-ext-eval init.zsh 5a439dbd02b9bbeb84df9a4d5f657d6aa02270ac --pin
+  # Plugin versions are pinned in .chezmoidata/externals.yaml.
+  zgenom load jirutka/zsh-shift-select zsh-shift-select.plugin.zsh {{ .externals.zsh_shift_select.version }} --pin
+  zgenom load hlissner/zsh-autopair zsh-autopair.plugin.zsh {{ .externals.zsh_autopair.version }} --pin
+  zgenom load jandamm/zgenom-ext-eval init.zsh {{ .externals.zgenom_ext_eval.version }} --pin
 
   zgenom eval --name mise <<(mise activate zsh)
   zgenom eval --name starship <<(starship init zsh)

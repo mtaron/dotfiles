@@ -1,4 +1,4 @@
-# Pinned versions and checksums for .chezmoiexternal.yaml.tmpl, updated by scripts/update.zsh.
+# Pinned versions and checksums for .chezmoiexternal.yaml.tmpl and .zshrc, updated by scripts/update.zsh.
 externals:
   zgenom:
     version: "d99d5dc4b27695612de2b7054bb583dd19a7235d"
@@ -7,6 +7,13 @@ externals:
     version: "c0140703a53eb0d22be44f7bac318d0baacc927c"
     sha256: "9b0661db3e7466dd396de2a1591ff9b5981572417649254c9d656ac086b09251"
   mise:
-    version: "v2026.11.9"
-    sha256: "f13f3e5ec88807e0161669b3aa07a91d84478cdf1e95b5b92b63f85a25d42395"
-    completions_sha256: "4701bffd3e4db0188d03ab9bbcdf429d13b95f18218dbc08f23c388218d35640"
+    version: "v2026.11.10"
+    sha256: "b603a4f48563fc379a794d9ea2cf9f709ed276c9141068604cb0c59fa3e674a9"
+    completions_sha256: "00409228e124a9f64996b21e4c958dfb9dc71a952326361cf70a67bbd59f9c89"
+  # zgenom plugins, cloned and pinned by zgenom in .zshrc (no archive checksum needed).
+  zsh_shift_select:
+    version: "3f45aaf63dbcb9819f1cc19cb1143c86a2ca98a7"
+  zsh_autopair:
+    version: "449a7c3d095bc8f3d78cf37b9549f8bb4c383f3d"
+  zgenom_ext_eval:
+    version: "5a439dbd02b9bbeb84df9a4d5f657d6aa02270ac"

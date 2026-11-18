@@ -37,7 +37,6 @@ fd = "latest"
 fzf = "latest"
 hostctl = { version = "latest", postinstall = "hostctl completion zsh > ~/.config/zsh/completions/_hostctl" }
 jq = "latest"
-lstk = { version = "latest", postinstall = "lstk completion zsh > ~/.config/zsh/completions/_lstk" }
 mkcert = "latest"
 ripgrep = { version = "latest", postinstall = "rg --generate=complete-zsh > ~/.config/zsh/completions/_rg" }
 shellcheck = "latest"
@@ -47,6 +46,7 @@ task = { version = "latest", postinstall = "task --completion zsh > ~/.config/zs
 yq = { version = "latest", postinstall = "yq completion zsh > ~/.config/zsh/completions/_yq" }
 zoxide = "latest"
 
+"github:floci-io/floci-cli" = { version = "latest", postinstall = "floci completion zsh > ~/.config/zsh/completions/_floci" }
 "github:temporalio/cli" = { version = "latest", postinstall = "temporal completion zsh > ~/.config/zsh/completions/_temporal" }
 
 # kubernetes

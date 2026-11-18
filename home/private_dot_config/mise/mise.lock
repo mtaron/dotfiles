@@ -14,13 +14,13 @@ url_api = "https://api.github.com/repos/atuinsh/atuin/releases/assets/741927279"
 provenance = "github-attestations"
 
 [[tools.aws]]
-version = "2.40.3"
+version = "2.40.4"
 backend = "aqua:aws/aws-cli"
 specifiers = ["latest"]
 
 [tools.aws."platforms.linux-x64"]
-checksum = "sha256:4770c06c4ecfc8ba94b60d89e6c7018ab7ea2cf5341b1ef05f6f93c5d6e8b705"
-url = "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.40.3.zip"
+checksum = "sha256:81f573c2a0ace70cfb97aa4d014c17cbd605cb04cbad09adbc7aaf9c0979ae8e"
+url = "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.40.4.zip"
 
 [[tools.bat]]
 version = "0.26.1"
@@ -63,6 +63,17 @@ checksum = "sha256:0d6640f83582d991cf429754baad64b07e3a4e439a6019670f4b91da13141
 checksum_source = "mise-versions"
 url = "https://github.com/junegunn/fzf/releases/download/v0.75.0/fzf-0.75.0-linux_amd64.tar.gz"
 url_api = "https://api.github.com/repos/junegunn/fzf/releases/assets/720590794"
+
+[[tools."github:floci-io/floci-cli"]]
+version = "0.4.0"
+backend = "github:floci-io/floci-cli"
+specifiers = ["latest"]
+
+[tools."github:floci-io/floci-cli"."platforms.linux-x64"]
+checksum = "sha256:cdf4603e169a030b57d18b2fff6ef3f6a4ad45a2bbf137992cb9cf691c4620f8"
+checksum_source = "mise-versions"
+url = "https://github.com/floci-io/floci-cli/releases/download/0.4.0/floci-linux-amd64"
+url_api = "https://api.github.com/repos/floci-io/floci-cli/releases/assets/632510035"
 
 [[tools."github:temporalio/cli"]]
 version = "1.10.1"
@@ -153,17 +164,6 @@ specifiers = ["latest"]
 [tools.kubectl."platforms.linux-x64"]
 checksum = "sha256:c04487523e7aa7d1493f7808174c899db93d7a9cf57531420cd76b9bd415f8f4"
 url = "https://dl.k8s.io/v1.37.2/bin/linux/amd64/kubectl"
-
-[[tools.lstk]]
-version = "1.4.5"
-backend = "github:localstack/lstk"
-specifiers = ["latest"]
-
-[tools.lstk."platforms.linux-x64"]
-checksum = "sha256:904cf099eeb79994a5c857da08100ee0a9ae7e387787d94287446fa7187e4fa6"
-checksum_source = "mise-versions"
-url = "https://github.com/localstack/lstk/releases/download/v1.4.5/lstk_1.4.5_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/localstack/lstk/releases/assets/740063447"
 
 [[tools.mkcert]]
 version = "1.4.4"

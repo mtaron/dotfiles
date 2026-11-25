@@ -64,6 +64,17 @@ checksum_source = "mise-versions"
 url = "https://github.com/junegunn/fzf/releases/download/v0.75.0/fzf-0.75.0-linux_amd64.tar.gz"
 url_api = "https://api.github.com/repos/junegunn/fzf/releases/assets/720590794"
 
+[[tools."github:floci-io/floci-cli"]]
+version = "1.0.0"
+backend = "github:floci-io/floci-cli"
+specifiers = ["latest"]
+
+[tools."github:floci-io/floci-cli"."platforms.linux-x64"]
+checksum = "sha256:abad8107f8ffba56f0e3af8c82710cfccee0dc61ba015699030e7a5029353714"
+checksum_source = "mise-versions"
+url = "https://github.com/floci-io/floci-cli/releases/download/1.0.0/floci-linux-amd64"
+url_api = "https://api.github.com/repos/floci-io/floci-cli/releases/assets/766372536"
+
 [[tools."github:temporalio/cli"]]
 version = "1.10.1"
 backend = "github:temporalio/cli"

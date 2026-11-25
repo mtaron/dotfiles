@@ -90,6 +90,10 @@ export-if-unset NODE_REPL_HISTORY "$XDG_CACHE_HOME/node/repl_history"
 export-if-unset CLAUDE_CONFIG_DIR "$XDG_CONFIG_HOME/claude"
 {{ end -}}
 
+{{ if lookPath "encore" -}}
+export DISABLE_ENCORE_TELEMETRY=1
+{{ end -}}
+
 skip_global_compinit=1
 
 eval "$(mise activate zsh --shims)"

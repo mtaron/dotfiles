@@ -4,6 +4,8 @@
 # Ubuntu specific ignores
 {{ if not (eq .osid "linux-ubuntu") }}
 .chezmoiscripts/ubuntu/**
+.local/bin/encore
+.local/bin/git-remote-encore
 {{- end -}}
 
 {{ if or (not (eq .osid "linux-ubuntu")) .headless -}}

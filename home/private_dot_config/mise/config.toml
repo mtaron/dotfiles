@@ -46,7 +46,6 @@ task = "latest"
 yq = "latest"
 zoxide = "latest"
 
-"github:floci-io/floci-cli" = "latest"
 "github:temporalio/cli" = "latest"
 
 # kubernetes

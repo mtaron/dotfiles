@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Installs Encore (https://encore.dev). Equivalent to https://encore.dev/install.sh.
+# It's a bummer that there isn't a mise package or github release for encore.
+# No provenance or checksum available. :(
+
+set -euo pipefail
+
+{{/* The URL embeds the version, so a new release changes this script and chezmoi re-runs it. */ -}}
+{{ $encore_download := output "curl" "--show-error" "--silent" "--fail" "https://encore.dev/api/releases?target=linux_amd64&show=url" | trim -}}
+
+encore_dir="${XDG_DATA_HOME:-$HOME/.local/share}/encore"
+
+rm -rf "$encore_dir"
+mkdir -p "$encore_dir"
+curl --show-error --silent --fail --location "{{ $encore_download }}" |
+    tar --directory "$encore_dir" --extract --gzip

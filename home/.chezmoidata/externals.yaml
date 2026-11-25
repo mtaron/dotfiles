@@ -4,11 +4,11 @@ externals:
     version: "d99d5dc4b27695612de2b7054bb583dd19a7235d"
     sha256: "e9ab0caa21bde4fa79c64962ff53d3fd1ae38283649b6b84c7a46200a1e6b2aa"
   ohmyzsh:
-    version: "c0140703a53eb0d22be44f7bac318d0baacc927c"
-    sha256: "9b0661db3e7466dd396de2a1591ff9b5981572417649254c9d656ac086b09251"
+    version: "1eebae3a3f2071b1502211547791e23495bbfb42"
+    sha256: "d69da522c833c45a03e813bb80cd762ee275479f87c906a21e18e2947f093b9a"
   mise:
-    version: "v2026.11.10"
-    sha256: "b603a4f48563fc379a794d9ea2cf9f709ed276c9141068604cb0c59fa3e674a9"
+    version: "v2026.11.14"
+    sha256: "6fa596291e9758106f761fea4f8e7fac6c3e7ff4714d5c0b9a76e16068db14f6"
     completions_sha256: "00409228e124a9f64996b21e4c958dfb9dc71a952326361cf70a67bbd59f9c89"
   # zgenom plugins, cloned and pinned by zgenom in .zshrc (no archive checksum needed).
   zsh_shift_select:
